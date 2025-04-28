@@ -15,6 +15,18 @@
             { type: 'text', payload: { message: 'Ellie and one other support are online now 🔥🔥' } },
             { type: 'text', payload: { message: 'Chat us to know more!' } }
           );
+
+          // Set a time (e.g., 10 seconds) to clear the proactive message and push new one
+setTimeout(() => {
+    window.voiceflow.chat.proactive.clear();
+    
+    // After clearing, you can push a new proactive message
+    window.voiceflow.chat.proactive.push(
+      { type: 'text', payload: { message: 'We are still available! Reach out for help.' } }
+    );
+  }, 15000); // 10000 milliseconds = 10 seconds
+
+  
         }
       });
     };
