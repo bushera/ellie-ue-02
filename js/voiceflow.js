@@ -24,7 +24,13 @@ setTimeout(() => {
     window.voiceflow.chat.proactive.push(
       { type: 'text', payload: { message: 'We are still available! Reach out for help.' } }
     );
-  }, 15000); // 10000 milliseconds = 10 seconds
+  }, 10000); // 10000 milliseconds = 10 seconds
+
+
+  setTimeout(() => {
+    window.voiceflow.chat.proactive.clear();
+   
+  }, 5000); // 10000 milliseconds = 10 seconds
 
   
         }
