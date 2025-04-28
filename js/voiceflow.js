@@ -38,7 +38,7 @@ function setTimer(initialDelay, newMessage, finalDelay) {
   }
   
   // Call the setTimer function with a 10-second initial delay, a new message, and a final 5-second delay before clearing all
-  setTimer(15000, 'We are still available! Reach out for help.', 7000);
+  setTimer(15000, 'Ellie chating you up now ........', 3000);
   
         }
       });
