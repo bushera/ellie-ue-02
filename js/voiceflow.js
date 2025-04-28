@@ -15,8 +15,8 @@
 function setTimer(initialDelay, newMessage, finalDelay) {
     // First, push initial proactive message
     window.voiceflow.chat.proactive.push(
-      { type: 'text', payload: { message: 'Ellie and other supports are online and free now 🔥🔥' } },
-      { type: 'text', payload: { message: 'Chat them now to know more!' } }
+      { type: 'text', payload: { message: 'Ellie and other supports are online and ready to handle your request 🔥🔥' } },
+      { type: 'text', payload: { message: 'Chat and book a session with one of our experts !' } }
     );
   
     // Set the first timer to clear and push new messages after the initial delay
