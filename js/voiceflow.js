@@ -31,13 +31,14 @@ function setTimer(initialDelay, newMessage, finalDelay) {
       // Set the second timer to clear all proactive messages after the final delay
       setTimeout(() => {
         window.voiceflow.chat.proactive.clear();  // Clear all proactive messages
+        window.voiceflow.chat.open();
       }, finalDelay);  // Final delay (in milliseconds)
       
     }, initialDelay);  // Initial delay (in milliseconds)
   }
   
   // Call the setTimer function with a 10-second initial delay, a new message, and a final 5-second delay before clearing all
-  setTimer(10000, 'We are still available! Reach out for help.', 5000);
+  setTimer(15000, 'We are still available! Reach out for help.', 7000);
   
         }
       });
