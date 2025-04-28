@@ -9,7 +9,7 @@
           url: "https://runtime-api.voiceflow.com"
         }
       }).then(() => {
-        if (window.location.href.includes('file:///C:/Users/user/Desktop/Ellie_ue_pod/index.html')) {
+        if (window.location.href.includes('https://elliepod.netlify.app/')) {
           window.voiceflow.chat.proactive.clear();
           window.voiceflow.chat.proactive.push(
             { type: 'text', payload: { message: 'Ellie and one other support are online now 🔥🔥' } },
