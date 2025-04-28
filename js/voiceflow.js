@@ -11,27 +11,33 @@
       }).then(() => {
         if (window.location.href.includes('https://elliepod.netlify.app/')) {
           window.voiceflow.chat.proactive.clear();
-          window.voiceflow.chat.proactive.push(
-            { type: 'text', payload: { message: 'Ellie and one other support are online now 🔥🔥' } },
-            { type: 'text', payload: { message: 'Chat us to know more!' } }
-          );
-
-          // Set a time (e.g., 10 seconds) to clear the proactive message and push new one
-setTimeout(() => {
-    window.voiceflow.chat.proactive.clear();
-    
-    // After clearing, you can push a new proactive message
+          // Function to set a timer for clearing proactive messages and pushing new ones
+function setTimer(initialDelay, newMessage, finalDelay) {
+    // First, push initial proactive message
     window.voiceflow.chat.proactive.push(
-      { type: 'text', payload: { message: 'We are still available! Reach out for help.' } }
+      { type: 'text', payload: { message: 'Ellie and one other support are online now 🔥🔥' } },
+      { type: 'text', payload: { message: 'Chat us to know more!' } }
     );
-  }, 10000); // 10000 milliseconds = 10 seconds
-
-
-  setTimeout(() => {
-    window.voiceflow.chat.proactive.clear();
-   
-  }, 5000); // 10000 milliseconds = 10 seconds
-
+  
+    // Set the first timer to clear and push new messages after the initial delay
+    setTimeout(() => {
+      window.voiceflow.chat.proactive.clear();  // Clear current proactive message
+  
+      // Push the new message after the initial delay
+      window.voiceflow.chat.proactive.push(
+        { type: 'text', payload: { message: newMessage } }
+      );
+  
+      // Set the second timer to clear all proactive messages after the final delay
+      setTimeout(() => {
+        window.voiceflow.chat.proactive.clear();  // Clear all proactive messages
+      }, finalDelay);  // Final delay (in milliseconds)
+      
+    }, initialDelay);  // Initial delay (in milliseconds)
+  }
+  
+  // Call the setTimer function with a 10-second initial delay, a new message, and a final 5-second delay before clearing all
+  setTimer(10000, 'We are still available! Reach out for help.', 5000);
   
         }
       });
