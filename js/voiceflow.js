@@ -1,10 +1,27 @@
-(function(d, t) {
-    var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+(function(d, t) {  
+  var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
     v.onload = function() {
+
+      const userId = localStorage.getItem('User_ID') || 'UE_000';  // fallback if not found
+
+
+
       window.voiceflow.chat.load({
         verify: { projectID: '66f143631c11d84702e2b3e3' },
         url: 'https://general-runtime.voiceflow.com',
         versionID: 'production',
+        userID: 'userId' || 'USER_000',
+        user: {
+          name: 'UE_Guest',
+        },
+        render: {
+          mode: 'overlay',
+        },
+        autostart: false,
+        allowDangerousHTML: true,
+        assistant: {
+          persistence: 'localStorage' // Configure persistence here
+        },
         voice: {
           url: "https://runtime-api.voiceflow.com"
         }
