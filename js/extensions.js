@@ -1,15 +1,19 @@
+userId = localStorage.getItem('User_ID') || 'UE_000';  // fallback if not found
+
+
 export const CalExtension = {
     name: 'CalEmbed',
     type: 'response',
     match: ({ trace }) =>
       trace.type === 'ext_cal' || trace.payload.name === 'ext_cal',
     render: ({ trace, element }) => {
-      const { calUrl, height, width } = trace.payload
-  
+      const { height, width } = trace.payload
+
+
       const iframe = document.createElement('iframe')
-      iframe.src = calUrl || 'https://cal.com/bushera/consultation-time'
-      iframe.width = '280' || '800'
-      iframe.height = '320' || '600'
+      iframe.src = 'https://cal.com/bushera/consultation-time?User_ID=userId',
+      iframe.width = height || '280'
+      iframe.height = width || '320'
       iframe.style.border = '0'
       iframe.allowFullscreen = true
       iframe.loading = 'lazy'
