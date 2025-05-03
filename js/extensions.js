@@ -21,7 +21,7 @@ export const CalExtension = {
       window.addEventListener('message', function (event) {
         if (
           event.origin.includes('cal.com') &&
-          event.data === 'cal.com:booking-success'
+          event.data === 'cal.com:This meeting is scheduled'
         ) {
           window.voiceflow.chat.interact({
             type: 'complete',
