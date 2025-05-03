@@ -1,5 +1,3 @@
-import { CalExtension } from '/extensions.js';
-
 
 (function(d, t) {  
   var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
