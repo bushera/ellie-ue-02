@@ -1,4 +1,5 @@
 
+import {CalExtension} from '/extensions.js';
 
 
 (function(d, t) {  
@@ -23,6 +24,7 @@
         autostart: false,
         allowDangerousHTML: true,
         assistant: {
+          extensions: [CalExtension],
           persistence: 'localStorage', // Configure persistence here
         },
         voice: {
