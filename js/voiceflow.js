@@ -21,7 +21,7 @@ import {CalExtension} from '/js/extensions.js'
         render: {
           mode: 'overlay',
         },
-        autostart: false,
+        autostart: true,
         allowDangerousHTML: true,
         assistant: {
           extensions: [CalExtension]
@@ -64,7 +64,7 @@ function setTimer(initialDelay, newMessage, finalDelay) {
         }
       });
     };
-    v.src = "https://cdn.voiceflow.com/widget/bundle.mjs"; v.type = "module"; s.parentNode.insertBefore(v, s);
+    v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "module"; s.parentNode.insertBefore(v, s);
   })(document, 'script');
 
  
