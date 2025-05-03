@@ -1,7 +1,4 @@
 
-import {CalExtension} from '/js/extensions.js'
-
-
 (function(d, t) {  
   var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
     v.onload = function() {
@@ -21,10 +18,10 @@ import {CalExtension} from '/js/extensions.js'
         render: {
           mode: 'overlay',
         },
-        autostart: true,
+        autostart: false,
         allowDangerousHTML: true,
         assistant: {
-          extensions: [CalExtension]
+          persistence: 'localStorage', // Configure persistence here
         },
         voice: {
           url: "https://runtime-api.voiceflow.com"
@@ -64,7 +61,7 @@ function setTimer(initialDelay, newMessage, finalDelay) {
         }
       });
     };
-    v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "module"; s.parentNode.insertBefore(v, s);
+    v.src = "https://cdn.voiceflow.com/widget/bundle.mjs"; v.type = "module"; s.parentNode.insertBefore(v, s);
   })(document, 'script');
 
  
