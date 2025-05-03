@@ -2,15 +2,14 @@
 export const CalExtension = {
     name: 'CalEmbed',
     type: 'response',
-    const userId = localStorage.getItem('User_ID') || 'UE_000',  // fallback if not found
     match: ({ trace }) =>
       trace.type === 'ext_cal' || trace.payload.name === 'ext_cal',
     render: ({ trace, element }) => {
-      const { height, width } = trace.payload
+      const { CalUrl, height, width } = trace.payload
 
 
       const iframe = document.createElement('iframe')
-      iframe.src = 'https://cal.com/bushera/consultation-time?User_ID=userId',
+      iframe.src = CalUrl || 'https://cal.com/bushera/consultation-time',
       iframe.width = height || '280'
       iframe.height = width || '320'
       iframe.style.border = '0'
