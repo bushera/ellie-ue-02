@@ -1,9 +1,8 @@
-userId = localStorage.getItem('User_ID') || 'UE_000';  // fallback if not found
-
 
 export const CalExtension = {
     name: 'CalEmbed',
     type: 'response',
+    const userId = localStorage.getItem('User_ID') || 'UE_000',  // fallback if not found
     match: ({ trace }) =>
       trace.type === 'ext_cal' || trace.payload.name === 'ext_cal',
     render: ({ trace, element }) => {
