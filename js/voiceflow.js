@@ -2,7 +2,6 @@
 import {CalExtension} from '/extensions.js';
 
 
-
 (function(d, t) {  
   var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
     v.onload = function() {
@@ -25,8 +24,8 @@ import {CalExtension} from '/extensions.js';
         autostart: false,
         allowDangerousHTML: true,
         assistant: {
-          persistence: 'localStorage', // Configure persistence here
           extensions: [CalExtension],
+          persistence: 'localStorage', // Configure persistence here
         },
         voice: {
           url: "https://runtime-api.voiceflow.com"
