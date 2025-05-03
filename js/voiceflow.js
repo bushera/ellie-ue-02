@@ -1,5 +1,5 @@
 
-import {CalExtension} from '/extensions.js';
+import {CalExtension} from '/js/extensions.js'
 
 
 (function(d, t) {  
