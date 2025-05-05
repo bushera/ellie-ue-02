@@ -15,7 +15,7 @@ import { CalExtension } from './extensions.js';
         versionID: 'production',
         userID: userId || 'USER_000',
         user: {
-          name: 'UE_Guest',
+          name: 'UE_Guest_01',
           image: 'https://ik.imagekit.io/bushera/profile%20images/02.png?updatedAt=1746351651791'
         },
         render: {
