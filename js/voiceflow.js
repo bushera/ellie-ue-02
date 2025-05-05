@@ -16,6 +16,7 @@ import { CalExtension } from './extensions.js';
         userID: userId || 'USER_000',
         user: {
           name: 'UE_Guest',
+          image: 'https://ik.imagekit.io/bushera/profile%20images/02.png?updatedAt=1746351651791'
         },
         render: {
           mode: 'overlay',
