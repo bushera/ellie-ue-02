@@ -19,11 +19,10 @@
         render: {
           mode: 'overlay',
         },
-        autostart: false,
+        autostart: true,
         allowDangerousHTML: true,
         assistant: {
           persistence: 'localStorage', // Configure persistence here
-          extensions: [CalExtension],
         },
         voice: {
           url: "https://runtime-api.voiceflow.com"
