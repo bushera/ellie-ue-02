@@ -12,7 +12,7 @@ import { CalExtension } from './extensions.js';
       window.voiceflow.chat.load({
         verify: { projectID: '66f143631c11d84702e2b3e3' },
         url: 'https://general-runtime.voiceflow.com',
-        versionID: 'development',
+        versionID: 'production',
         userID: userId || 'USER_000',
         user: {
           name: 'UE_Guest',
