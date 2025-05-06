@@ -22,11 +22,6 @@ import { CalExtension } from './extensions.js';
           persistence: 'localStorage', // Configure persistence here
           extensions: [CalExtension],
         },
-
-        voice: {
-          url: "https://runtime-api.voiceflow.com"
-        }
-      
       }).then(() => {
         if (window.location.href.includes('https://elliepod.netlify.app/')) {
           window.voiceflow.chat.proactive.clear();
