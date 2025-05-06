@@ -52,7 +52,7 @@ function setTimer(initialDelay, newMessage, finalDelay) {
   }
   
   // Call the setTimer function with a 10-second initial delay, a new message, and a final 5-second delay before clearing all
-  setTimer(1000, 'Ellie taking over the conversation right now !........', 300);
+  setTimer(1000, 'Ellie taking over the conversation right now !.......', 300);
   
         }
       });
