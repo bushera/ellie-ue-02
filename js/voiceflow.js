@@ -57,7 +57,7 @@ function setTimer(initialDelay, newMessage, finalDelay) {
         }
       });
     };
-    v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+    v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "module"; s.parentNode.insertBefore(v, s);
   })(document, 'script');
 
  
