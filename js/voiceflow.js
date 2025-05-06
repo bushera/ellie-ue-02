@@ -18,18 +18,11 @@ import { CalExtension } from './extensions.js';
           name: 'UE_Guest_01',
           image: 'https://ik.imagekit.io/bushera/profile%20images/02.png?updatedAt=1746351651791',
         },
-        render: {
-          mode: 'overlay',
-        },
-        autostart: true,
-        allowDangerousHTML: true,
         assistant: {
           persistence: 'localStorage', // Configure persistence here
           extensions: [CalExtension],
         },
-        voice: {
-          url: "https://runtime-api.voiceflow.com"
-        }
+      
       }).then(() => {
         if (window.location.href.includes('https://elliepod.netlify.app/')) {
           window.voiceflow.chat.proactive.clear();
@@ -60,7 +53,7 @@ function setTimer(initialDelay, newMessage, finalDelay) {
   }
   
   // Call the setTimer function with a 10-second initial delay, a new message, and a final 5-second delay before clearing all
-  setTimer(12000, 'Ellie taking over the conversation right now !........', 3000);
+  setTimer(1000, 'Ellie taking over the conversation right now !........', 300);
   
         }
       });
