@@ -18,17 +18,6 @@ export const CalExtension = {
     iframe.id = 'cal-iframe'
 
 
-    window.Cal = window.Cal || {};
-  window.Cal('ui', {
-    version: '1.0',
-    calLink: 'your-cal-link', // Replace with your actual Cal.com link
-    onEventScheduled: (event) => {
-      console.log('Booking Success:', event);
-
-      const { name, email } = event.payload.invitee;
-    }
-  })
-
     // Listen for Cal.com "booking completed" postMessage
     window.addEventListener('message', function (event) {
       if (
