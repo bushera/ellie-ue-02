@@ -30,7 +30,6 @@ export const CalExtension = {
       // 1. Remove iframe
       const iframe = document.querySelector('#cal-iframe');
       if (iframe) {
-        iframe.remove();
 
         // Delay interact call until after iframe removal
         setTimeout(() => {
