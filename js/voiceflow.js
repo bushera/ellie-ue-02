@@ -18,9 +18,17 @@ import { CalExtension } from './extensions.js';
           name: 'UE_Guest_01',
           image: 'https://ik.imagekit.io/bushera/profile%20images/02.png?updatedAt=1746351651791',
         },
+        render: {
+          mode: 'overlay',
+        },
+        autostart: true,
+        allowDangerousHTML: true,
         assistant: {
           persistence: 'localStorage', // Configure persistence here
           extensions: [CalExtension],
+        },
+        voice: {
+          url: "https://runtime-api.voiceflow.com"
         },
       }).then(() => {
         if (window.location.href.includes('https://elliepod.netlify.app/')) {
