@@ -5,13 +5,13 @@ export const CalExtension = {
   match: ({ trace }) =>
     trace.type === 'ext_cal' || trace.payload.name === 'ext_cal',
   render: ({ trace, element }) => {
-    const { CalUrl, height, width } = trace.payload
+    const { CalUrl } = trace.payload
 
     // Create a wrapper div for Cal inline embed
   const calDiv = document.createElement('div');
   calDiv.id = 'my-cal-inline';
-  calDiv.style.width = width;
-  calDiv.style.height = height;
+  calDiv.style.width = '100%';
+  calDiv.style.height = '100%';
   calDiv.style.overflow = 'scroll';
 
   element.appendChild(calDiv);
