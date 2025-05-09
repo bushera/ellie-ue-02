@@ -85,7 +85,7 @@ export const BookingDashboardExtension = {
       </style>
 
       <div class="user-header">
-        <img src="https://via.placeholder.com/40" alt="Avatar" />
+        <img src="https://ik.imagekit.io/bushera/profile%20images/02.png?updatedAt=1746351651791'" alt="Avatar" />
         <span>John Doe</span>
       </div>
 
