@@ -19,7 +19,7 @@ export const CalExtension = {
 
 
 
-    window.Cal = window.Cal || {};
+  /*window.Cal = window.Cal || {};
   window.Cal('ui', {
     version: '1.0',
     calLink: 'CalUrl', // Replace with your actual Cal.com link
@@ -43,10 +43,10 @@ export const CalExtension = {
         payload: { message: 'Booking completed' },
       });
     },
-  });
+  });*/
 
     // Listen for Cal.com "booking completed" postMessage
-    /*window.addEventListener('message', function (event) {
+    window.addEventListener('message', function (event) {
       if (
         event.origin.includes('cal.com') &&
         event.data === 'cal.com:booking-success'
@@ -56,7 +56,7 @@ export const CalExtension = {
           payload: { message: 'Booking completed' },
         })
       }
-    })*/
+    })
 
     element.appendChild(iframe)
   },
