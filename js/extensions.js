@@ -36,15 +36,17 @@ export const CalExtension = {
         const calIframe = document.getElementById('cal-iframe');
         if (calIframe) calIframe.remove();
     
-        
+        /
+      
         // Trigger 'complete'
         window.voiceflow.chat.interact({
           type: 'complete',
           payload: { message: 'Booking completed' }
         });
       }
-    });    
-  
+    });
+
+    
     /*window.addEventListener('message', function (event) {
       if (
         event.origin.includes('cal.com') &&
