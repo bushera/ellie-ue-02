@@ -18,9 +18,25 @@ export const CalExtension = {
     iframe.id = 'cal-iframe'
 
 
+    window.addEventListener('message', async function (event) {
+      if (
+        event.origin.includes('cal.com') &&
+        event.data === 'cal.com:booking-success'
+      ) {
+        // Remove iframe
+        document.getElementById('cal-iframe')?.remove(),
+  
 
-    // Listen for Cal.com "booking completed" postMessage
-    window.addEventListener('message', function (event) {
+  
+        // Trigger Voiceflow continuation
+        window.voiceflow.chat.interact({
+          type: 'complete',
+          payload: { message: 'Booking completed' }
+        })
+      }
+    })
+  
+    /*window.addEventListener('message', function (event) {
       if (
         event.origin.includes('cal.com') &&
         event.data === 'cal.com:booking-success'
@@ -30,7 +46,7 @@ export const CalExtension = {
           payload: { message: 'Booking completed' },
         })
       }
-    })
+    })*/
 
     element.appendChild(iframe)
   },
