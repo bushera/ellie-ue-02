@@ -19,22 +19,31 @@ export const CalExtension = {
 
 
     window.addEventListener('message', async function (event) {
-      if (
-        event.origin.includes('cal.com') &&
-        event.data === 'cal.com:booking-success'
-      ) {
+      // Validate origin (be strict for security)
+      const allowedOrigins = ['https://cal.com', 'https://embed.cal.com'];
+      if (!allowedOrigins.includes(event.origin)) return;
+    
+      // Cal may send a string or object—handle both
+      const messageData = event.data;
+    
+      const isBookingSuccess =
+        messageData === 'cal.com:booking-success' || // legacy format
+        (typeof messageData === 'object' &&
+          messageData.type === 'cal.com:booking-success');
+    
+      if (isBookingSuccess) {
         // Remove iframe
-        document.getElementById('cal-iframe')?.remove(),
-  
-
-  
-        // Trigger Voiceflow continuation
+        const calIframe = document.getElementById('cal-iframe');
+        if (calIframe) calIframe.remove();
+    
+        
+        // Trigger 'complete'
         window.voiceflow.chat.interact({
           type: 'complete',
           payload: { message: 'Booking completed' }
-        })
+        });
       }
-    })
+    });    
   
     /*window.addEventListener('message', function (event) {
       if (
