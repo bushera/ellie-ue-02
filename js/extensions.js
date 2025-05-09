@@ -158,5 +158,5 @@ export const BookingDashboardExtension = {
     await fetchBookings();
     element.appendChild(container);
   },
-};
+}
 
