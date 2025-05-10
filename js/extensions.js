@@ -101,14 +101,14 @@ export const BookingDashboardExtension = {
       </style>
 
       <div class="user-header">
-        <img src="https://ik.imagekit.io/bushera/profile%20images/02.png?updatedAt=1746351651791" alt="Avatar" />
-        <span>Stanley</span>
+        <img src="" alt="Avatar" />
+        <span>My Bookings</span>
       </div>
 
       <h2>Active Calls</h2>
       <div id="active-calls"></div>
 
-      <h2>Calls You've Engaged</h2>
+      <h2>Engaged History</h2>
       <div id="engaged-calls"></div>
 
       <button class="book-another">Book Another Appointment</button>
@@ -177,7 +177,7 @@ export const BookingDashboardExtension = {
       window.voiceflow.chat.interact({
         type: 'intent',
         payload: {
-          query: 'Book consultation'
+          intent: 'Book_consultation'
         }
       });
     });
