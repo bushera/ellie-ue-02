@@ -25,7 +25,7 @@ import { CalExtension } from './extensions.js';
         allowDangerousHTML: true,
         assistant: {
           persistence: 'localStorage', // Configure persistence here
-          extensions: [CalExtension],
+          extensions: [CalExtension, BookingDashboardExtension],
         },
         voice: {
           url: "https://runtime-api.voiceflow.com"
