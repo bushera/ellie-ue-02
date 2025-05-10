@@ -82,10 +82,22 @@ export const BookingDashboardExtension = {
           background-color: #27ae60;
           color: white;
         }
+        .book-another {
+          width: 80%;
+          margin: 20px auto 0;
+          display: block;
+          padding: 12px;
+          background-color: #2e6ee1;
+          color: white;
+          font-weight: bold;
+          border-radius: 8px;
+          cursor: pointer;
+          text-align: center;
+        }
       </style>
 
       <div class="user-header">
-        <img src="https://ik.imagekit.io/bushera/profile%20images/02.png?updatedAt=1746351651791'" alt="Avatar" />
+        <img src="https://via.placeholder.com/40" alt="Avatar" />
         <span>John Doe</span>
       </div>
 
@@ -94,6 +106,8 @@ export const BookingDashboardExtension = {
 
       <h2>Calls You've Engaged</h2>
       <div id="engaged-calls"></div>
+
+      <button class="book-another">Book Another Appointment</button>
     `;
 
     async function fetchBookings() {
@@ -141,9 +155,9 @@ export const BookingDashboardExtension = {
         btn.addEventListener('click', (e) => {
           const action = e.target.classList.contains('cancel') ? 'cancel' : 'reschedule';
           const payload = {
-            type: 'custom',
+            type: 'intent',
             payload: {
-              event: `${action}_clicked`,
+              query: `${action}_intent`,
               data: {
                 callTitle: e.target.dataset.title,
                 bookingId: e.target.dataset.id,
@@ -155,8 +169,18 @@ export const BookingDashboardExtension = {
       });
     }
 
+    const bookAnotherBtn = container.querySelector('.book-another');
+    bookAnotherBtn.addEventListener('click', () => {
+      window.voiceflow.chat.interact({
+        type: 'intent',
+        payload: {
+          query: 'Book consultation'
+        }
+      });
+    });
+
     await fetchBookings();
     element.appendChild(container);
   },
-}
+};
 
