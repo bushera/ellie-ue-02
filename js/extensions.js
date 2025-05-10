@@ -49,6 +49,8 @@ export const BookingDashboardExtension = {
         #booking-dashboard {
           font-family: sans-serif;
           padding: 10px;
+          width : 280;
+          font-size: 10px;
         }
         .user-header {
           display: flex;
@@ -83,7 +85,7 @@ export const BookingDashboardExtension = {
           color: white;
         }
         .book-another {
-          width: 80%;
+          width: 90%;
           margin: 20px auto 0;
           display: block;
           padding: 12px;
