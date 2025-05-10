@@ -75,7 +75,7 @@ export const BookingDashboardExtension = {
           cursor: pointer;
         }
         button.cancel {
-          background-color: #e74c3c;
+          background-color:rgb(0, 0, 0);
           color: white;
         }
         button.reschedule {
@@ -87,7 +87,7 @@ export const BookingDashboardExtension = {
           margin: 20px auto 0;
           display: block;
           padding: 12px;
-          background-color: #2e6ee1;
+          background-color:rgb(65, 23, 189);
           color: white;
           font-weight: bold;
           border-radius: 8px;
