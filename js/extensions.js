@@ -65,10 +65,10 @@ export const BookingDashboardExtension = {
           border-radius: 5px;
         }
         .active {
-          border-left: 5px solid green;
+          border-left: 20px solid green;
         }
         .engaged {
-          border-left: 5px solid gray;
+          border-left: 20px solid gray;
         }
         button {
           margin: 5px;
