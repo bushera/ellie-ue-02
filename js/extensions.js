@@ -87,7 +87,6 @@ export const BookingDashboardExtension = {
           color: white;
         }
         .book-another {
-          width: 1000%;
           margin: 10px auto 0;
           display: block;
           padding: 12px;
