@@ -49,7 +49,7 @@ export const BookingDashboardExtension = {
         #booking-dashboard {
           font-family: sans-serif;
           padding: 10px;
-          width : 280;
+          width : 320;
           font-size: 10px;
         }
         .user-header {
