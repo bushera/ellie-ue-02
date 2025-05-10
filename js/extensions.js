@@ -175,9 +175,9 @@ export const BookingDashboardExtension = {
     const bookAnotherBtn = container.querySelector('.book-another');
     bookAnotherBtn.addEventListener('click', () => {
       window.voiceflow.chat.interact({
-        type: 'intent',
+        type: 'event',
         payload: {
-          intent: 'Book_consultation'
+          name: 'booking'
         }
       });
     });
