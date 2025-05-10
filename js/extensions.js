@@ -56,6 +56,7 @@ export const BookingDashboardExtension = {
           display: flex;
           align-items: center;
           gap: 10px;
+          width :100%;
         }
         .call {
           border: 1px solid #ddd;
