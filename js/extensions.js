@@ -127,8 +127,7 @@ export const BookingDashboardExtension = {
         const booking = {
           bookingId: record.fields.booking_id,
           title: record.fields.title,
-          date: record.fields.date,
-          time: record.fields.time,
+          start: record.fields.Start,
           location: record.fields.location,
           status: record.fields.status,
         };
@@ -137,14 +136,14 @@ export const BookingDashboardExtension = {
         div.className = `call ${booking.status}`;
         div.innerHTML = `
           <h3>${booking.title}</h3>
-          <p>${booking.date} • ${booking.time} • ${booking.location}</p>
-          ${booking.status === 'active' ? `
+          <p>${booking.start} • ${booking.location}</p>
+          ${booking.status === 'ACCEPTED' ? `
             <button class="cancel" data-id="${booking.bookingId}" data-title="${booking.title}">Cancel</button>
             <button class="reschedule" data-id="${booking.bookingId}" data-title="${booking.title}">Reschedule</button>
           ` : ''}
         `;
 
-        if (booking.status === 'active') {
+        if (booking.status === 'ACCEPTED') {
           activeContainer.appendChild(div);
         } else if (booking.status === 'engaged') {
           engagedContainer.appendChild(div);
