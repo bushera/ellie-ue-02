@@ -1,6 +1,7 @@
 import { CalExtension, BookingDashboardExtension } from './extensions.js';
 
 (function(d, t) {
+  let userId = 'UE_000';  // Default value for userId
   const v = d.createElement(t), s = d.getElementsByTagName(t)[0];
 
   document.addEventListener('userIdentified', (e) => {
