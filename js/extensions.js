@@ -237,7 +237,6 @@ export const BookingDashboardExtension = {
           <p>Missed: ${summary.missed}</p>
           <p>Cancelled: ${summary.cancelled}</p>
           <p>Attended: ${summary.attended}</p>
-          <p>Ended: ${summary.ended}</p>
         `;
       }
 
