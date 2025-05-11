@@ -55,8 +55,10 @@ document.addEventListener("DOMContentLoaded", async function () {
       await createAirtableRecord(newUserData, airtableApiKey, airtableBaseId, airtableTableName);
   }
 
-  // Save the userId to localStorage so voiceflow.js can use it
-  localStorage.setItem("User_ID", userId);
+  document.dispatchEvent(new CustomEvent("userIdentified", {
+    detail: { userId }
+  }));
+  
 });
 
 function generateUserId() {

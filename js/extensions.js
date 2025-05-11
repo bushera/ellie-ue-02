@@ -47,16 +47,23 @@ export const BookingDashboardExtension = {
     container.innerHTML = `
       <style>
         #booking-dashboard {
-          font-family: sans-serif;
+          font-family: 'Nunito', sans-serif;
           padding: 10px;
-          width : 320;
+          width: 320px;
           font-size: 10px;
         }
         .user-header {
           display: flex;
           align-items: center;
           gap: 10px;
-          width :100%;
+          width: 100%;
+          margin-bottom: 10px;
+        }
+        .user-header img {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          object-fit: cover;
         }
         .call {
           border: 1px solid #ddd;
@@ -71,7 +78,8 @@ export const BookingDashboardExtension = {
           border-left: 20px solid gray;
         }
         button {
-          margin: 5px;
+          margin: 5px auto;
+          display: block;
           padding: 6px 12px;
           border: none;
           border-radius: 4px;
@@ -79,7 +87,7 @@ export const BookingDashboardExtension = {
           width: 90%;
         }
         button.cancel {
-          background-color:rgb(0, 0, 0);
+          background-color: rgb(0, 0, 0);
           color: white;
         }
         button.reschedule {
@@ -90,43 +98,65 @@ export const BookingDashboardExtension = {
           margin: 10px auto 0;
           display: block;
           padding: 12px;
-          background-color:rgb(65, 23, 189);
+          background-color: rgb(65, 23, 189);
           color: white;
           font-weight: bold;
           border-radius: 8px;
           cursor: pointer;
           text-align: center;
+          width: 90%;
         }
       </style>
 
       <div class="user-header">
-        <img src="" alt="Avatar" />
-        <span>My Bookings</span>
+        <img src="https://ik.imagekit.io/bushera/profile%20images/01.png?updatedAt=1746351651791" alt="Avatar" />
+        <span id="user-name">My Bookings</span>
       </div>
 
-      <h2>Active Calls</h2>
-      <div id="active-calls"></div>
+      <div id="active-section">
+        <h2>Active Calls</h2>
+        <div id="active-calls"></div>
+      </div>
 
-      <h2>Engaged History</h2>
-      <div id="engaged-calls"></div>
+      <div id="engaged-section">
+        <h2>Engaged History</h2>
+        <div id="engaged-calls"></div>
+      </div>
 
       <button class="book-another">Book Another Appointment</button>
     `;
 
     async function fetchBookings() {
-      const AIRTABLE_API_KEY = 'patT2ZtryQSA2JzpX.75d12024b136349527032e8fc46f45c3c79635c651891d34bd9fbe8047c85448';
+      const AIRTABLE_API_KEY = 'YOUR_SECURE_KEY';
       const BASE_ID = 'appAtnhxiXYiC9Can';
       const TABLE_NAME = 'Booking_Consultation';
 
-      const res = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}`, {
-        headers: { Authorization: `Bearer ${AIRTABLE_API_KEY}` }
-      });
+      const user_id = trace.payload.user_id;
+      const res = await fetch(
+        `https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}?filterByFormula={user_id}='${user_id}'`,
+        {
+          headers: { Authorization: `Bearer ${AIRTABLE_API_KEY}` },
+        }
+      );
       const data = await res.json();
 
       const activeContainer = container.querySelector('#active-calls');
       const engagedContainer = container.querySelector('#engaged-calls');
+      const activeSection = container.querySelector('#active-section');
+      const engagedSection = container.querySelector('#engaged-section');
+      const userNameSpan = container.querySelector('#user-name');
 
-      data.records.forEach(record => {
+      let activeExists = false;
+      let engagedExists = false;
+
+      let summary = {
+        missed: 0,
+        cancelled: 0,
+        attended: 0,
+        ended: 0,
+      };
+
+      data.records.forEach((record) => {
         const booking = {
           bookingId: record.fields.booking_id,
           title: record.fields.title,
@@ -134,51 +164,95 @@ export const BookingDashboardExtension = {
           end: record.fields.end_date,
           location: record.fields.location,
           status: record.fields.status,
+          name: record.fields.name,
         };
 
-        const div = document.createElement('div');
-        div.className = `call ${booking.status}`;
-        div.innerHTML = `
-          <h3>${booking.title}</h3>
-          <p>${booking.start} - ${booking.end}  • ${booking.location}</p>
-          ${booking.status === 'ACCEPTED' ? `
-            <button class="cancel" data-id="${booking.bookingId}" data-title="${booking.title}">Cancel</button>
-            <button class="reschedule" data-id="${booking.bookingId}" data-title="${booking.title}">Reschedule</button>
-          ` : ''}
-        `;
+        if (booking.name || userNameSpan.innerText === 'My Bookings') {
+          userNameSpan.innerText = `${booking.name}'s Bookings`;
+        }
+
+        const startDate = new Date(booking.start);
+        const endDate = new Date(booking.end);
+
+        const formattedStart = `${startDate.getDate()} ${startDate.toLocaleString('default', {
+          month: 'short',
+        })}, ${startDate.getFullYear()} ${startDate.toLocaleTimeString([], {
+          hour: 'numeric',
+          minute: '2-digit',
+        })}`;
+
+        const formattedEnd = endDate.toLocaleTimeString([], {
+          hour: 'numeric',
+          minute: '2-digit',
+        });
 
         if (booking.status === 'ACCEPTED') {
+          activeExists = true;
+          const div = document.createElement('div');
+          div.className = `call active`;
+          div.innerHTML = `
+            <h3>${booking.title}</h3>
+            <p>${formattedStart} - ${formattedEnd} • ${booking.location}</p>
+            <button class="cancel" data-id="${booking.bookingId}" data-title="${booking.title}">Cancel</button>
+            <button class="reschedule" data-id="${booking.bookingId}" data-title="${booking.title}">Reschedule</button>
+          `;
           activeContainer.appendChild(div);
-        } else if (booking.status === 'engaged') {
-          engagedContainer.appendChild(div);
+        } else {
+          engagedExists = true;
+
+          switch (booking.status.toLowerCase()) {
+            case 'missed':
+              summary.missed++;
+              break;
+            case 'cancelled':
+              summary.cancelled++;
+              break;
+            case 'attended':
+              summary.attended++;
+              break;
+            case 'ended':
+              summary.ended++;
+              break;
+          }
         }
       });
 
-      container.querySelectorAll('button.cancel, button.reschedule').forEach(btn => {
+      if (!activeExists) activeSection.style.display = 'none';
+
+      if (!engagedExists) {
+        engagedSection.style.display = 'none';
+      } else {
+        engagedContainer.innerHTML = `
+          <p>Missed: ${summary.missed}</p>
+          <p>Cancelled: ${summary.cancelled}</p>
+          <p>Attended: ${summary.attended}</p>
+          <p>Ended: ${summary.ended}</p>
+        `;
+      }
+
+      container.querySelectorAll('button.cancel, button.reschedule').forEach((btn) => {
         btn.addEventListener('click', (e) => {
-          const action = e.target.classList.contains('cancel') ? 'cancel' : 'reschedule';
-          const payload = {
+          const bookingId = e.target.dataset.id;
+          const action = e.target.classList.contains('cancel') ? 'cancel_intent' : 'reschedule_intent';
+      
+          window.voiceflow.chat.interact({
             type: 'intent',
             payload: {
-              query: `${action}_intent`,
-              data: {
-                callTitle: e.target.dataset.title,
-                bookingId: e.target.dataset.id,
-              },
-            },
-          };
-          window.voiceflow.chat.interact(payload);
+              intent: action,
+              entities: {
+                bookingId: bookingId
+              }
+            }
+          });
         });
       });
+      
     }
 
-    const bookAnotherBtn = container.querySelector('.book-another');
-    bookAnotherBtn.addEventListener('click', () => {
+    container.querySelector('.book-another').addEventListener('click', () => {
       window.voiceflow.chat.interact({
-        type: 'event',
-        payload: {
-          name: 'booking'
-        }
+        type: 'intent',
+        payload: { intent: 'book_consultation' }
       });
     });
 
@@ -186,4 +260,5 @@ export const BookingDashboardExtension = {
     element.appendChild(container);
   },
 };
+
 
