@@ -43,7 +43,7 @@ let user_id = 'UE_000';
         console.log('[extensions.js] Using the userIdentified event with userId:', user_id);
       });
 
-      
+
 
 export const BookingDashboardExtension = {
   name: 'BookingDashboard',
@@ -59,7 +59,7 @@ export const BookingDashboardExtension = {
         #booking-dashboard {
           font-family: 'Nunito', sans-serif;
           padding: 10px;
-          width: 320px;
+          width: 320vw;
           font-size: 10px;
         }
         .user-header {
@@ -68,10 +68,11 @@ export const BookingDashboardExtension = {
           gap: 10px;
           width: 100%;
           margin-bottom: 10px;
+          font-style: bold;
         }
         .user-header img {
-          width: 40px;
-          height: 40px;
+          width: 15px;
+          height: 15px;
           border-radius: 50%;
           object-fit: cover;
         }
@@ -82,10 +83,10 @@ export const BookingDashboardExtension = {
           border-radius: 5px;
         }
         .active {
-          border-left: 20px solid green;
+          border-left: 5px solid green;
         }
         .engaged {
-          border-left: 20px solid gray;
+          border-left: 5px solid red;
         }
         button {
           margin: 5px auto;
