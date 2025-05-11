@@ -130,7 +130,8 @@ export const BookingDashboardExtension = {
         const booking = {
           bookingId: record.fields.booking_id,
           title: record.fields.title,
-          start: record.fields.Start,
+          start: record.fields.start_date,
+          end: record.fields.end_date,
           location: record.fields.location,
           status: record.fields.status,
         };
@@ -139,7 +140,7 @@ export const BookingDashboardExtension = {
         div.className = `call ${booking.status}`;
         div.innerHTML = `
           <h3>${booking.title}</h3>
-          <p>${booking.start} • ${booking.location}</p>
+          <p>${booking.start} - ${booking.end}  • ${booking.location}</p>
           ${booking.status === 'ACCEPTED' ? `
             <button class="cancel" data-id="${booking.bookingId}" data-title="${booking.title}">Cancel</button>
             <button class="reschedule" data-id="${booking.bookingId}" data-title="${booking.title}">Reschedule</button>
