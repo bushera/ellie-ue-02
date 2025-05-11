@@ -3,14 +3,15 @@ import { CalExtension, BookingDashboardExtension } from './extensions.js';
 (function(d, t) {
   const v = d.createElement(t), s = d.getElementsByTagName(t)[0];
 
-  // Immediately define a listener BEFORE the script loads
-  let userId = 'UE_000'; // fallback
-
   document.addEventListener('userIdentified', (e) => {
     userId = e.detail.userId || 'UE_000';
+    console.log('[voiceflow.js] Received userIdentified event with userId:', userId);
   });
 
   v.onload = function() {
+
+    console.log('[voiceflow.js] Loading Voiceflow with userId:', userId);
+
     // Always try to load Voiceflow using the captured or fallback userId
     window.voiceflow.chat.load({
       verify: { projectID: '66f143631c11d84702e2b3e3' },

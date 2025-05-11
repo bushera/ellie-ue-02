@@ -55,9 +55,10 @@ document.addEventListener("DOMContentLoaded", async function () {
       await createAirtableRecord(newUserData, airtableApiKey, airtableBaseId, airtableTableName);
   }
 
-  document.dispatchEvent(new CustomEvent("userIdentified", {
-    detail: { userId }
-  }));
+  console.log('[airtable.js] Dispatching userIdentified with userId:', userId);
+document.dispatchEvent(new CustomEvent("userIdentified", {
+  detail: { userId }
+}));
   
 });
 
