@@ -127,13 +127,19 @@ export const BookingDashboardExtension = {
     `;
 
     async function fetchBookings() {
-      const AIRTABLE_API_KEY = 'YOUR_SECURE_KEY';
+      const AIRTABLE_API_KEY = 'patT2ZtryQSA2JzpX.75d12024b136349527032e8fc46f45c3c79635c651891d34bd9fbe8047c85448';
       const BASE_ID = 'appAtnhxiXYiC9Can';
       const TABLE_NAME = 'Booking_Consultation';
 
-      const user_id = trace.payload.user_id;
+      let user_id = 'UE_000';
+
+      document.addEventListener('userIdentified', (e) => {
+        user_id = e.detail.userId || 'UE_000';
+        console.log('[voiceflow.js] Received userIdentified event with userId:', user_id);
+      });
+
       const res = await fetch(
-        `https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}?filterByFormula={user_id}='${user_id}'`,
+        `https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}?filterByFormula={User_ID}='${user_id}'`,
         {
           headers: { Authorization: `Bearer ${AIRTABLE_API_KEY}` },
         }
