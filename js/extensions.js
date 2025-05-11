@@ -76,7 +76,7 @@ export const BookingDashboardExtension = {
           border: none;
           border-radius: 4px;
           cursor: pointer;
-          width: 100%;
+          width: 90%;
         }
         button.cancel {
           background-color:rgb(0, 0, 0);
