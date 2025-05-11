@@ -135,7 +135,7 @@ export const BookingDashboardExtension = {
 
       document.addEventListener('userIdentified', (e) => {
         user_id = e.detail.userId || 'UE_000';
-        console.log('[voiceflow.js] Received userIdentified event with userId:', user_id);
+        console.log('[extensions.js] Using the userIdentified event with userId:', user_id);
       });
 
       const res = await fetch(
