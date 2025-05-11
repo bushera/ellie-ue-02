@@ -35,6 +35,16 @@ export const CalExtension = {
 }
 
 
+
+let user_id = 'UE_000';
+
+      document.addEventListener('userIdentified', (e) => {
+        user_id = e.detail.userId || 'UE_000';
+        console.log('[extensions.js] Using the userIdentified event with userId:', user_id);
+      });
+
+      
+
 export const BookingDashboardExtension = {
   name: 'BookingDashboard',
   type: 'response',
@@ -131,12 +141,6 @@ export const BookingDashboardExtension = {
       const BASE_ID = 'appAtnhxiXYiC9Can';
       const TABLE_NAME = 'Booking_Consultation';
 
-      let user_id = 'UE_000';
-
-      document.addEventListener('userIdentified', (e) => {
-        user_id = e.detail.userId || 'UE_000';
-        console.log('[extensions.js] Using the userIdentified event with userId:', user_id);
-      });
 
       const res = await fetch(
         `https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}?filterByFormula={User_ID}='${user_id}'`,
