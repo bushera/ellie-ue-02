@@ -1,0 +1,23 @@
+{
+  "name": "ellie_ue_pod",
+  "version": "1.0.0",
+  "description": "This is the voicflow chat and my ui tweek added",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bushera/ellie-ue-02.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bushera/ellie-ue-02/issues"
+  },
+  "homepage": "https://github.com/bushera/ellie-ue-02#readme",
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  }
+}
