@@ -413,6 +413,7 @@ export const BookingDashboardExtension = {
             location: record.fields.location,
             status: record.fields.status,
             name: record.fields.name,
+            url: record.fields.cal_url,
           };
 
           if (booking.name && userNameSpan.innerText === 'My Bookings') {
@@ -440,7 +441,7 @@ export const BookingDashboardExtension = {
             div.className = `call active`;
             div.innerHTML = `
               <h3>${booking.title}</h3>
-              <p>${formattedStart} - ${formattedEnd} • ${booking.location}</p>
+              <p>${formattedStart} - ${formattedEnd} • ${booking.location} • ${booking.url} </p>
               <button class="cancel" data-id="${booking.bookingId}" data-title="${booking.title}">Cancel</button>
               <button class="reschedule" data-id="${booking.bookingId}" data-title="${booking.title}">Reschedule</button>
             `;
