@@ -45,6 +45,7 @@ let user_id = 'UE_000';
 
 
 
+      
 export const BookingDashboardExtension = {
   name: 'BookingDashboard',
   type: 'response',
