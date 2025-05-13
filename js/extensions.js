@@ -376,7 +376,14 @@ export const BookingDashboardExtension = {
         const res = await fetch(`/.netlify/functions/get-booking?user_id=${user_id}`);
         const data = await res.json();
 
+        console.log("Fetched booking data:", data); // 👈 Add this line
+
         if (!data.records || !Array.isArray(data.records)) {
+          console.error("No records received from server.");
+          return;
+        }
+
+        if (!data.records || data.records.length === 0) {
           console.error("No records received from server.");
           return;
         }
