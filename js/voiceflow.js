@@ -10,6 +10,7 @@ import { CalExtension, BookingDashboardExtension } from './extensions.js';
     console.log('[voiceflow.js] Received userIdentified event with userId:', userId);
   }),
   
+  
   v.onload = function() {
     // Always try to load Voiceflow using the captured or fallback userId
     window.voiceflow.chat.load({
