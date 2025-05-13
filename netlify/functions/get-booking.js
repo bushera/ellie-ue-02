@@ -1,14 +1,12 @@
 const fetch = require('node-fetch');
 
 
-const user_id = event.queryStringParameters.user_id;
+let user_id = 'UE_000';
 
-if (!user_id) {
-  return {
-    statusCode: 400,
-    body: JSON.stringify({ error: "Missing user_id in query parameters" }),
-  };
-}
+document.addEventListener('userIdentified', (e) => {
+  user_id = e.detail.userId || 'UE_000';
+  console.log('[get-booking.js] Using the userIdentified event with userId:', user_id);
+});
 
 
 exports.handler = async function (event) {
