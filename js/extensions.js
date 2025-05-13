@@ -365,7 +365,7 @@ export const BookingDashboardExtension = {
     element.appendChild(container);
 
     async function fetchBookings() {
-      const user_id = window.voiceflow?.state?.user?.user_id;
+      
 
       if (!user_id) {
         console.error("user_id is missing");
