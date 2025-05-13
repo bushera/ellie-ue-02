@@ -1,14 +1,18 @@
 import { CalExtension, BookingDashboardExtension } from './extensions.js';
 
+let userId = 'UE_000';  // Default value for userId
+
+document.addEventListener('userIdentified', (e) => {
+  userId = e.detail.userId || 'UE_000';
+  console.log('[voiceflow.js] Received userIdentified event with userId:', userId);
+});
+
+
+
 (function(d, t) {
-  let userId = 'UE_000';  // Default value for userId
   const v = d.createElement(t), s = d.getElementsByTagName(t)[0];
 
-  document.addEventListener('userIdentified', (e) => {
-    userId = e.detail.userId || 'UE_000';
-    console.log('[voiceflow.js] Received userIdentified event with userId:', userId);
-  });
-
+  
   v.onload = function() {
 
     // Always try to load Voiceflow using the captured or fallback userId
