@@ -16,7 +16,7 @@ import { CalExtension, BookingDashboardExtension } from './extensions.js';
       verify: { projectID: '682308aece5bbd514be9d1d3' },
       url: 'https://general-runtime.voiceflow.com',
       versionID: 'production',
-      userID: userId,
+      userID: 'userId',
       user: {
         name: 'UE_Guest_01',
         image: 'https://ik.imagekit.io/bushera/profile%20images/02.png?updatedAt=1746351651791',
