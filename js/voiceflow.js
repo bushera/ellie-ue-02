@@ -1,18 +1,17 @@
 import { CalExtension, BookingDashboardExtension } from './extensions.js';
 
 
+let userId = 'UE_000';  // Default value for userId
+
+
 (function(d, t) {
-  let userId = 'UE_000';  // Default value for userId
   const v = d.createElement(t), s = d.getElementsByTagName(t)[0];
 
+  // Wait for userIdentified event before loading Voiceflow
   document.addEventListener('userIdentified', (e) => {
-    userId = e.detail.userId || 'UE_000';
+    const userId = e.detail.userId || 'UE_000';
     console.log('[voiceflow.js] Received userIdentified event with userId:', userId);
-  }),
-  
 
-  v.onload = function() {
-    // Always try to load Voiceflow using the captured or fallback userId
     window.voiceflow.chat.load({
       verify: { projectID: '682308aece5bbd514be9d1d3' },
       url: 'https://general-runtime.voiceflow.com',
@@ -55,7 +54,7 @@ import { CalExtension, BookingDashboardExtension } from './extensions.js';
         }, finalDelay);
       }, initialDelay);
     }
-  };
+  });
 
   v.src = "https://cdn.voiceflow.com/widget/bundle.mjs"; v.type = "module"; s.parentNode.insertBefore(v, s);
 })(document, 'script');
