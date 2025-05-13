@@ -283,7 +283,7 @@ export const BookingDashboardExtension = {
         #booking-dashboard {
           font-family: 'Nunito', sans-serif;
           padding: 10px;
-          width: 320;
+          width: 350;
           font-size: 10px;
         }
         .user-header {
@@ -307,10 +307,10 @@ export const BookingDashboardExtension = {
           border-radius: 5px;
         }
         .active {
-          border-left: 2px solid green;
+          border-left: 3px solid green;
         }
         .engaged {
-          border-left: 2px solid red;
+          border-left: 3px solid red;
         }
         button {
           margin: 5px auto;
