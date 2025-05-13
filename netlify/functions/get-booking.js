@@ -14,19 +14,33 @@ exports.handler = async (event) => {
   const BASE_ID = process.env.GET_BOOKINGS_BASE_ID;
   const TABLE_NAME = process.env.GET_BOOKINGS_TABLE;
 
-  
+  if (!AIRTABLE_API_KEY || !BASE_ID || !TABLE_NAME) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: "Missing Airtable environment variables" }),
+    };
+  }
+
+  const filterFormula = encodeURIComponent(`{User_ID} = "${user_id}"`);
+  const url = `https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}?filterByFormula=${filterFormula}`;
+
   try {
-    const response = await fetch(
-      `https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}?filterByFormula={User_ID}='${user_id}'`,
-      {
-        headers: {
-          Authorization: `Bearer ${AIRTABLE_API_KEY}`,
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+    const response = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${AIRTABLE_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+    });
 
     const data = await response.json();
+
+    if (!response.ok) {
+      return {
+        statusCode: response.status,
+        body: JSON.stringify({ error: data }),
+      };
+    }
+
     return {
       statusCode: 200,
       body: JSON.stringify(data),
