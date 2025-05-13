@@ -21,6 +21,9 @@ exports.handler = async (event) => {
     };
   }
 
+  console.log(`Calling Airtable: https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}?filterByFormula={User_ID}='${user_id}'`);
+
+
   const filterFormula = encodeURIComponent(`{User_ID} = "${user_id}"`);
   const url = `https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}?filterByFormula=${filterFormula}`;
 
