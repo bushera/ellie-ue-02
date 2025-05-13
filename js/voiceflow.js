@@ -1,14 +1,9 @@
 import { CalExtension, BookingDashboardExtension } from './extensions.js';
 
 
-
-
-
 (function(d, t) {
   let userId = 'UE_000';  // Default value for userId
   const v = d.createElement(t), s = d.getElementsByTagName(t)[0];
-
-
   v.onload = function() {
     document.addEventListener('userIdentified', (e) => {
       userId = e.detail.userId || 'UE_000';
@@ -59,7 +54,7 @@ import { CalExtension, BookingDashboardExtension } from './extensions.js';
     }
   };
 
-  v.src = 'https://cdn.voiceflow.com/widget/bundle.mjs';
+  v.src = 'https://cdn.voiceflow.com/widget-next/bundle.mjs';
   v.type = 'module';
   s.parentNode.insertBefore(v, s);
 })(document, 'script');
