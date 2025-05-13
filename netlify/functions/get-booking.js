@@ -14,6 +14,7 @@ exports.handler = async (event) => {
   const BASE_ID = process.env.GET_BOOKINGS_BASE_ID;
   const TABLE_NAME = process.env.GET_BOOKINGS_TABLE;
 
+  
   try {
     const response = await fetch(
       `https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}?filterByFormula={User_ID}='${user_id}'`,
