@@ -1,5 +1,16 @@
 const fetch = require('node-fetch');
 
+
+const user_id = event.queryStringParameters.user_id;
+
+if (!user_id) {
+  return {
+    statusCode: 400,
+    body: JSON.stringify({ error: "Missing user_id in query parameters" }),
+  };
+}
+
+
 exports.handler = async function (event) {
   const user_id = event.queryStringParameters.user_id;
 

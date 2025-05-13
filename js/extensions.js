@@ -36,14 +36,6 @@ export const CalExtension = {
 
 
 
-let user_id = 'UE_000';
-
-      document.addEventListener('userIdentified', (e) => {
-        user_id = e.detail.userId || 'UE_000';
-        console.log('[extensions.js] Using the userIdentified event with userId:', user_id);
-      });
-
-
 
 
 export const BookingDashboardExtension = {
@@ -138,7 +130,24 @@ export const BookingDashboardExtension = {
       <button class="book-another">+ Add Appointment</button>
     `;
 
+
+
+    let user_id = 'UE_000';
+
+      document.addEventListener('userIdentified', (e) => {
+        user_id = e.detail.userId || 'UE_000';
+        console.log('[extensions.js] Using the userIdentified event with userId:', user_id);
+      });
+
+
+
     async function fetchBookings(user_id) {
+
+      if (!user_id) {
+        console.error("user_id is missing");
+        return;
+      }
+      
       const res = await fetch(`/.netlify/functions/get-booking?user_id=${user_id}`);
       const data = await res.json();
 
