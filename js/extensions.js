@@ -134,7 +134,7 @@ export const BookingDashboardExtension = {
         <div id="engaged-calls"></div>
       </div>
 
-      <button class="book-another">Book Another Appointment</button>
+      <button class="book-another">+ Add Appointment</button>
     `;
 
     async function fetchBookings() {
