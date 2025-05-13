@@ -13,7 +13,7 @@ import { CalExtension, BookingDashboardExtension } from './extensions.js';
 
     // Always try to load Voiceflow using the captured or fallback userId
     window.voiceflow.chat.load({
-      verify: { projectID: '66f143631c11d84702e2b3e3' },
+      verify: { projectID: '682308aece5bbd514be9d1d3' },
       url: 'https://general-runtime.voiceflow.com',
       versionID: 'production',
       userID: userId,
