@@ -43,7 +43,7 @@ document.addEventListener('userIdentified', (e) => {
 });
 
 
-export const BookingDashboardExtension = {
+/**export const BookingDashboardExtension = {
   name: 'BookingDashboard',
   type: 'response',
   match: ({ trace }) =>
@@ -266,6 +266,151 @@ export const BookingDashboardExtension = {
     await fetchBookings();
     element.appendChild(container);
   },
-}
+}**/
 
 
+export const BookingDashboardExtension = {
+  name: 'BookingDashboard',
+  type: 'response',
+  match: ({ trace }) =>
+    trace.type === 'booking_dashboard' || trace.payload.name === 'booking_dashboard',
+  render: async ({ trace, element }) => {
+    const container = document.createElement('div');
+    container.id = 'booking-dashboard';
+
+    // [CSS omitted for brevity — keep your existing styles here]
+
+    container.innerHTML = `
+      <!-- your current HTML stays here -->
+    `;
+
+    async function fetchBookings() {
+      // ✅ 1. Safely extract user_id from the trace
+      const user_id = trace?.payload?.variables?.user_id;
+      if (!user_id) {
+        console.error("❌ user_id is missing in trace.payload.variables");
+        return;
+      }
+
+      // ✅ 2. Fetch bookings with proper error handling
+      let data;
+      try {
+        const res = await fetch(`/.netlify/functions/get-booking?user_id=${user_id}`);
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status} - ${await res.text()}`);
+        }
+        data = await res.json();
+      } catch (err) {
+        console.error("❌ Failed to fetch bookings:", err);
+        return;
+      }
+
+      // ✅ 3. Validate response
+      if (!data || !Array.isArray(data.records)) {
+        console.error("❌ Invalid data format. Expected { records: [...] } but got:", data);
+        return;
+      }
+
+      const activeContainer = container.querySelector('#active-calls');
+      const engagedContainer = container.querySelector('#engaged-calls');
+      const activeSection = container.querySelector('#active-section');
+      const engagedSection = container.querySelector('#engaged-section');
+      const userNameSpan = container.querySelector('#user-name');
+
+      let activeExists = false;
+      let engagedExists = false;
+
+      let summary = { missed: 0, cancelled: 0, attended: 0, ended: 0 };
+
+      data.records.forEach((record) => {
+        const booking = {
+          bookingId: record.fields.booking_id,
+          title: record.fields.title,
+          start: record.fields.start_date,
+          end: record.fields.end_date,
+          location: record.fields.location,
+          status: record.fields.status,
+          name: record.fields.name,
+        };
+
+        if (booking.name && userNameSpan.innerText === 'My Bookings') {
+          userNameSpan.innerText = `${booking.name}'s Bookings`;
+        }
+
+        const startDate = new Date(booking.start);
+        const endDate = new Date(booking.end);
+
+        const formattedStart = `${startDate.getDate()} ${startDate.toLocaleString('default', {
+          month: 'short',
+        })}, ${startDate.getFullYear()} ${startDate.toLocaleTimeString([], {
+          hour: 'numeric',
+          minute: '2-digit',
+        })}`;
+
+        const formattedEnd = endDate.toLocaleTimeString([], {
+          hour: 'numeric',
+          minute: '2-digit',
+        });
+
+        if (booking.status === 'ACCEPTED') {
+          activeExists = true;
+          const div = document.createElement('div');
+          div.className = `call active`;
+          div.innerHTML = `
+            <h3>${booking.title}</h3>
+            <p>${formattedStart} - ${formattedEnd} • ${booking.location}</p>
+            <button class="cancel" data-id="${booking.bookingId}" data-title="${booking.title}">Cancel</button>
+            <button class="reschedule" data-id="${booking.bookingId}" data-title="${booking.title}">Reschedule</button>
+          `;
+          activeContainer.appendChild(div);
+        } else {
+          engagedExists = true;
+          switch (booking.status?.toLowerCase()) {
+            case 'missed': summary.missed++; break;
+            case 'cancelled': summary.cancelled++; break;
+            case 'attended': summary.attended++; break;
+            case 'ended': summary.ended++; break;
+          }
+        }
+      });
+
+      if (!activeExists) activeSection.style.display = 'none';
+      if (!engagedExists) {
+        engagedSection.style.display = 'none';
+      } else {
+        engagedContainer.innerHTML = `
+          <p>Missed: ${summary.missed}</p>
+          <p>Cancelled: ${summary.cancelled}</p>
+          <p>Attended: ${summary.attended}</p>
+        `;
+      }
+
+      container.querySelectorAll('button.cancel, button.reschedule').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          const bookingId = e.target.dataset.id;
+          const action = e.target.classList.contains('cancel') ? 'cancel_intent' : 'reschedule_intent';
+
+          window.voiceflow.chat.interact({
+            type: 'intent',
+            payload: {
+              intent: action,
+              entities: {
+                bookingId: bookingId
+              }
+            }
+          });
+        });
+      });
+    }
+
+    container.querySelector('.book-another').addEventListener('click', () => {
+      window.voiceflow.chat.interact({
+        type: 'intent',
+        payload: { intent: 'book_consultation' }
+      });
+    });
+
+    await fetchBookings();
+    element.appendChild(container);
+  },
+};
