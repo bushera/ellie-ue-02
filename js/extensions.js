@@ -137,18 +137,8 @@ export const BookingDashboardExtension = {
       <button class="book-another">+ Add Appointment</button>
     `;
 
-    async function fetchBookings() {
-      const AIRTABLE_API_KEY = 'patT2ZtryQSA2JzpX.75d12024b136349527032e8fc46f45c3c79635c651891d34bd9fbe8047c85448';
-      const BASE_ID = 'appAtnhxiXYiC9Can';
-      const TABLE_NAME = 'Booking_Consultation';
-
-
-      const res = await fetch(
-        `https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}?filterByFormula={User_ID}='${user_id}'`,
-        {
-          headers: { Authorization: `Bearer ${AIRTABLE_API_KEY}` },
-        }
-      );
+    async function fetchBookings(user_id) {
+      const res = await fetch(`/.netlify/functions/get-booking?user_id=${user_id}`);
       const data = await res.json();
 
       const activeContainer = container.querySelector('#active-calls');
