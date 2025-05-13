@@ -58,7 +58,5 @@ document.addEventListener('userIdentified', (e) => {
     }
   };
 
-  v.src = 'https://cdn.voiceflow.com/widget/bundle.mjs';
-  v.type = 'module';
-  s.parentNode.insertBefore(v, s);
+  v.src = "https://cdn.voiceflow.com/widget/bundle.mjs"; v.type = "module"; s.parentNode.insertBefore(v, s);
 })(document, 'script');
