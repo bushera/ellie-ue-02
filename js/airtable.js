@@ -24,21 +24,16 @@ document.addEventListener("DOMContentLoaded", async function () {
   if (existingRecord) {
     userId = existingRecord.fields.User_ID;
 
-    // Extract existing visit history and split by line
+    // Get existing visit_history or start fresh
     let existingHistoryStr = existingRecord.fields.visit_history || "Page visit:";
-    let existingHistoryLines = [];
-
-    if (existingHistoryStr.startsWith("Page visit:")) {
-        existingHistoryLines = existingHistoryStr
-            .split("\n")
-            .slice(1); // Skip the "Page visit:" line
+    
+    // Ensure it ends with a newline before appending
+    if (!existingHistoryStr.endsWith("\n")) {
+        existingHistoryStr += "\n";
     }
 
-    // Append current page
-    existingHistoryLines.push(currentPage);
-
-    // Construct new visit_history string with line breaks
-    const updatedHistoryString = `Page visit:\n${existingHistoryLines.join("\n")}`;
+    // Append the new page URL to the existing history
+    const updatedHistoryString = `${existingHistoryStr}${currentPage}`;
 
     const updateData = {
         fields: {
@@ -47,11 +42,12 @@ document.addEventListener("DOMContentLoaded", async function () {
             Status: "Returning User",
             Website: websiteDomain,
             Page_URL: currentPage,
-            Visit_history: updatedHistoryString
+            visit_history: updatedHistoryString
         },
     };
     await updateAirtableRecord(existingRecord.id, updateData, airtableApiKey, airtableBaseId, airtableTableName);
 }
+
  else {
       userId = generateUserId();
       const newUserData = {
