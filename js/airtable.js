@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             Status: "Returning User",
             Website: websiteDomain,
             Page_URL: currentPage,
-            visit_history: updatedHistoryString
+            Visit_history: updatedHistoryString
         },
     };
     await updateAirtableRecord(existingRecord.id, updateData, airtableApiKey, airtableBaseId, airtableTableName);
