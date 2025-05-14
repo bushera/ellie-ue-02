@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   if (existingRecord) {
     userId = existingRecord.fields.User_ID;
 
-    // Create friendly timestamp
+    // 1. FORMAT TIMESTAMP FRIENDLY
     const now = new Date();
     const options = {
         year: 'numeric',
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const formatter = new Intl.DateTimeFormat('en-US', options);
     let formattedDate = formatter.format(now);
 
-    // Add ordinal suffix to the day (e.g. 1st, 2nd, 3rd)
+    // 1a. Add ordinal suffix to day (e.g. 1st, 2nd)
     const day = now.getDate();
     const ordinalSuffix = (d) => {
         if (d > 3 && d < 21) return 'th';
@@ -56,16 +56,25 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     const currentPageEntry = `${formattedDate} – ${currentPage}`;
 
-    // Get existing visit_history or start fresh
-    let existingHistory = existingRecord.fields.visit_history;
-    let updatedHistoryString = "";
+    // 2. GET EXISTING VISIT HISTORY
+    let existingHistory = "";  
+    try {
+        // Fetch full latest record again to ensure up-to-date visit_history
+        const latestCheck = await checkAirtableForIp(ipAdd, airtableApiKey, airtableBaseId, airtableTableName);
+        existingHistory = latestCheck?.fields?.Visit_history || "";
+    } catch (err) {
+        console.warn("Error fetching latest visit_history:", err);
+    }
 
+    // 3. COMPOSE UPDATED HISTORY
+    let updatedHistoryString = "";
     if (!existingHistory || existingHistory.trim() === "") {
         updatedHistoryString = `Page visit:\n${currentPageEntry}`;
     } else {
         updatedHistoryString = `${existingHistory}\n${currentPageEntry}`;
     }
 
+    // 4. UPDATE THE RECORD
     const updateData = {
         fields: {
             User_ID: userId,
@@ -79,6 +88,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     await updateAirtableRecord(existingRecord.id, updateData, airtableApiKey, airtableBaseId, airtableTableName);
 }
+
 
 
  else {
