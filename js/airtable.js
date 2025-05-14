@@ -24,29 +24,62 @@ document.addEventListener("DOMContentLoaded", async function () {
   if (existingRecord) {
     userId = existingRecord.fields.User_ID;
 
-    // Get existing visit_history or start fresh
-    let existingHistoryStr = existingRecord.fields.visit_history || "Page visit:";
-    
-    // Ensure it ends with a newline before appending
-    if (!existingHistoryStr.endsWith("\n")) {
-        existingHistoryStr += "\n";
-    }
+    // Create friendly timestamp
+    const now = new Date();
+    const options = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true,
+    };
 
-    // Append the new page URL to the existing history
-    const updatedHistoryString = `${existingHistoryStr}${currentPage}`;
+    const formatter = new Intl.DateTimeFormat('en-US', options);
+    let formattedDate = formatter.format(now);
+
+    // Add ordinal suffix to the day (e.g. 1st, 2nd, 3rd)
+    const day = now.getDate();
+    const ordinalSuffix = (d) => {
+        if (d > 3 && d < 21) return 'th';
+        switch (d % 10) {
+            case 1: return 'st';
+            case 2: return 'nd';
+            case 3: return 'rd';
+            default: return 'th';
+        }
+    };
+    formattedDate = formattedDate.replace(
+        /\b\d{1,2}\b/,
+        day + ordinalSuffix(day)
+    );
+
+    const currentPageEntry = `${formattedDate} – ${currentPage}`;
+
+    // Get existing visit_history or start fresh
+    let existingHistory = existingRecord.fields.visit_history;
+    let updatedHistoryString = "";
+
+    if (!existingHistory || existingHistory.trim() === "") {
+        updatedHistoryString = `Page visit:\n${currentPageEntry}`;
+    } else {
+        updatedHistoryString = `${existingHistory}\n${currentPageEntry}`;
+    }
 
     const updateData = {
         fields: {
             User_ID: userId,
-            Visit_Time: new Date().toISOString(),
+            Visit_Time: now.toISOString(),
             Status: "Returning User",
             Website: websiteDomain,
             Page_URL: currentPage,
-            Visit_history: updatedHistoryString
+            visit_history: updatedHistoryString
         },
     };
+
     await updateAirtableRecord(existingRecord.id, updateData, airtableApiKey, airtableBaseId, airtableTableName);
 }
+
 
  else {
       userId = generateUserId();
