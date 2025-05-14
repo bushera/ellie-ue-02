@@ -441,8 +441,8 @@ export const BookingDashboardExtension = {
             div.className = `call active`;
             div.innerHTML = `
               <h3>${booking.title}</h3>
-              <p>${formattedStart} - ${formattedEnd} • ${booking.location} • ${booking.url} </p>
-              <a href="${booking.url}">•link</a>
+              <p>${formattedStart} - ${formattedEnd} • ${booking.location}</p>
+              <a href="${booking.url}">Click to Join call via •${booking.url}</a>
               <button class="cancel" data-id="${booking.bookingId}" data-title="${booking.title}">Cancel</button>
               <button class="reschedule" data-id="${booking.bookingId}" data-title="${booking.title}">Reschedule</button>
             `;

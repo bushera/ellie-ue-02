@@ -22,18 +22,37 @@ document.addEventListener("DOMContentLoaded", async function () {
   let userId = "";
 
   if (existingRecord) {
-      userId = existingRecord.fields.User_ID;
-      const updateData = {
-          fields: {
-              User_ID: userId,
-              Visit_Time: new Date().toISOString(),
-              Status: "Returning User",
-              Website: websiteDomain,
-              Page_URL: currentPage
-          },
-      };
-      await updateAirtableRecord(existingRecord.id, updateData, airtableApiKey, airtableBaseId, airtableTableName);
-  } else {
+    userId = existingRecord.fields.User_ID;
+
+    // Extract existing visit history and split by line
+    let existingHistoryStr = existingRecord.fields.visit_history || "Page visit:";
+    let existingHistoryLines = [];
+
+    if (existingHistoryStr.startsWith("Page visit:")) {
+        existingHistoryLines = existingHistoryStr
+            .split("\n")
+            .slice(1); // Skip the "Page visit:" line
+    }
+
+    // Append current page
+    existingHistoryLines.push(currentPage);
+
+    // Construct new visit_history string with line breaks
+    const updatedHistoryString = `Page visit:\n${existingHistoryLines.join("\n")}`;
+
+    const updateData = {
+        fields: {
+            User_ID: userId,
+            Visit_Time: new Date().toISOString(),
+            Status: "Returning User",
+            Website: websiteDomain,
+            Page_URL: currentPage,
+            visit_history: updatedHistoryString
+        },
+    };
+    await updateAirtableRecord(existingRecord.id, updateData, airtableApiKey, airtableBaseId, airtableTableName);
+}
+ else {
       userId = generateUserId();
       const newUserData = {
           fields: {
