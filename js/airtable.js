@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             Status: "Returning User",
             Website: websiteDomain,
             Page_URL: currentPage,
-            visit_history: updatedHistoryString
+            Visit_history: updatedHistoryString
         },
     };
 
