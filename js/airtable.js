@@ -152,7 +152,7 @@ async function updateAirtableRecord(recordId, data, airtableApiKey, airtableBase
   const url = `https://api.airtable.com/v0/${airtableBaseId}/${airtableTableName}/${recordId}`;
   try {
       const response = await fetch(url, {
-          method: "PATCH",
+          method: "PUT",
           headers: {
               Authorization: `Bearer ${airtableApiKey}`,
               "Content-Type": "application/json",
