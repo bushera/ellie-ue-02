@@ -502,7 +502,7 @@ export const BookingDashboardExtension = {
           bookAnotherBtn.addEventListener('click', () => {
             window.voiceflow.chat.interact({
               type: 'intent',
-              payload: { intent: 'book_consultation' }
+              payload: { name: 'book_consultation' }
             });
           });
         }
