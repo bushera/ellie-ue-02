@@ -609,7 +609,6 @@ export const BookingDashboardExtension = {
           background: #f7f7f7;
           border-radius: 5px;
           padding: 10px;
-          padding-left: 5%;
           box-sizing: border-box;
           display: inline-block;
           vertical-align: top;
