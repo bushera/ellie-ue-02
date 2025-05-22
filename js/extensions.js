@@ -10,8 +10,8 @@ export const CalExtension = {
 
     const iframe = document.createElement('iframe')
     iframe.src = CalUrl || 'https://cal.com/bushera/book-a-consultation',
-    iframe.height = height || '280'
-    iframe.width = width || '320'
+    iframe.height = height || '240'
+    iframe.width = width || '240'
     iframe.style.border = '0'
     iframe.allowFullscreen = true
     iframe.loading = 'lazy'
