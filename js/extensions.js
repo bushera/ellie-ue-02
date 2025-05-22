@@ -814,7 +814,6 @@ export const BookingDashboardExtension = {
         #booking-dashboard {
           font-family: 'Nunito', sans-serif;
           padding: 10px;
-          width: 350px;
           font-size: 10px;
         }
         .user-header {
