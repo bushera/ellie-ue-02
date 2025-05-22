@@ -1002,12 +1002,43 @@ export const BookingDashboardExtension = {
         const bookAnotherBtn = container.querySelector('.book-another');
         if (bookAnotherBtn) {
           bookAnotherBtn.addEventListener('click', () => {
-            window.voiceflow.chat.interact({
-              action : {
-              type: 'intent',
-              payload: { name: 'book_consultation' }
-              }
-            });
+                
+const options = {
+  method: 'POST',
+  headers: {
+    accept: 'application/json',
+    versionID: 'production',
+    'content-type': 'application/json',
+    Authorization: 'VF.DM.682b0c48b770ddc5f536e49e.EWQVZG6pqlSXa8a9'
+  },
+  body: JSON.stringify({
+    action: {
+      type: 'intent',
+      payload: {
+        intent: {name: 'book_consultation'},
+      }
+    },
+    config: {
+      tts: false,
+      stripSSML: true,
+      stopAll: false,
+      excludeTypes: ['block', 'debug', 'flow']
+    },
+    state: {variables: {x_var: 1}}
+  })
+};
+
+fetch(`https://general-runtime.voiceflow.com/state/user/${userId}/interact?logs=off`, options)
+  .then(res => res.json())
+  .then(data => {
+    console.log(data);
+    callback(null, data); // ✅ Use callback for Voiceflow or similar environments
+  })
+  .catch(err => {
+    console.error(err);
+    callback(err); // ✅ Return error via callback
+  });
+
           });
         }
 
