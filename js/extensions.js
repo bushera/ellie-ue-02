@@ -784,9 +784,10 @@ export const BookingDashboardExtension = {
   render: async ({ trace, element }) => {
     const container = document.createElement('div');
     container.id = 'booking-dashboard';
+    container.style.width = '320';
 
 
-    container.width = `320`,
+    
     container.innerHTML = `
       <style>
         #booking-dashboard {
