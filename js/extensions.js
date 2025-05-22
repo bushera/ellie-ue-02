@@ -1003,8 +1003,7 @@ export const BookingDashboardExtension = {
         if (bookAnotherBtn) {
           bookAnotherBtn.addEventListener('click', () => {
             window.voiceflow.chat.interact({
-              type: 'intent',
-              payload: { name: 'book_consultation' }
+              type: 'booking'
             });
           });
         }
