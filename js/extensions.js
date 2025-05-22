@@ -24,7 +24,7 @@ export const CalExtension = {
         event.data === 'cal.com:booking-success'
       ) {
         window.voiceflow.chat.interact({
-          type: 'complete',
+          type: 'booked',
           payload: { message: 'Booking completed' },
         })
       }
