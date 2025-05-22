@@ -786,7 +786,7 @@ export const BookingDashboardExtension = {
     container.id = 'booking-dashboard';
 
 
-    container.width = '320';
+    container.width = `320`,
     container.innerHTML = `
       <style>
         #booking-dashboard {
