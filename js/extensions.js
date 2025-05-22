@@ -605,7 +605,6 @@ export const BookingDashboardExtension = {
           gap: 15px;
         }
         .carousel-item {
-          min-width: 300px;
           background: #f7f7f7;
           border-radius: 5px;
           padding: 10px;
