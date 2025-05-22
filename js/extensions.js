@@ -784,7 +784,7 @@ export const BookingDashboardExtension = {
   render: async ({ trace, element }) => {
     const container = document.createElement('div');
     container.id = 'booking-dashboard';
-    container.style.width = relative;
+    container.style.width = 'relative';
 
 
     
