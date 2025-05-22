@@ -56,5 +56,5 @@ let userId = 'UE_000';  // Default value for userId
     }
   });
 
-  v.src = "https://cdn.voiceflow.com/widget/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+  v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "module"; s.parentNode.insertBefore(v, s);
 })(document, 'script');
