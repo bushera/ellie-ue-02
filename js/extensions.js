@@ -594,7 +594,7 @@ export const BookingDashboardExtension = {
           width: 100%;
           overflow-x: auto;
           overflow-y: hidden;
-          white-space: nowrap;
+          white-space: wrap;
           -webkit-overflow-scrolling: touch;
           padding-bottom: 10px;
           margin-bottom: 10px;
