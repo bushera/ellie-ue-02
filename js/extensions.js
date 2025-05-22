@@ -269,7 +269,7 @@ document.addEventListener('userIdentified', (e) => {
 }**/
 
 
-export const BookingDashboardExtension = {
+/**export const BookingDashboardExtension = {
   name: 'BookingDashboard',
   type: 'response',
   match: ({ trace }) =>
@@ -514,5 +514,287 @@ export const BookingDashboardExtension = {
 
     await fetchBookings();
   }
-}
+}**/
 
+export const BookingDashboardExtension = {
+  name: 'BookingDashboard',
+  type: 'response',
+  match: ({ trace }) =>
+    trace.type === 'booking_dashboard' || trace.payload.name === 'booking_dashboard',
+  render: async ({ trace, element }) => {
+    const container = document.createElement('div');
+    container.id = 'booking-dashboard';
+
+    container.innerHTML = `
+      <style>
+        #booking-dashboard {
+          font-family: 'Nunito', sans-serif;
+          padding: 10px;
+          width: 350px;
+          font-size: 10px;
+        }
+        .user-header {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          width: 100%;
+          margin-bottom: 10px;
+          font-style: bold;
+        }
+        .user-header img {
+          width: 15px;
+          height: 15px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+        .call {
+          border: 1px solid #ddd;
+          padding: 10px;
+          margin: 10px 0;
+          border-radius: 5px;
+        }
+        .active {
+          border-left: 3px solid green;
+        }
+        .engaged {
+          border-left: 3px solid red;
+        }
+        button {
+          margin: 5px auto;
+          display: block;
+          padding: 6px 12px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          width: 90%;
+        }
+        button.cancel {
+          background-color: rgb(0, 0, 0);
+          color: white;
+        }
+        button.reschedule {
+          background-color: #27ae60;
+          color: white;
+        }
+        .book-another {
+          margin: 10px auto 0;
+          display: block;
+          padding: 12px;
+          background-color: rgb(65, 23, 189);
+          color: white;
+          font-weight: bold;
+          border-radius: 8px;
+          cursor: pointer;
+          text-align: center;
+          width: 90%;
+        }
+
+        /* Carousel styles */
+        .carousel {
+          position: relative;
+          width: 100%;
+          overflow-x: auto;
+          overflow-y: hidden;
+          white-space: nowrap;
+          -webkit-overflow-scrolling: touch;
+          padding-bottom: 10px;
+          margin-bottom: 10px;
+          box-sizing: border-box;
+        }
+        .carousel-inner {
+          display: inline-flex;
+          gap: 15px;
+        }
+        .carousel-item {
+          min-width: 300px;
+          background: #f7f7f7;
+          border-radius: 5px;
+          padding: 10px;
+          box-sizing: border-box;
+          display: inline-block;
+          vertical-align: top;
+          border: 1px solid #ddd;
+        }
+      </style>
+
+      <div class="user-header">
+        <img src="https://ik.imagekit.io/bushera/profile%20images/01.png?updatedAt=1746351651791" alt="Avatar" />
+        <span id="user-name">My Bookings</span>
+      </div>
+
+      <div id="active-section">
+        <h2>Active Calls</h2>
+        <div id="active-calls"></div>
+      </div>
+
+      <div id="engaged-section">
+        <h2>Engaged History</h2>
+        <div id="engaged-calls"></div>
+      </div>
+
+      <div class="book-another">+ Add Appointment</div>
+    `;
+
+    // Append container FIRST so elements are available in DOM
+    element.appendChild(container);
+
+    async function fetchBookings() {
+      if (!user_id) {
+        console.error("user_id is missing");
+        return;
+      }
+
+      try {
+        const res = await fetch(`/.netlify/functions/get-booking?user_id=${user_id}`);
+        const data = await res.json();
+
+        console.log("Fetched booking data:", data);
+
+        if (!data.records || !Array.isArray(data.records)) {
+          console.error("No records received from server.");
+          return;
+        }
+
+        if (!data.records || data.records.length === 0) {
+          console.error("No records received from server.");
+          return;
+        }
+
+        const activeContainer = container.querySelector('#active-calls');
+        const engagedContainer = container.querySelector('#engaged-calls');
+        const activeSection = container.querySelector('#active-section');
+        const engagedSection = container.querySelector('#engaged-section');
+        const userNameSpan = container.querySelector('#user-name');
+
+        let activeExists = false;
+        let engagedExists = false;
+
+        let summary = {
+          missed: 0,
+          cancelled: 0,
+          attended: 0,
+          ended: 0,
+        };
+
+        // Create carousel container for active calls
+        const carouselWrapper = document.createElement('div');
+        carouselWrapper.className = 'carousel';
+        const carouselInner = document.createElement('div');
+        carouselInner.className = 'carousel-inner';
+        carouselWrapper.appendChild(carouselInner);
+        activeContainer.appendChild(carouselWrapper);
+
+        data.records.forEach((record) => {
+          const booking = {
+            bookingId: record.fields.booking_id,
+            title: record.fields.title,
+            start: record.fields.start_date,
+            end: record.fields.end_date,
+            location: record.fields.location,
+            status: record.fields.status,
+            name: record.fields.name,
+            url: record.fields.cal_url,
+          };
+
+          if (booking.name && userNameSpan.innerText === 'My Bookings') {
+            userNameSpan.innerText = `${booking.name}'s Bookings`;
+          }
+
+          const startDate = new Date(booking.start);
+          const endDate = new Date(booking.end);
+
+          const formattedStart = `${startDate.getDate()} ${startDate.toLocaleString('default', {
+            month: 'short',
+          })}, ${startDate.getFullYear()} ${startDate.toLocaleTimeString([], {
+            hour: 'numeric',
+            minute: '2-digit',
+          })}`;
+
+          const formattedEnd = endDate.toLocaleTimeString([], {
+            hour: 'numeric',
+            minute: '2-digit',
+          });
+
+          if (booking.status === 'ACCEPTED') {
+            activeExists = true;
+
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'carousel-item active';
+
+            itemDiv.innerHTML = `
+              <h3>${booking.title}</h3>
+              <p>${formattedStart} - ${formattedEnd} • ${booking.location}</p>
+              <a href="${booking.url}">Click to Join call via •${booking.url}</a>
+              <button class="cancel" data-id="${booking.bookingId}" data-title="${booking.title}">Cancel</button>
+              <button class="reschedule" data-id="${booking.bookingId}" data-title="${booking.title}">Reschedule</button>
+            `;
+
+            carouselInner.appendChild(itemDiv);
+          } else {
+            engagedExists = true;
+            switch (booking.status.toLowerCase()) {
+              case 'missed':
+                summary.missed++;
+                break;
+              case 'cancelled':
+                summary.cancelled++;
+                break;
+              case 'attended':
+                summary.attended++;
+                break;
+              case 'ended':
+                summary.ended++;
+                break;
+            }
+          }
+        });
+
+        if (!activeExists) activeSection.style.display = 'none';
+
+        if (!engagedExists) {
+          engagedSection.style.display = 'none';
+        } else {
+          engagedContainer.innerHTML = `
+            <p>Missed: ${summary.missed}</p>
+            <p>Cancelled: ${summary.cancelled}</p>
+            <p>Attended: ${summary.attended}</p>
+          `;
+        }
+
+        // Button event listeners
+        container.querySelectorAll('button.cancel, button.reschedule').forEach((btn) => {
+          btn.addEventListener('click', (e) => {
+            const bookingId = e.target.dataset.id;
+            const action = e.target.classList.contains('cancel') ? 'cancel_intent' : 'reschedule_intent';
+
+            window.voiceflow.chat.interact({
+              type: 'intent',
+              payload: {
+                intent: action,
+                entities: {
+                  bookingId: bookingId
+                }
+              }
+            });
+          });
+        });
+
+        // Book another appointment button
+        const bookAnotherBtn = container.querySelector('.book-another');
+        if (bookAnotherBtn) {
+          bookAnotherBtn.addEventListener('click', () => {
+            window.voiceflow.chat.interact({
+              type: 'intent',
+              payload: { name: 'book_consultation' }
+            });
+          });
+        }
+
+      } catch (err) {
+        console.error("Error fetching bookings:", err);
+      }
+    }
+
+    await fetchBookings();
+  }
+};
