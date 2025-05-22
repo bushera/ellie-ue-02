@@ -871,60 +871,47 @@ export const BookingDashboardExtension = {
           width: 90%;
         }
 
-        /* Carousel styles */
+        /* Carousel Styles */
         .carousel {
           position: relative;
           width: 100%;
-          overflow: hidden; /* hide scrollbar */
+          overflow-x: auto;
+          overflow-y: hidden;
+          white-space: nowrap;
+          -webkit-overflow-scrolling: touch;
+          scroll-behavior: smooth;
+          padding-bottom: 10px;
+          margin-bottom: 10px;
           box-sizing: border-box;
-          margin-bottom: 15px;
         }
         .carousel-inner {
           display: flex;
           gap: 15px;
-          overflow-x: auto;
-          scroll-behavior: smooth;
-          padding-bottom: 10px;
-          -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
         }
         .carousel-item {
           background: #f7f7f7;
           border-radius: 5px;
           padding: 10px;
           box-sizing: border-box;
-          flex: 0 0 250px; /* fixed width for each item */
+          flex: 0 0 80%; /* width relative to container */
+          max-width: 80%;
           border: 1px solid #ddd;
-          user-select: none; /* disable text selection while swiping */
+          user-select: none;
+          vertical-align: top;
         }
-
-        /* Hide native scrollbar */
-        .carousel-inner::-webkit-scrollbar {
-          display: none;
-        }
-        .carousel-inner {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-
-        /* Carousel navigation buttons */
+        /* Navigation arrows */
         .carousel-nav {
           position: absolute;
           top: 50%;
           transform: translateY(-50%);
-          background-color: rgba(0,0,0,0.3);
+          background-color: rgba(255, 255, 255, 0.8);
           border: none;
-          color: white;
-          width: 30px;
-          height: 30px;
-          border-radius: 50%;
           cursor: pointer;
+          font-size: 24px;
+          padding: 5px 10px;
+          border-radius: 50%;
           z-index: 10;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .carousel-nav:hover {
-          background-color: rgba(0,0,0,0.6);
+          user-select: none;
         }
         .carousel-nav.left {
           left: 5px;
@@ -952,6 +939,7 @@ export const BookingDashboardExtension = {
       <div class="book-another">+ Add Appointment</div>
     `;
 
+    // Append container FIRST so elements are available in DOM
     element.appendChild(container);
 
     async function fetchBookings() {
@@ -963,6 +951,8 @@ export const BookingDashboardExtension = {
       try {
         const res = await fetch(`/.netlify/functions/get-booking?user_id=${user_id}`);
         const data = await res.json();
+
+        console.log("Fetched booking data:", data);
 
         if (!data.records || !Array.isArray(data.records) || data.records.length === 0) {
           console.error("No records received from server.");
@@ -985,26 +975,28 @@ export const BookingDashboardExtension = {
           ended: 0,
         };
 
-        // Clear activeContainer and build carousel wrapper
+        // Clear active calls container before appending
         activeContainer.innerHTML = '';
+
+        // Create carousel container for active calls
         const carouselWrapper = document.createElement('div');
         carouselWrapper.className = 'carousel';
+        const carouselInner = document.createElement('div');
+        carouselInner.className = 'carousel-inner';
+        carouselWrapper.appendChild(carouselInner);
+        activeContainer.appendChild(carouselWrapper);
 
-        // Navigation buttons
+        // Create navigation arrows
         const btnLeft = document.createElement('button');
         btnLeft.className = 'carousel-nav left';
         btnLeft.innerHTML = '&#9664;'; // left arrow
+
         const btnRight = document.createElement('button');
         btnRight.className = 'carousel-nav right';
         btnRight.innerHTML = '&#9654;'; // right arrow
 
         carouselWrapper.appendChild(btnLeft);
         carouselWrapper.appendChild(btnRight);
-
-        const carouselInner = document.createElement('div');
-        carouselInner.className = 'carousel-inner';
-        carouselWrapper.appendChild(carouselInner);
-        activeContainer.appendChild(carouselWrapper);
 
         data.records.forEach((record) => {
           const booking = {
@@ -1073,6 +1065,7 @@ export const BookingDashboardExtension = {
         });
 
         if (!activeExists) activeSection.style.display = 'none';
+
         if (!engagedExists) {
           engagedSection.style.display = 'none';
         } else {
@@ -1083,56 +1076,7 @@ export const BookingDashboardExtension = {
           `;
         }
 
-        // Carousel navigation handlers
-        const scrollAmount = 270; // width of one item + gap (250 + 15 approx)
-
-        btnLeft.addEventListener('click', () => {
-          carouselInner.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-        });
-        btnRight.addEventListener('click', () => {
-          carouselInner.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-        });
-
-        // Swipe support
-        let isDown = false;
-        let startX;
-        let scrollLeft;
-
-        carouselInner.addEventListener('mousedown', (e) => {
-          isDown = true;
-          carouselInner.classList.add('active');
-          startX = e.pageX - carouselInner.offsetLeft;
-          scrollLeft = carouselInner.scrollLeft;
-          e.preventDefault();
-        });
-        carouselInner.addEventListener('mouseleave', () => {
-          isDown = false;
-          carouselInner.classList.remove('active');
-        });
-        carouselInner.addEventListener('mouseup', () => {
-          isDown = false;
-          carouselInner.classList.remove('active');
-        });
-        carouselInner.addEventListener('mousemove', (e) => {
-          if (!isDown) return;
-          e.preventDefault();
-          const x = e.pageX - carouselInner.offsetLeft;
-          const walk = (x - startX) * 1; //scroll-fast
-          carouselInner.scrollLeft = scrollLeft - walk;
-        });
-
-        // Touch events for mobile swipe
-        carouselInner.addEventListener('touchstart', (e) => {
-          startX = e.touches[0].pageX - carouselInner.offsetLeft;
-          scrollLeft = carouselInner.scrollLeft;
-        });
-        carouselInner.addEventListener('touchmove', (e) => {
-          const x = e.touches[0].pageX - carouselInner.offsetLeft;
-          const walk = (x - startX);
-          carouselInner.scrollLeft = scrollLeft - walk;
-        });
-
-        // Button event listeners
+        // Button event listeners for Cancel and Reschedule
         container.querySelectorAll('button.cancel, button.reschedule').forEach((btn) => {
           btn.addEventListener('click', (e) => {
             const bookingId = e.target.dataset.id;
@@ -1143,9 +1087,9 @@ export const BookingDashboardExtension = {
               payload: {
                 intent: action,
                 entities: {
-                  bookingId: bookingId
-                }
-              }
+                  bookingId: bookingId,
+                },
+              },
             });
           });
         });
@@ -1156,10 +1100,21 @@ export const BookingDashboardExtension = {
           bookAnotherBtn.addEventListener('click', () => {
             window.voiceflow.chat.interact({
               type: 'intent',
-              payload: { name: 'book_consultation' }
+              payload: { name: 'book_consultation' },
             });
           });
         }
+
+        // Left/right arrow scroll functionality
+        btnLeft.addEventListener('click', () => {
+          const scrollAmount = carouselInner.querySelector('.carousel-item').offsetWidth + 15;
+          carouselWrapper.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        });
+
+        btnRight.addEventListener('click', () => {
+          const scrollAmount = carouselInner.querySelector('.carousel-item').offsetWidth + 15;
+          carouselWrapper.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        });
 
       } catch (err) {
         console.error("Error fetching bookings:", err);
