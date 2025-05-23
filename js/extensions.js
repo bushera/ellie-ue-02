@@ -249,10 +249,12 @@ export const BookingDashboardExtension = {
           `;
         }
 
-        container.querySelectorAll('button.cancel, button.reschedule').forEach((btn) => {
+        const actionButtons = container.querySelectorAll('button.cancel, button.reschedule');
+        actionButtons.forEach((btn) => {
           btn.addEventListener('click', (e) => {
+            container.style.display = 'none';
             const bookingId = e.target.dataset.id;
-            const action = e.target.classList.contains('cancel') ? 'cancel_intent' : 'reschedule_intent';
+            const action = btn.classList.contains('cancel') ? 'cancel_intent' : 'reschedule_intent';
 
             window.voiceflow.chat.interact({
               type: 'intent',
