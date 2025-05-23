@@ -10,8 +10,8 @@ export const CalExtension = {
 
     const iframe = document.createElement('iframe')
     iframe.src = CalUrl || 'https://cal.com/bushera/book-a-consultation',
-    iframe.height = height || '240'
-    iframe.width = width || '240'
+    iframe.height = height || '320'
+    iframe.width = width || '280'
     iframe.style.border = '0'
     iframe.allowFullscreen = true
     iframe.loading = 'lazy'
@@ -52,6 +52,7 @@ export const BookingDashboardExtension = {
   render: async ({ trace, element }) => {
     const container = document.createElement('div');
     container.id = 'booking-dashboard';
+    container.style.width = '240';
    
  
     container.innerHTML = `
