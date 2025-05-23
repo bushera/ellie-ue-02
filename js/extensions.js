@@ -48,7 +48,7 @@ export const BookingDashboardExtension = {
   name: 'BookingDashboard',
   type: 'response',
   match: ({ trace }) =>
-    trace.type === 'booking_dashboard' || trace.payload.name === 'booking_dashboard',
+    trace.type === 'booking_dashboard' || trace.payload?.name === 'booking_dashboard',
   render: async ({ trace, element }) => {
     const container = document.createElement('div');
     container.id = 'booking-dashboard';
