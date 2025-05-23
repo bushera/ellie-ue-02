@@ -33,6 +33,74 @@ export const CalExtension = {
   },
 }
 
+export const bkingcancelExtension = {
+  name: 'CalCancelEmbed',
+  type: 'response',
+  match: ({ trace }) =>
+    trace.type === 'bking_cancel' || trace.payload?.name === 'bking_cancel',
+  render: ({ trace, element }) => {
+    const { CalUrl, height, width } = trace.payload
+
+
+    const iframe = document.createElement('iframe')
+    iframe.src = CalUrl || 'https://cal.com/bushera/book-a-consultation',
+    iframe.height = height || '320'
+    iframe.width = width || '280'
+    iframe.style.border = '0'
+    iframe.allowFullscreen = true
+    iframe.loading = 'lazy'
+    iframe.id = 'cal-iframe'
+
+    // Listen for Cal.com "booking completed" postMessage
+    window.addEventListener('message', function (event) {
+      if (
+        event.origin.includes('cal.com') &&
+        event.data === 'cal.com:booking-success'
+      ) {
+        window.voiceflow.chat.interact({
+          type: 'cancelled'
+        })
+      }
+    });
+
+    element.appendChild(iframe)
+  },
+}
+
+export const bkingrescheduleExtension = {
+  name: 'CalRescheduleEmbed',
+  type: 'response',
+  match: ({ trace }) =>
+    trace.type === 'bking_reschedule' || trace.payload?.name === 'bking_reschedule',
+  render: ({ trace, element }) => {
+    const { CalUrl, height, width } = trace.payload
+
+
+    const iframe = document.createElement('iframe')
+    iframe.src = CalUrl || 'https://cal.com/bushera/book-a-consultation',
+    iframe.height = height || '320'
+    iframe.width = width || '280'
+    iframe.style.border = '0'
+    iframe.allowFullscreen = true
+    iframe.loading = 'lazy'
+    iframe.id = 'cal-iframe'
+
+    // Listen for Cal.com "booking completed" postMessage
+    window.addEventListener('message', function (event) {
+      if (
+        event.origin.includes('cal.com') &&
+        event.data === 'cal.com:booking-success'
+      ) {
+        window.voiceflow.chat.interact({
+          type: 'rescheduled'
+        })
+      }
+    });
+
+    element.appendChild(iframe)
+  },
+}
+
 
 let user_id = 'UE_000';
 
