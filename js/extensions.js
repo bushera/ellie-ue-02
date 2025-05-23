@@ -212,7 +212,7 @@ export const BookingDashboardExtension = {
             itemDiv.innerHTML = `
               <h3>${booking.title}</h3>
               <p><b>Timing :</b> ${formattedStart} - ${formattedEnd} </p>
-              <p><b>Location :</b> ${booking.location} • ${booking.bookingUid}</p>
+              <p><b>Location :</b> ${booking.location}</p>
               <a href="${booking.url}" target="_blank" rel="noopener noreferrer">Click to Join call via • ${booking.location}</a><br><br>
               <button class="cancel" data-id="${booking.bookingUid}" data-title="${booking.title}">Cancel</button>
               <button class="reschedule" data-id="${booking.bookingUid}" data-title="${booking.title}">Reschedule</button>
