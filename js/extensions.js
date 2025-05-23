@@ -242,7 +242,8 @@ export const BookingDashboardExtension = {
 
         data.records.forEach((record) => {
           const booking = {
-            bookingUid: record.fields.Uid,
+            Id: record.fields.booking_id,
+            Uid: record.fields.Uid,
             title: record.fields.title,
             start: record.fields.start_date,
             end: record.fields.end_date,
@@ -282,8 +283,8 @@ export const BookingDashboardExtension = {
               <p><b>Timing :</b> ${formattedStart} - ${formattedEnd} </p>
               <p><b>Location :</b> ${booking.location}</p>
               <a href="${booking.url}" target="_blank" rel="noopener noreferrer">Click to Join call via • ${booking.location}</a><br><br>
-              <button class="cancel" data-id="${booking.bookingUid}" data-title="${booking.title}">Cancel</button>
-              <button class="reschedule" data-id="${booking.bookingUid}" data-title="${booking.title}">Reschedule</button>
+              <button class="cancel" data-uid="${booking.Uid}" data-id="${booking.Id}" data-title="${booking.title}">Cancel</button>
+              <button class="reschedule" data-uid="${booking.Uid}" data-id="${booking.Id}" data-title="${booking.title}">Reschedule</button>
             `;
 
             activeContainer.appendChild(itemDiv);
@@ -321,11 +322,12 @@ export const BookingDashboardExtension = {
           btn.addEventListener('click', (e) => {
             container.style.display = 'none';
             const bookingId = e.target.dataset.id;
+            const bookingUId = e.target.dataset.uid;
             const action = btn.classList.contains('cancel') ? 'bking_cancel' : 'bking_reschedule';
 
             window.voiceflow.chat.interact({
               type: action,
-              payload: {id: bookingId},
+              payload: {id: bookingId, uid: bookingUId},
              
             });
           });
