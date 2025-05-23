@@ -323,11 +323,12 @@ export const BookingDashboardExtension = {
             container.style.display = 'none';
             const bookingId = e.target.dataset.id;
             const bookingUId = e.target.dataset.uid;
+            const bookingTitle = e.target.dataset.title;
             const action = btn.classList.contains('cancel') ? 'bking_cancel' : 'bking_reschedule';
 
             window.voiceflow.chat.interact({
               type: action,
-              payload: {id: bookingId, uid: bookingUId},
+              payload: {id: bookingId, uid: bookingUId, title: bookingTitle},
              
             });
           });
