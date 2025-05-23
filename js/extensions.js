@@ -182,6 +182,7 @@ export const BookingDashboardExtension = {
             status: record.fields.status,
             name: record.fields.name,
             url: record.fields.cal_url,
+            id: record.fields.Uid,
           };
 
           if (booking.name && userNameSpan.innerText === 'My Bookings') {
@@ -243,9 +244,8 @@ export const BookingDashboardExtension = {
           engagedSection.style.display = 'none';
         } else {
           engagedContainer.innerHTML = `
-            <p>Missed: ${summary.missed}</p>
+            <p>Ended: ${summary.ended}</p>
             <p>Cancelled: ${summary.cancelled}</p>
-            <p>Attended: ${summary.attended}</p>
           `;
         }
 
