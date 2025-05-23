@@ -3,7 +3,7 @@ export const CalExtension = {
   name: 'CalEmbed',
   type: 'response',
   match: ({ trace }) =>
-    trace.type === 'ext_cal' || trace.payload.name === 'ext_cal',
+    trace.type === 'ext_cal' || trace.payload?.name === 'ext_cal',
   render: ({ trace, element }) => {
     const { CalUrl, height, width } = trace.payload
 
