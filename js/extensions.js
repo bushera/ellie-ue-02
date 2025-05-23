@@ -174,7 +174,7 @@ export const BookingDashboardExtension = {
 
         data.records.forEach((record) => {
           const booking = {
-            bookingId: record.fields.booking_id,
+            bookingUid: record.fields.Uid,
             title: record.fields.title,
             start: record.fields.start_date,
             end: record.fields.end_date,
@@ -182,7 +182,6 @@ export const BookingDashboardExtension = {
             status: record.fields.status,
             name: record.fields.name,
             url: record.fields.cal_url,
-            id: record.fields.Uid,
           };
 
           if (booking.name && userNameSpan.innerText === 'My Bookings') {
@@ -215,8 +214,8 @@ export const BookingDashboardExtension = {
               <p><b>Timing :</b> ${formattedStart} - ${formattedEnd} </p>
               <p><b>Location :</b> ${booking.location}</p>
               <a href="${booking.url}" target="_blank" rel="noopener noreferrer">Click to Join call via • ${booking.location}</a><br><br>
-              <button class="cancel" data-id="${booking.bookingId}" data-title="${booking.title}">Cancel</button>
-              <button class="reschedule" data-id="${booking.bookingId}" data-title="${booking.title}">Reschedule</button>
+              <button class="cancel" data-id="${booking.bookingUid}" data-title="${booking.title}">Cancel</button>
+              <button class="reschedule" data-id="${booking.bookingUid}" data-title="${booking.title}">Reschedule</button>
             `;
 
             activeContainer.appendChild(itemDiv);
@@ -254,16 +253,12 @@ export const BookingDashboardExtension = {
           btn.addEventListener('click', (e) => {
             container.style.display = 'none';
             const bookingId = e.target.dataset.id;
-            const action = btn.classList.contains('cancel') ? 'cancel_intent' : 'reschedule_intent';
+            const action = btn.classList.contains('cancel') ? 'bking_cancel' : 'bking_reschedule';
 
             window.voiceflow.chat.interact({
-              type: 'intent',
-              payload: {
-                intent: action,
-                entities: {
-                  bookingId: bookingId
-                }
-              }
+              type: action,
+              payload: {bookingId: bookingId}
+             
             });
           });
         });
