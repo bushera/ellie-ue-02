@@ -257,7 +257,7 @@ export const BookingDashboardExtension = {
 
             window.voiceflow.chat.interact({
               type: action,
-              payload: {name: 'stan'},
+              payload: {id: bookingId},
              
             });
           });
