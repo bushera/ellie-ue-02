@@ -1,3 +1,4 @@
+import { use } from "react"
 
 export const CalExtension = {
   name: 'CalEmbed',
@@ -991,6 +992,7 @@ export const QuoteFormExtension = {
       e.preventDefault();
 
       const data = {
+        User_ID: user_id,
         projectType: projectType.value === 'other' ? customProjectType.value : projectType.value,
         companyName: container.querySelector('#companyName').value,
         email: emailInput.value,
@@ -1010,8 +1012,15 @@ export const QuoteFormExtension = {
           body: JSON.stringify({ fields: data })
         });
 
-        form.style.display = 'none';
-        successMessage.style.display = 'block';
+        container.style.display = 'none';
+
+        window.voiceflow.chat.interact({
+              type: projctCreated,
+              payload: {projectType: data.projectType, companyName: data.companyName, timeline: data.timeline, budget:data.budget},
+             
+            });
+
+       
       } catch (error) {
         alert('There was an error submitting the form.');
         console.error(error);
