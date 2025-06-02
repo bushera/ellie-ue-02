@@ -1,6 +1,5 @@
 import { CalExtension, BookingDashboardExtension, bkingrescheduleExtension} from './extensions.js';
 
-
 let userId = 'UE_000';  // Default value for userId
 
 
