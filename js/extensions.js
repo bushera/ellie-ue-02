@@ -1002,6 +1002,16 @@ export const QuoteFormExtension = {
         extraDetails: container.querySelector('#extraDetails').value,
       };
 
+      container.style.display = 'none';
+
+        window.voiceflow.chat.interact({
+              type: 'projctCreated',
+              payload: {projectType: data.projectType, companyName: data.companyName, timeline: data.timeline, budget:data.budget},
+             
+            });
+
+      
+
       try {
         await fetch('https://api.airtable.com/v0/appAtnhxiXYiC9Can/Projects', {
           method: 'POST',
@@ -1010,17 +1020,7 @@ export const QuoteFormExtension = {
             'Authorization': 'Bearer patT2ZtryQSA2JzpX.75d12024b136349527032e8fc46f45c3c79635c651891d34bd9fbe8047c85448'
           },
           body: JSON.stringify({ fields: data })
-        });
-
-        container.style.display = 'none';
-
-        window.voiceflow.chat.interact({
-              type: projctCreated,
-              payload: {projectType: data.projectType, companyName: data.companyName, timeline: data.timeline, budget:data.budget},
-             
-            });
-
-       
+        });     
       } catch (error) {
         alert('There was an error submitting the form.');
         console.error(error);
