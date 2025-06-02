@@ -366,107 +366,147 @@ export const QuoteFormExtension = {
     container.style.width = '100%';
 
     container.innerHTML = `
-  <style>
+ 
+<style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-    }
-
-    .swiper-slide {
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      padding: 20px;
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      background: #f4f4f4;
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      justify-content: center;
+      padding: 5px;
+      font-size: 14px;
+    }
+  
+    .container {
+      width: 100%;
+      max-width: 450px;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
       box-sizing: border-box;
-      height: 100%;
     }
-
-    .card-header {
-      font-weight: bold;
-      margin-bottom: 12px;
-      font-size: 1.1rem;
-      color: #222;
-    }
-
-    .card-content p {
-      margin: 6px 0;
-      color: #444;
-      font-size: 0.95rem;
-    }
-
-    .start-button {
-      background-color: #007bff;
-      color: white;
-      border: none;
-      padding: 10px 14px;
+  
+    .progress-bar {
+      height: 4px;
+      background: #e0e0e0;
       border-radius: 4px;
-      cursor: pointer;
-      font-size: 1rem;
-      margin-top: 15px;
-      align-self: flex-start;
-      transition: background-color 0.3s ease;
+      overflow: hidden;
+      margin-bottom: 20px;
     }
-
-    .start-button:hover {
-      background-color: #0056b3;
+  
+    .progress-bar-fill {
+      height: 100%;
+      background: #000000;
+      width: 0%;
+      transition: width 0.3s ease;
     }
-
-    .swiper-button-next,
-    .swiper-button-prev {
-      color: #007bff;
-      top: 40%;
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.7);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      z-index: 10;
+  
+    .step {
       display: none;
     }
-
-    .swiper-button-next:hover,
-    .swiper-button-prev:hover {
-      background-color: #e0e0e0;
-      color: #0056b3;
+  
+    .step.active {
+      display: block;
     }
-
-    @media (max-width: 480px) {
-      .start-button {
-        width: 90%;
-        padding: 10px 12px;
-        font-size: 1rem;
+  
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+  
+    button {
+      padding: 10px 20px;
+      border: none;
+      background: #3300ff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      flex: 1;
+      min-width: 120px;
+    }
+  
+    button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+  
+    .progress-label {
+      text-align: right;
+      font-size: 12px;
+      color: #666;
+    }
+  
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      margin-bottom: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+  
+    #successMessage {
+      display: none;
+      text-align: center;
+    }
+  
+    #successMessage h2 {
+      color: #151515;
+      font-size: 16px;
+    }
+  
+    #newSubmissionBtn {
+      width: 90%;
+      margin-top: 20px;
+    }
+  
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+      }
+  
+      body {
+        font-size: 13px;
+      }
+  
+      button {
+        font-size: 14px;
+      }
+  
+      .buttons {
+        flex-direction: column;
+        align-items: stretch;
       }
     }
-
-    .section-container {
-      margin-top: 1rem;
-      margin-bottom: 3%; /* Changed from fixed to 5% as requested */
+  
+    @media (max-width: 480px) {
+      .container {
+        padding: 15px;
+      }
+  
+      body {
+        font-size: 12px;
+      }
+  
+      input, select, textarea {
+        font-size: 13px;
+      }
+  
+      .progress-label {
+        font-size: 11px;
+      }
+  
+      #successMessage h2 {
+        font-size: 14px;
+      }
     }
-
-    .todo-swiper{
-      margin-bottom: 5%;
-    }
-
-    .active-swiper{
-      margin-bottom: 5%;
-    }
-
-
-    .done-swiper{
-      margin-bottom: 5%;
-    }
-
-
-    .decline-swiper{
-      margin-bottom: 5%;
-    }
-
-
- 
-  </style>
+</style>
 <div class="container">
     <div class="progress-bar">
       <div class="progress-bar-fill" id="progressFill"></div>
@@ -673,7 +713,6 @@ export const QuoteFormExtension = {
     updateForm();
   }
 };
-
 
 
 
