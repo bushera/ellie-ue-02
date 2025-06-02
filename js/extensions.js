@@ -729,22 +729,11 @@ export const QuoteFormExtension = {
     container.innerHTML = `
  
 <style>
-    body {
-      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-      background: #f4f4f4;
-      display: flex;
-      justify-content: center;
-      padding: 5px;
-      font-size: 14px;
-    }
-  
-    .container {
-      background: #fff;
-      padding: 10px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      box-sizing: border-box;
-    }
+    #quote-form-container {
+          font-family: 'Nunito', sans-serif;
+          padding: 10px;
+          font-size: 10px;
+        }
   
     .progress-bar {
       height: 4px;
