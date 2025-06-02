@@ -779,7 +779,6 @@ export const QuoteFormExtension = {
           border-radius: 5px;
           cursor: pointer;
           flex: 1;
-          min-width: 120px;
         }
 
         button:disabled {
