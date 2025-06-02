@@ -1004,11 +1004,6 @@ export const QuoteFormExtension = {
 
       container.style.display = 'none';
 
-        window.voiceflow.chat.interact({
-              type: 'projctCreated',
-              payload: {projectType: data.projectType, companyName: data.companyName, timeline: data.timeline, budget:data.budget},
-             
-            });
 
       
 
