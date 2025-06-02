@@ -722,8 +722,12 @@ export const QuoteFormExtension = {
     trace.type === 'quote_form' || trace.payload?.name === 'quote_form',
 
   render: async ({ element }) => {
-    // Inject scoped CSS once
-    `<style >
+  
+    const container = document.createElement('div');
+    container.className = 'quote-form-container';
+
+    container.innerHTML = `
+    <style >
         .quote-form-container {
           font-family: 'Trebuchet MS', sans-serif;
           background: #f4f4f4;
@@ -828,14 +832,7 @@ export const QuoteFormExtension = {
           .progress-label { font-size: 11px; }
           #successMessage h2 { font-size: 14px; }
         }
-      </style>
-    `;
-
-
-    const container = document.createElement('div');
-    container.className = 'quote-form-container';
-
-    container.innerHTML = `
+    </style>
       <div class="quote-form-wrapper">
         <div class="progress-bar"><div class="progress-bar-fill" id="progressFill"></div></div>
         <div class="progress-label" id="progressText"></div>
