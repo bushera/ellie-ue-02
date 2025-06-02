@@ -467,23 +467,92 @@ export const QuoteFormExtension = {
 
  
   </style>
+<div class="container">
+    <div class="progress-bar">
+      <div class="progress-bar-fill" id="progressFill"></div>
+    </div>
+    <div class="progress-label" id="progressText"></div>
 
-      <div class="container">
-        <div class="progress-bar">
-          <div class="progress-bar-fill" id="progressFill"></div>
-        </div>
-        <div class="progress-label" id="progressText"></div>
+    <form id="quoteForm">
+      <div class="step active">
+        <h2>Project Type</h2>
+        <label>What type of project?</label>
+        <select id="projectType" required>
+          <option value="">Select a project type</option>
+          <option value="seo">SEO</option>
+          <option value="local_seo">Local SEO</option>
+          <option value="mobile_app_dev">Mobile App Development</option>
+          <option value="web_dev">Web Development</option>
+          <option value="content_marketing">Content Marketing</option>
+          <option value="influencer_marketing">Influencer Marketing</option>
+          <option value="video_marketing">Video Marketing</option>
+          <option value="inbound_marketing">Inbound Marketing</option>
+          <option value="internet_marketing">Internet Marketing</option>
+          <option value="branding">Branding</option>
+          <option value="ecommerce">E-commerce</option>
+          <option value="social_media_optimization">Social Media Optimization</option>
+          <option value="crm">CRM</option>
+          <option value="gpt_ai_chatbot">GPT & ai chatbot</option>
+          <option value="google_ads">Google Ads</option>
+          <option value="other">Other</option>
+        </select>
+        <input type="text" id="customProjectType" placeholder="Please specify" style="display:none;"/>
+      </div>
 
-        <form id="quoteForm">
-          <!-- Steps: Project Type, Company, Timeline, Budget, Extra -->
-          <!-- Paste all your HTML form steps here -->
-        </form>
-
-        <div id="successMessage">
-          <h2>Thank you! Your quote is on its way. </br> </br> Follow up via mail for response</h2></br></br>
-          <button id="newSubmissionBtn">Add Another Project</button>
+      <div class="step">
+        <h2>Company Details</h2>
+        <input type="text" id="companyName" placeholder="Company/Business Name" required />
+        <input type="email" id="email" placeholder="Email Address" required />
+        <div>
+          <label>Phone Number (Optional)</label>
+          <input type="tel" id="phone" placeholder="+1234567890" />
         </div>
       </div>
+
+      <div class="step">
+        <h2>Project Timeline</h2>
+        <label>When would you want this project delivered?</label>
+        <select id="timeline" required>
+          <option value="">Select a time</option>
+          <option value="yesterday">Yesterday</option>
+          <option value="lessThan_30_days">Less than 30 days</option>
+          <option value="Next_30_days">Next 30 days</option>
+          <option value="Next_60_days">Next 60 days</option>
+          <option value="unsure">Not yet sure</option>
+        </select>
+      </div>
+
+      <div class="step">
+        <h2>Budget</h2>
+        <label>What is your budget?</label>
+        <select id="budget" required>
+          <option value="">Select a budget</option>
+          <option value="lessThan_$2k">Less than $2k</option>
+          <option value="$2k_$5k">$2k - $5k</option>
+          <option value="$5k_$10k">$5k - $10k</option>
+          <option value="$10k_plus">$10k+</option>
+          <option value="undefined">Not defined</option>
+        </select>
+      </div>
+
+      <div class="step">
+        <h2>Extra Details (Optional)</h2>
+        <textarea id="extraDetails" placeholder="Any extra information you will like us to know?"></textarea>
+      </div>
+
+      <div class="buttons">
+        <button type="button" id="prevBtn" disabled>Back</button>
+        <button type="button" id="nextBtn">Next</button>
+        <button type="submit" id="submitBtn" style="display:none;">Submit</button>
+      </div>
+    </form>
+
+    <div id="successMessage">
+      <h2>Thank you! Your quote is on its way. </br> </br> Follow up via mail for response</h2></br></br>
+      <button id="newSubmissionBtn">Add Another Project</button>
+    </div>
+  </div>
+     
     `;
 
     element.appendChild(container);
@@ -572,7 +641,6 @@ export const QuoteFormExtension = {
         timeline: container.querySelector('#timeline').value,
         budget: container.querySelector('#budget').value,
         extraDetails: container.querySelector('#extraDetails').value,
-        User_ID: user_id,
       };
 
       try {
@@ -605,6 +673,7 @@ export const QuoteFormExtension = {
     updateForm();
   }
 };
+
 
 
 
