@@ -1,4 +1,4 @@
-import { CalExtension, BookingDashboardExtension, bkingrescheduleExtension} from './extensions.js';
+import { CalExtension, bkingrescheduleExtension} from './extensions.js';
 
 let userId = 'UE_000';  // Default value for userId
 
@@ -25,7 +25,7 @@ let userId = 'UE_000';  // Default value for userId
       allowDangerousHTML: true,
       assistant: {
         persistence: 'localStorage',
-        extensions: [CalExtension, BookingDashboardExtension, bkingrescheduleExtension],
+        extensions: [CalExtension, bkingrescheduleExtension],
       },
       voice: {
         url: 'https://runtime-api.voiceflow.com',
