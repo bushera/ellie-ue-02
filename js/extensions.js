@@ -716,18 +716,18 @@ export const BookingDashboardExtension = {
 
 
 export const QuoteFormExtension = {
-  name: 'ProjectDashboard',
+  name: 'QuoteForm',
   type: 'response',
   match: ({ trace }) =>
     trace.type === 'quote_form' || trace.payload?.name === 'quote_form',
 
   render: async ({ element }) => {
     const container = document.createElement('div');
-    container.id = 'project-dashboard';
+    container.id = 'quote-form-container';
+    container.style.width = '240';
 
     container.innerHTML = `
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
-  
+ 
 <style>
     body {
       font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -739,10 +739,8 @@ export const QuoteFormExtension = {
     }
   
     .container {
-      width: 100%;
-      max-width: 450px;
       background: #fff;
-      padding: 30px;
+      padding: 10px;
       border-radius: 12px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
       box-sizing: border-box;
@@ -868,207 +866,211 @@ export const QuoteFormExtension = {
       }
     }
 </style>
+<div class="container">
+    <div class="progress-bar">
+      <div class="progress-bar-fill" id="progressFill"></div>
+    </div>
+    <div class="progress-label" id="progressText"></div>
 
-      <div class="container-fluid py-4 mychat">
-        <div class="container">
+    <form id="quoteForm">
+      <div class="step active">
+        <h2>Project Type</h2>
+        <label>What type of project?</label>
+        <select id="projectType" required>
+          <option value="">Select a project type</option>
+          <option value="seo">SEO</option>
+          <option value="local_seo">Local SEO</option>
+          <option value="mobile_app_dev">Mobile App Development</option>
+          <option value="web_dev">Web Development</option>
+          <option value="content_marketing">Content Marketing</option>
+          <option value="influencer_marketing">Influencer Marketing</option>
+          <option value="video_marketing">Video Marketing</option>
+          <option value="inbound_marketing">Inbound Marketing</option>
+          <option value="internet_marketing">Internet Marketing</option>
+          <option value="branding">Branding</option>
+          <option value="ecommerce">E-commerce</option>
+          <option value="social_media_optimization">Social Media Optimization</option>
+          <option value="crm">CRM</option>
+          <option value="gpt_ai_chatbot">GPT & ai chatbot</option>
+          <option value="google_ads">Google Ads</option>
+          <option value="other">Other</option>
+        </select>
+        <input type="text" id="customProjectType" placeholder="Please specify" style="display:none;"/>
+      </div>
 
-          <div class="row section-container border-start border-primary border-5 ps-3 bg-white rounded shadow-sm">
-            <div class="col-12">
-              <h2 class="h4 h2-md mt-5 mb-4 mb-3 text-primary">Projects To Do</h2>
-              <div class="swiper todo-swiper">
-                <div class="swiper-wrapper" id="todo-carousel"></div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-pagination"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row section-container border-start border-warning border-5 ps-3 bg-white rounded shadow-sm">
-            <div class="col-12">
-              <h2 class="h4 h2-md mt-5 mb-4 text-warning">Active Projects</h2>
-              <div class="swiper active-swiper">
-                <div class="swiper-wrapper" id="active-carousel"></div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-pagination"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row section-container border-start border-success border-5 ps-3 bg-white rounded shadow-sm">
-            <div class="col-12">
-              <h2 class="h4 h2-md mt-5 mb-4 text-success">Projects Done</h2>
-              <div class="swiper done-swiper">
-                <div class="swiper-wrapper" id="done-carousel"></div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-pagination"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row section-container border-start border-danger border-5 ps-3 bg-white rounded shadow-sm">
-            <div class="col-12">
-              <h2 class="h4 h2-md mt-5 mb-4 text-danger">Declined Projects</h2>
-              <div class="card bg-light border border-danger p-3 decline-swiper">
-                <p class="mb-0"><strong>Declined Projects:</strong> <span id="declined-count">0</span></p>
-              </div>
-            </div>
-          </div>
-
-          <div class="text-center">
-            <button class="btn btn-success btn-lg w-100 w-md-auto" id="newProjectBtn">+ New Project</button>
-          </div>
+      <div class="step">
+        <h2>Company Details</h2>
+        <input type="text" id="companyName" placeholder="Company/Business Name" required />
+        <input type="email" id="email" placeholder="Email Address" required />
+        <div>
+          <label>Phone Number (Optional)</label>
+          <input type="tel" id="phone" placeholder="+1234567890" />
         </div>
       </div>
 
-      <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+      <div class="step">
+        <h2>Project Timeline</h2>
+        <label>When would you want this project delivered?</label>
+        <select id="timeline" required>
+          <option value="">Select a time</option>
+          <option value="yesterday">Yesterday</option>
+          <option value="lessThan_30_days">Less than 30 days</option>
+          <option value="Next_30_days">Next 30 days</option>
+          <option value="Next_60_days">Next 60 days</option>
+          <option value="unsure">Not yet sure</option>
+        </select>
+      </div>
+
+      <div class="step">
+        <h2>Budget</h2>
+        <label>What is your budget?</label>
+        <select id="budget" required>
+          <option value="">Select a budget</option>
+          <option value="lessThan_$2k">Less than $2k</option>
+          <option value="$2k_$5k">$2k - $5k</option>
+          <option value="$5k_$10k">$5k - $10k</option>
+          <option value="$10k_plus">$10k+</option>
+          <option value="undefined">Not defined</option>
+        </select>
+      </div>
+
+      <div class="step">
+        <h2>Extra Details (Optional)</h2>
+        <textarea id="extraDetails" placeholder="Any extra information you will like us to know?"></textarea>
+      </div>
+
+      <div class="buttons">
+        <button type="button" id="prevBtn" disabled>Back</button>
+        <button type="button" id="nextBtn">Next</button>
+        <button type="submit" id="submitBtn" style="display:none;">Submit</button>
+      </div>
+    </form>
+
+    <div id="successMessage">
+      <h2>Thank you! Your quote is on its way. </br> </br> Follow up via mail for response</h2></br></br>
+      <button id="newSubmissionBtn">Add Another Project</button>
+    </div>
+  </div>
+     
     `;
 
     element.appendChild(container);
 
-    const currentUser = 'UE-User-4xdcsewob';
-    const AIRTABLE_API_KEY = 'patT2ZtryQSA2JzpX.75d12024b136349527032e8fc46f45c3c79635c651891d34bd9fbe8047c85448';
-    const AIRTABLE_BASE_ID = 'appAtnhxiXYiC9Can';
-    const AIRTABLE_TABLE_NAME = 'Projects';
+    const steps = container.querySelectorAll('.step');
+    const progressFill = container.querySelector('#progressFill');
+    const progressText = container.querySelector('#progressText');
+    const prevBtn = container.querySelector('#prevBtn');
+    const nextBtn = container.querySelector('#nextBtn');
+    const submitBtn = container.querySelector('#submitBtn');
+    const form = container.querySelector('#quoteForm');
+    const successMessage = container.querySelector('#successMessage');
+    const newSubmissionBtn = container.querySelector('#newSubmissionBtn');
+    const projectType = container.querySelector('#projectType');
+    const customProjectType = container.querySelector('#customProjectType');
+    const emailInput = container.querySelector('#email');
+    const phoneInput = container.querySelector('#phone');
 
-    async function fetchProjects() {
-      const urlBase = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_TABLE_NAME)}`;
-      const headers = {
-        'Authorization': `Bearer ${AIRTABLE_API_KEY}`,
-        'Content-Type': 'application/json',
-      };
+    let currentStep = 0;
 
-      let allRecords = [];
-      let offset = null;
-
-      try {
-        do {
-          const filter = `filterByFormula=({User_ID}='${currentUser}')`;
-          const url = offset
-            ? `${urlBase}?${filter}&offset=${offset}`
-            : `${urlBase}?${filter}`;
-
-          const response = await fetch(url, { headers });
-          const data = await response.json();
-          if (!response.ok) return;
-
-          allRecords = allRecords.concat(data.records);
-          offset = data.offset;
-        } while (offset);
-
-        const to_do = [], active = [], done = [];
-        let declined = 0;
-
-        allRecords.forEach(record => {
-          const fields = record.fields;
-          const status = fields.status ? fields.status.toLowerCase() : '';
-          const p = {
-            companyName: fields["companyName"] || 'N/A',
-            quotePrice: fields["quotePrice"] || 'N/A',
-            finalPrice: fields["finalPrice"] || 'N/A',
-            type: fields["projectType"] || 'N/A',
-            deliveryDate: fields["deliveryDate"] || '',
-            deliveryStatus: fields["deliveryStatus"] || '',
-            expectedDelivery: fields["timeline"] || ''
-          };
-
-          if (status === "quote received") to_do.push(p);
-          else if (status === "project in progress") active.push(p);
-          else if (status === "project delivered") done.push(p);
-          else if (status === "project declined") declined++;
-        });
-
-        renderProjects(to_do, 'todo-carousel', 'todo');
-        renderProjects(active, 'active-carousel', 'active');
-        renderProjects(done, 'done-carousel', 'done');
-        container.querySelector("#declined-count").textContent = declined;
-
-        initSwiper('.todo-swiper');
-        initSwiper('.active-swiper');
-        initSwiper('.done-swiper');
-
-      } catch (error) {
-        console.error('Fetch error:', error);
+    projectType.addEventListener('change', () => {
+      if (projectType.value === 'other') {
+        customProjectType.style.display = 'block';
+        customProjectType.setAttribute('required', 'required');
+      } else {
+        customProjectType.style.display = 'none';
+        customProjectType.removeAttribute('required');
       }
-    }
-
-    function renderProjects(projects, containerId, category) {
-      const containerEl = container.querySelector(`#${containerId}`);
-      containerEl.innerHTML = '';
-
-      if (!projects.length) {
-        containerEl.innerHTML = '<p>No projects.</p>';
-        return;
-      }
-
-      function formatDate(dateStr) {
-        if (!dateStr) return 'N/A';
-        const date = new Date(dateStr);
-        return isNaN(date) ? dateStr : date.toLocaleString('en-US', {
-          year: 'numeric', month: 'long', day: 'numeric',
-          hour: 'numeric', minute: 'numeric', hour12: true
-        });
-      }
-
-      projects.forEach(project => {
-        const slide = document.createElement('div');
-        slide.className = 'swiper-slide';
-        slide.innerHTML = `
-          <div class="card-header pb-2 border-bottom">${project.companyName} - ${project.type}</div>
-          <div class="card-content pt-2">
-            ${category === 'todo' ? `
-              <p><strong>Quote Price:</strong> $${project.quotePrice}</p>
-              <p class="text-secondary mt-2">
-                This project quote has been sent. Project will begin after a one-on-one session with our expert to finalize scope and pricing.
-                <strong>Check your email</strong> for follow-up or book a session below.
-              </p>
-              <button class="start-button">+ Book a Session</button>
-            ` : ''}
-            ${category === 'active' ? `
-              <p><strong>Expected Delivery:</strong> ${project.expectedDelivery}</p>
-              <p><strong>Delivery Status:</strong> ${project.deliveryStatus}</p>
-              <p><strong>Quote Price:</strong> $${project.quotePrice}</p>
-              <p><strong>Final Price:</strong> $${project.finalPrice || 'Pending'}</p>
-            ` : ''}
-            ${category === 'done' ? `
-              <p><strong>Final Price:</strong> $${project.finalPrice}</p>
-              <p><strong>Delivered on:</strong> ${formatDate(project.deliveryDate)}</p>
-            ` : ''}
-          </div>
-        `;
-        containerEl.appendChild(slide);
-      });
-    }
-    function initSwiper(selector) {
-      new Swiper(selector, {
-        slidesPerView: 1,
-        spaceBetween: 15,
-        navigation: {
-          nextEl: `${selector} .swiper-button-next`,
-          prevEl: `${selector} .swiper-button-prev`,
-        },
-        pagination: {
-          el: `${selector} .swiper-pagination`,
-          clickable: true,
-        },
-        grabCursor: true,
-        breakpoints: {
-          480: { slidesPerView: 1.5 },
-          768: { slidesPerView: 2.2 },
-          992: { slidesPerView: 3 },
-        }
-      });
-    }
-
-    container.querySelector('#newProjectBtn').addEventListener('click', () => {
-      window.voiceflow.chat.interact({
-        type: 'quote_form'
-      });
     });
 
-    await fetchProjects();
+    emailInput.addEventListener('input', () => {
+      const value = emailInput.value;
+      emailInput.setCustomValidity((value.includes('@') && value.includes('.') && value.includes('com')) ? '' : 'Enter a valid email with @, ., and com');
+    });
+
+    function validateStep() {
+      const activeStep = steps[currentStep];
+      const inputs = activeStep.querySelectorAll('input, select, textarea');
+      for (let input of inputs) {
+        if (!input.checkValidity()) return false;
+      }
+      return true;
+    }
+
+    function updateForm() {
+      steps.forEach((step, index) => {
+        step.classList.toggle('active', index === currentStep);
+      });
+
+      const progress = ((currentStep + 1) / steps.length) * 100;
+      progressFill.style.width = progress + '%';
+
+      prevBtn.disabled = currentStep === 0;
+      nextBtn.style.display = currentStep < steps.length - 1 ? 'inline-block' : 'none';
+      submitBtn.style.display = currentStep === steps.length - 1 ? 'inline-block' : 'none';
+
+      nextBtn.disabled = !validateStep();
+    }
+
+    form.addEventListener('input', () => {
+      nextBtn.disabled = !validateStep();
+    });
+
+    prevBtn.addEventListener('click', () => {
+      if (currentStep > 0) {
+        currentStep--;
+        updateForm();
+      }
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (validateStep() && currentStep < steps.length - 1) {
+        currentStep++;
+        updateForm();
+      }
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const data = {
+        User_ID: user_id,
+        projectType: projectType.value === 'other' ? customProjectType.value : projectType.value,
+        companyName: container.querySelector('#companyName').value,
+        email: emailInput.value,
+        phone: phoneInput.value,
+        timeline: container.querySelector('#timeline').value,
+        budget: container.querySelector('#budget').value,
+        extraDetails: container.querySelector('#extraDetails').value,
+      };
+
+      try {
+        await fetch('https://api.airtable.com/v0/appAtnhxiXYiC9Can/Projects', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer patT2ZtryQSA2JzpX.75d12024b136349527032e8fc46f45c3c79635c651891d34bd9fbe8047c85448'
+          },
+          body: JSON.stringify({ fields: data })
+        });
+
+        form.style.display = 'none';
+        successMessage.style.display = 'block';
+      } catch (error) {
+        alert('There was an error submitting the form.');
+        console.error(error);
+      }
+    });
+
+    newSubmissionBtn.addEventListener('click', () => {
+      form.reset();
+      form.style.display = 'block';
+      successMessage.style.display = 'none';
+      customProjectType.style.display = 'none';
+      currentStep = 0;
+      updateForm();
+    });
+
+    updateForm();
   }
 };
 
