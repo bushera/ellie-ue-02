@@ -113,7 +113,7 @@ document.addEventListener('userIdentified', (e) => {
 
 
 
-/**export const BookingDashboardExtension = {
+export const BookingDashboardExtension = {
   name: 'BookingDashboard',
   type: 'response',
   match: ({ trace }) =>
@@ -352,7 +352,7 @@ document.addEventListener('userIdentified', (e) => {
 
     await fetchBookings();
   }
-};**/
+};
 
 
 /**export const QuoteFormExtension = {
