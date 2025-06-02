@@ -814,46 +814,8 @@ export const QuoteFormExtension = {
       margin-top: 20px;
     }
   
-    @media (max-width: 768px) {
-      .container {
-        padding: 10px;
-      }
   
-      body {
-        font-size: 13px;
-      }
-  
-      button {
-        font-size: 14px;
-      }
-  
-      .buttons {
-        flex-direction: column;
-        align-items: stretch;
-      }
-    }
-  
-    @media (max-width: 480px) {
-      .container {
-        padding: 5px;
-      }
-  
-      body {
-        font-size: 12px;
-      }
-  
-      input, select, textarea {
-        font-size: 13px;
-      }
-  
-      .progress-label {
-        font-size: 11px;
-      }
-  
-      #successMessage h2 {
-        font-size: 14px;
-      }
-    }
+    
 </style>
 <div class="container">
     <div class="progress-bar">
