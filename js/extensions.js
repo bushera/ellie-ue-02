@@ -34,7 +34,7 @@ export const CalExtension = {
   },
 }
 
-export const bkingcancelExtension = {
+/**export const bkingcancelExtension = {
   name: 'CalCancelEmbed',
   type: 'response',
   match: ({ trace }) =>
@@ -66,9 +66,9 @@ export const bkingcancelExtension = {
 
     element.appendChild(iframe)
   },
-}
+}**/
 
-export const bkingrescheduleExtension = {
+/**export const bkingrescheduleExtension = {
   name: 'CalRescheduleEmbed',
   type: 'response',
   match: ({ trace }) =>
@@ -100,7 +100,7 @@ export const bkingrescheduleExtension = {
 
     element.appendChild(iframe)
   },
-}
+}**/
 
 
 let user_id = 'UE_000';
