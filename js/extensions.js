@@ -363,7 +363,7 @@ export const QuoteFormExtension = {
   render: async ({ element }) => {
     const container = document.createElement('div');
     container.id = 'quote-form-container';
-    container.style.width = '100%';
+    container.style.width = '240';
 
     container.innerHTML = `
  
