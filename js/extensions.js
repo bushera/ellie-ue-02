@@ -732,7 +732,7 @@ export const QuoteFormExtension = {
     #quote-form-container {
           font-family: 'Nunito', sans-serif;
           padding: 10px;
-          font-size: 10px;
+          font-size: 14px;
         }
   
     .progress-bar {
@@ -816,7 +816,7 @@ export const QuoteFormExtension = {
   
     @media (max-width: 768px) {
       .container {
-        padding: 20px;
+        padding: 10px;
       }
   
       body {
@@ -835,7 +835,7 @@ export const QuoteFormExtension = {
   
     @media (max-width: 480px) {
       .container {
-        padding: 15px;
+        padding: 5px;
       }
   
       body {
