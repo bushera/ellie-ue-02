@@ -723,8 +723,7 @@ export const QuoteFormExtension = {
 
   render: async ({ element }) => {
     // Inject scoped CSS once
-    const styleContent = `
-      <style id="quoteFormStyles">
+    `<style >
         .quote-form-container {
           font-family: 'Trebuchet MS', sans-serif;
           background: #f4f4f4;
