@@ -728,24 +728,23 @@ export const QuoteFormExtension = {
 
     container.innerHTML = `
     <style >
-        .quote-form-container {
-          font-family: 'Trebuchet MS', sans-serif;
-          background: #f4f4f4;
-          display: flex;
-          justify-content: center;
-          padding: 5px;
-          font-size: 14px;
-        }
-
-        .quote-form-wrapper {
-          background: #fff;
-          padding: 10px;
-          border-radius: 12px;
-          box-shadow: 0 0 10px rgba(0,0,0,0.1);
-          box-sizing: border-box;
-        }
-
         
+
+        .progress-bar {
+          height: 4px;
+          background: #e0e0e0;
+          border-radius: 4px;
+          overflow: hidden;
+          margin-bottom: 20px;
+        }
+
+        .progress-bar-fill {
+          height: 100%;
+          background: #000;
+          width: 0%;
+          transition: width 0.3s ease;
+        }
+
         .step { display: none; }
         .step.active { display: block; }
 
