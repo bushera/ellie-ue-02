@@ -715,7 +715,7 @@ export const BookingDashboardExtension = {
 };**/
 
 
-export const ProjectDashboardExtension = {
+export const QuoteFormExtension = {
   name: 'ProjectDashboard',
   type: 'response',
   match: ({ trace }) =>
