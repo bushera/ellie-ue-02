@@ -832,14 +832,7 @@ export const QuoteFormExtension = {
       </style>
     `;
 
-    // Apply the style using innerHTML directly to head
-    if (!document.querySelector('#quoteFormStyles')) {
-      document.head.insertAdjacentHTML('beforeend', styleContent);
-    }
 
-    // Rest of your existing code remains unchanged...
-
-    // Create container
     const container = document.createElement('div');
     container.className = 'quote-form-container';
 
