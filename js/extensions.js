@@ -771,7 +771,7 @@ export const QuoteFormExtension = {
           margin-top: 20px;
         }
 
-        button {
+        #prevBtn, #nextBtn, #submitBtn, #newSubmissionBtn {
           padding: 10px 20px;
           border: none;
           background: #3300ff;
@@ -779,6 +779,7 @@ export const QuoteFormExtension = {
           border-radius: 5px;
           cursor: pointer;
           flex: 1;
+          min-width: 120px;
         }
 
         button:disabled {
