@@ -723,10 +723,8 @@ export const QuoteFormExtension = {
 
   render: async ({ element }) => {
     // Inject scoped CSS once
-    if (!document.querySelector('#quoteFormStyles')) {
-      const style = document.createElement('style');
-      style.id = 'quoteFormStyles';
-      style.textContent = `
+    const styleContent = `
+      <style id="quoteFormStyles">
         .quote-form-container {
           font-family: 'Trebuchet MS', sans-serif;
           background: #f4f4f4;
@@ -831,9 +829,15 @@ export const QuoteFormExtension = {
           .progress-label { font-size: 11px; }
           #successMessage h2 { font-size: 14px; }
         }
-      `;
-      document.head.appendChild(style);
+      </style>
+    `;
+
+    // Apply the style using innerHTML directly to head
+    if (!document.querySelector('#quoteFormStyles')) {
+      document.head.insertAdjacentHTML('beforeend', styleContent);
     }
+
+    // Rest of your existing code remains unchanged...
 
     // Create container
     const container = document.createElement('div');
