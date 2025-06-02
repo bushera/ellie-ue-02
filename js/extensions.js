@@ -793,16 +793,7 @@ export const QuoteFormExtension = {
           color: #666;
         }
 
-        input, select, textarea {
-          width: 100%;
-          padding: 10px;
-          margin-top: 8px;
-          margin-bottom: 16px;
-          border: 1px solid #ccc;
-          border-radius: 5px;
-          box-sizing: border-box;
-          font-size: 14px;
-        }
+        
 
         #successMessage {
           display: none;
