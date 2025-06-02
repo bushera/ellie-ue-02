@@ -13,7 +13,7 @@ let userId = 'UE_000';  // Default value for userId
     console.log('[voiceflow.js] Received userIdentified event with userId:', userId);
 
     window.voiceflow.chat.load({
-      verify: { projectID: '682f26d7aa23f0e528713386' },
+      verify: { projectID: '683d791a0cdebc32467c4dc1' },
       url: 'https://general-runtime.voiceflow.com',
       versionID: 'production',
       userID: userId,
@@ -34,7 +34,7 @@ let userId = 'UE_000';  // Default value for userId
     }).then(() => {
       if (window.location.href.includes('https://elliepod.netlify.app/')) {
         window.voiceflow.chat.proactive.clear();
-        setTimer(1000, 'Ellie taking over the conversation right now !.......', 300);
+        setTimer(2000, 'Ellie taking over the conversation right now !.......', 800);
       }
     });
 
