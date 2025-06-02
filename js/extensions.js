@@ -716,7 +716,7 @@ export const BookingDashboardExtension = {
 };**/
 
 
-export const QuoteFormExtension = {
+/**export const QuoteFormExtension = {
   name: 'QuoteForm',
   type: 'response',
   match: ({ trace }) =>
@@ -1004,8 +1004,12 @@ export const QuoteFormExtension = {
 
       container.style.display = 'none';
 
+      window.voiceflow.chat.interact({
+              type: 'projctCreated',
+              payload: {projectType: data.projectType, companyName: data.companyName, timeline: data.timeline, budget:data.budget},
+             
+            });
 
-      
 
       try {
         await fetch('https://api.airtable.com/v0/appAtnhxiXYiC9Can/Projects', {
@@ -1033,7 +1037,7 @@ export const QuoteFormExtension = {
 
     updateForm();
   }
-};
+};**/
 
 
 
