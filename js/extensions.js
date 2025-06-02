@@ -354,7 +354,7 @@ export const BookingDashboardExtension = {
 };
 
 
-export const QuoteFormExtension = {
+/**export const QuoteFormExtension = {
   name: 'QuoteForm',
   type: 'response',
   match: ({ trace }) =>
@@ -712,9 +712,364 @@ export const QuoteFormExtension = {
 
     updateForm();
   }
+};**/
+
+
+export const ProjectDashboardExtension = {
+  name: 'ProjectDashboard',
+  type: 'response',
+  match: ({ trace }) =>
+    trace.type === 'quote_form' || trace.payload?.name === 'quote_form',
+
+  render: async ({ element }) => {
+    const container = document.createElement('div');
+    container.id = 'project-dashboard';
+
+    container.innerHTML = `
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+  
+<style>
+    body {
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      padding: 5px;
+      font-size: 14px;
+    }
+  
+    .container {
+      width: 100%;
+      max-width: 450px;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-sizing: border-box;
+    }
+  
+    .progress-bar {
+      height: 4px;
+      background: #e0e0e0;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+  
+    .progress-bar-fill {
+      height: 100%;
+      background: #000000;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+  
+    .step {
+      display: none;
+    }
+  
+    .step.active {
+      display: block;
+    }
+  
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+  
+    button {
+      padding: 10px 20px;
+      border: none;
+      background: #3300ff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      flex: 1;
+      min-width: 120px;
+    }
+  
+    button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+  
+    .progress-label {
+      text-align: right;
+      font-size: 12px;
+      color: #666;
+    }
+  
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      margin-bottom: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+  
+    #successMessage {
+      display: none;
+      text-align: center;
+    }
+  
+    #successMessage h2 {
+      color: #151515;
+      font-size: 16px;
+    }
+  
+    #newSubmissionBtn {
+      width: 90%;
+      margin-top: 20px;
+    }
+  
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+      }
+  
+      body {
+        font-size: 13px;
+      }
+  
+      button {
+        font-size: 14px;
+      }
+  
+      .buttons {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+  
+    @media (max-width: 480px) {
+      .container {
+        padding: 15px;
+      }
+  
+      body {
+        font-size: 12px;
+      }
+  
+      input, select, textarea {
+        font-size: 13px;
+      }
+  
+      .progress-label {
+        font-size: 11px;
+      }
+  
+      #successMessage h2 {
+        font-size: 14px;
+      }
+    }
+</style>
+
+      <div class="container-fluid py-4 mychat">
+        <div class="container">
+
+          <div class="row section-container border-start border-primary border-5 ps-3 bg-white rounded shadow-sm">
+            <div class="col-12">
+              <h2 class="h4 h2-md mt-5 mb-4 mb-3 text-primary">Projects To Do</h2>
+              <div class="swiper todo-swiper">
+                <div class="swiper-wrapper" id="todo-carousel"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-pagination"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row section-container border-start border-warning border-5 ps-3 bg-white rounded shadow-sm">
+            <div class="col-12">
+              <h2 class="h4 h2-md mt-5 mb-4 text-warning">Active Projects</h2>
+              <div class="swiper active-swiper">
+                <div class="swiper-wrapper" id="active-carousel"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-pagination"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row section-container border-start border-success border-5 ps-3 bg-white rounded shadow-sm">
+            <div class="col-12">
+              <h2 class="h4 h2-md mt-5 mb-4 text-success">Projects Done</h2>
+              <div class="swiper done-swiper">
+                <div class="swiper-wrapper" id="done-carousel"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-pagination"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row section-container border-start border-danger border-5 ps-3 bg-white rounded shadow-sm">
+            <div class="col-12">
+              <h2 class="h4 h2-md mt-5 mb-4 text-danger">Declined Projects</h2>
+              <div class="card bg-light border border-danger p-3 decline-swiper">
+                <p class="mb-0"><strong>Declined Projects:</strong> <span id="declined-count">0</span></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <button class="btn btn-success btn-lg w-100 w-md-auto" id="newProjectBtn">+ New Project</button>
+          </div>
+        </div>
+      </div>
+
+      <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    `;
+
+    element.appendChild(container);
+
+    const currentUser = 'UE-User-4xdcsewob';
+    const AIRTABLE_API_KEY = 'patT2ZtryQSA2JzpX.75d12024b136349527032e8fc46f45c3c79635c651891d34bd9fbe8047c85448';
+    const AIRTABLE_BASE_ID = 'appAtnhxiXYiC9Can';
+    const AIRTABLE_TABLE_NAME = 'Projects';
+
+    async function fetchProjects() {
+      const urlBase = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_TABLE_NAME)}`;
+      const headers = {
+        'Authorization': `Bearer ${AIRTABLE_API_KEY}`,
+        'Content-Type': 'application/json',
+      };
+
+      let allRecords = [];
+      let offset = null;
+
+      try {
+        do {
+          const filter = `filterByFormula=({User_ID}='${currentUser}')`;
+          const url = offset
+            ? `${urlBase}?${filter}&offset=${offset}`
+            : `${urlBase}?${filter}`;
+
+          const response = await fetch(url, { headers });
+          const data = await response.json();
+          if (!response.ok) return;
+
+          allRecords = allRecords.concat(data.records);
+          offset = data.offset;
+        } while (offset);
+
+        const to_do = [], active = [], done = [];
+        let declined = 0;
+
+        allRecords.forEach(record => {
+          const fields = record.fields;
+          const status = fields.status ? fields.status.toLowerCase() : '';
+          const p = {
+            companyName: fields["companyName"] || 'N/A',
+            quotePrice: fields["quotePrice"] || 'N/A',
+            finalPrice: fields["finalPrice"] || 'N/A',
+            type: fields["projectType"] || 'N/A',
+            deliveryDate: fields["deliveryDate"] || '',
+            deliveryStatus: fields["deliveryStatus"] || '',
+            expectedDelivery: fields["timeline"] || ''
+          };
+
+          if (status === "quote received") to_do.push(p);
+          else if (status === "project in progress") active.push(p);
+          else if (status === "project delivered") done.push(p);
+          else if (status === "project declined") declined++;
+        });
+
+        renderProjects(to_do, 'todo-carousel', 'todo');
+        renderProjects(active, 'active-carousel', 'active');
+        renderProjects(done, 'done-carousel', 'done');
+        container.querySelector("#declined-count").textContent = declined;
+
+        initSwiper('.todo-swiper');
+        initSwiper('.active-swiper');
+        initSwiper('.done-swiper');
+
+      } catch (error) {
+        console.error('Fetch error:', error);
+      }
+    }
+
+    function renderProjects(projects, containerId, category) {
+      const containerEl = container.querySelector(`#${containerId}`);
+      containerEl.innerHTML = '';
+
+      if (!projects.length) {
+        containerEl.innerHTML = '<p>No projects.</p>';
+        return;
+      }
+
+      function formatDate(dateStr) {
+        if (!dateStr) return 'N/A';
+        const date = new Date(dateStr);
+        return isNaN(date) ? dateStr : date.toLocaleString('en-US', {
+          year: 'numeric', month: 'long', day: 'numeric',
+          hour: 'numeric', minute: 'numeric', hour12: true
+        });
+      }
+
+      projects.forEach(project => {
+        const slide = document.createElement('div');
+        slide.className = 'swiper-slide';
+        slide.innerHTML = `
+          <div class="card-header pb-2 border-bottom">${project.companyName} - ${project.type}</div>
+          <div class="card-content pt-2">
+            ${category === 'todo' ? `
+              <p><strong>Quote Price:</strong> $${project.quotePrice}</p>
+              <p class="text-secondary mt-2">
+                This project quote has been sent. Project will begin after a one-on-one session with our expert to finalize scope and pricing.
+                <strong>Check your email</strong> for follow-up or book a session below.
+              </p>
+              <button class="start-button">+ Book a Session</button>
+            ` : ''}
+            ${category === 'active' ? `
+              <p><strong>Expected Delivery:</strong> ${project.expectedDelivery}</p>
+              <p><strong>Delivery Status:</strong> ${project.deliveryStatus}</p>
+              <p><strong>Quote Price:</strong> $${project.quotePrice}</p>
+              <p><strong>Final Price:</strong> $${project.finalPrice || 'Pending'}</p>
+            ` : ''}
+            ${category === 'done' ? `
+              <p><strong>Final Price:</strong> $${project.finalPrice}</p>
+              <p><strong>Delivered on:</strong> ${formatDate(project.deliveryDate)}</p>
+            ` : ''}
+          </div>
+        `;
+        containerEl.appendChild(slide);
+      });
+    }
+    function initSwiper(selector) {
+      new Swiper(selector, {
+        slidesPerView: 1,
+        spaceBetween: 15,
+        navigation: {
+          nextEl: `${selector} .swiper-button-next`,
+          prevEl: `${selector} .swiper-button-prev`,
+        },
+        pagination: {
+          el: `${selector} .swiper-pagination`,
+          clickable: true,
+        },
+        grabCursor: true,
+        breakpoints: {
+          480: { slidesPerView: 1.5 },
+          768: { slidesPerView: 2.2 },
+          992: { slidesPerView: 3 },
+        }
+      });
+    }
+
+    container.querySelector('#newProjectBtn').addEventListener('click', () => {
+      window.voiceflow.chat.interact({
+        type: 'quote_form'
+      });
+    });
+
+    await fetchProjects();
+  }
 };
-
-
-
 
 
