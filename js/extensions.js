@@ -793,7 +793,9 @@ export const QuoteFormExtension = {
           color: #666;
         }
 
-        input, select, textarea {
+        #quoteForm input,
+        #quoteForm select,
+        #quoteForm textarea{
           width: 100%;
           padding: 10px;
           margin-top: 8px;
