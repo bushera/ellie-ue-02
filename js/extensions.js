@@ -804,12 +804,12 @@ await new Promise((resolve, reject) => {
       .btn {
         padding: 10px 16px;
         border-radius: 6px;
-        font-size: .65rem;
+        font-size: .85rem;
         cursor: pointer;
         border: none;
         transition: background 0.3s ease;
         margin-top: 10px;
-        width: 90%;
+        width: 100%;
       }
 
       .btn-primary {
@@ -843,7 +843,7 @@ await new Promise((resolve, reject) => {
       @media (max-width: 480px) {
         .btn {
           width: 100%;
-          font-size: 0.75rem;
+          font-size: 0.85rem;
         }
       }
   </style>
@@ -956,6 +956,17 @@ await new Promise((resolve, reject) => {
             container.style.display = 'none';
             window.voiceflow.chat.interact({
               type: 'newProjct'
+            });
+          });
+        }
+
+
+        const newBking = container.querySelector('.start-button');
+        if (newBking) {
+          newBking.addEventListener('click', () => {
+            container.style.display = 'none';
+            window.voiceflow.chat.interact({
+              type: 'newBking'
             });
           });
         }
