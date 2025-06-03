@@ -751,7 +751,7 @@ await new Promise((resolve, reject) => {
       .section-container.danger { border-color: #dc3545; }
 
       h2 {
-        font-size: 1.3rem;
+        font-size: 1rem;
         margin-bottom: 15px;
       }
 
