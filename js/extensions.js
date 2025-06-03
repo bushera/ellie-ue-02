@@ -695,6 +695,7 @@ export const ProjectDashboardExtension = {
     body {
       font-family: Arial, sans-serif;
       background: #f5f5f5;
+      font-size: 10px;
     }
 
     .swiper-slide {
