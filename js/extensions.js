@@ -1,5 +1,3 @@
-import { use } from "react"
-
 
 export const CalExtension = {
   name: 'CalEmbed',
