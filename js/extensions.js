@@ -721,106 +721,99 @@ await new Promise((resolve, reject) => {
 
     container.innerHTML = `
       <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-      font-size: 10px;
-    }
+    { box-sizing: border-box; }
 
-    .swiper-slide {
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      box-sizing: border-box;
-      height: 100%;
-    }
-
-    .card-header {
-      font-weight: bold;
-      margin-bottom: 12px;
-      font-size: 1.1rem;
-      color: #222;
-    }
-
-    .card-content p {
-      margin: 6px 0;
-      color: #444;
-      font-size: 0.95rem;
-    }
-
-    .start-button {
-      background-color: #007bff;
-      color: white;
-      border: none;
-      padding: 10px 14px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 1rem;
-      margin-top: 15px;
-      align-self: flex-start;
-      transition: background-color 0.3s ease;
-    }
-
-    .start-button:hover {
-      background-color: #0056b3;
-    }
-
-    .swiper-button-next,
-    .swiper-button-prev {
-      color: #007bff;
-      top: 40%;
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.7);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      z-index: 10;
-      display: none;
-    }
-
-    .swiper-button-next:hover,
-    .swiper-button-prev:hover {
-      background-color: #e0e0e0;
-      color: #0056b3;
-    }
-
-    @media (max-width: 480px) {
-      .start-button {
-        width: 90%;
-        padding: 10px 12px;
-        font-size: 1rem;
+      body {
+        font-family: Arial, sans-serif;
+        background: #f5f5f5;
+        font-size: 10px;
+        margin: 0;
+        padding: 0;
       }
-    }
 
-    .section-container {
-      margin-top: 1rem;
-      margin-bottom: 3%; /* Changed from fixed to 5% as requested */
-    }
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 2rem auto;
+      }
 
-    .todo-swiper{
-      margin-bottom: 2%;
-    }
+      .section-container {
+        background: #fff;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 2rem;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        border-left: 5px solid #007bff;
+      }
 
-    .active-swiper{
-      margin-bottom: 2%;
-    }
+      .section-container.warning { border-color: #ffc107; }
+      .section-container.success { border-color: #28a745; }
+      .section-container.danger { border-color: #dc3545; }
 
+      h2 {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+      }
 
-    .done-swiper{
-      margin-bottom: 2%;
-    }
+      .swiper-slide {
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+      }
 
+      .card-header {
+        font-weight: bold;
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+        color: #222;
+      }
 
-    .decline-swiper{
-      margin-bottom: 2%;
-    }
+      .card-content p {
+        margin: 5px 0;
+        font-size: 0.95rem;
+        color: #444;
+      }
 
+      .btn {
+        padding: 10px 16px;
+        border-radius: 4px;
+        font-size: 1rem;
+        cursor: pointer;
+        border: none;
+        transition: background 0.3s ease;
+        margin-top: 10px;
+      }
 
- 
+      .btn-primary { background: #007bff; color: #fff; }
+      .btn-primary:hover { background: #0056b3; }
+
+      .btn-success { background: #28a745; color: #fff; }
+      .btn-success:hover { background: #218838; }
+
+      .text-center { text-align: center; }
+
+      .swiper-button-next,
+      .swiper-button-prev {
+        color: #007bff;
+        top: 40%;
+        width: 40px;
+        height: 40px;
+        background: rgba(255,255,255,0.8);
+        border-radius: 50%;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      }
+
+      @media (max-width: 480px) {
+        .btn {
+          width: 100%;
+          font-size: 0.95rem;
+        }
+      }
   </style>
       <div class="container-fluid py-4 mychat">
         <div class="container">
