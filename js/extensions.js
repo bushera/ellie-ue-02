@@ -729,7 +729,7 @@ export const ProjectDashboardExtension = {
 
 
     // 3. Then set up your custom <style> block and the HTML structure
-    container.innerHTML += `
+    container.innerHTML = `
       <style>
     body {
       font-family: Arial, sans-serif;
@@ -808,7 +808,7 @@ export const ProjectDashboardExtension = {
 
     .section-container {
       margin-top: 1rem;
-      margin-bottom: 2%; /* Changed from fixed to 5% as requested */
+      margin-bottom: 3%; /* Changed from fixed to 5% as requested */
     }
 
     .todo-swiper{
