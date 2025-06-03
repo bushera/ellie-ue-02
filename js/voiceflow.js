@@ -10,9 +10,9 @@ let userId = 'UE_000';  // Default value for userId
   document.addEventListener('userIdentified', (e) => {
     const userId = e.detail.userId || 'UE_000';
     console.log('[voiceflow.js] Received userIdentified event with userId:', userId);
-
+    v.onload = function() {
     window.voiceflow.chat.load({
-      verify: { projectID: '683d791a0cdebc32467c4dc1' },
+      verify: { projectID: '683d791adebc0c32467c4dc1' },
       url: 'https://general-runtime.voiceflow.com',
       versionID: 'production',
       userID: userId,
@@ -52,7 +52,7 @@ let userId = 'UE_000';  // Default value for userId
           window.voiceflow.chat.open();
         }, finalDelay);
       }, initialDelay);
-    }
+    }}
   });
 
   v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
