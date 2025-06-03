@@ -734,14 +734,14 @@ await new Promise((resolve, reject) => {
       .container {
         width: 90%;
         max-width: 1200px;
-        margin: 2rem auto;
+        margin: 1rem auto;
       }
 
       .section-container-primary {
         background: #fff;
         border-radius: 8px;
         padding: 20px;
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
         box-shadow: 0 0 10px rgba(0,0,0,0.1);
         border-left: 3px solid #007bff;
       }
@@ -750,7 +750,7 @@ await new Promise((resolve, reject) => {
         background: #fff;
         border-radius: 8px;
         padding: 20px;
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
         box-shadow: 0 0 10px rgba(0,0,0,0.1);
         border-left: 3px solid #ffc107; }
 
@@ -758,7 +758,7 @@ await new Promise((resolve, reject) => {
         background: #fff;
         border-radius: 8px;
         padding: 20px;
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
         box-shadow: 0 0 10px rgba(0,0,0,0.1);
         border-left: 3px solid #28a745; }
 
@@ -766,12 +766,12 @@ await new Promise((resolve, reject) => {
         background: #fff;
         border-radius: 8px;
         padding: 20px;
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
         box-shadow: 0 0 10px rgba(0,0,0,0.1);
         border-left: 3px solid #dc3545; }
 
       h2 {
-        font-size: 1rem;
+        font-size: .65rem;
         margin-bottom: 15px;
       }
 
@@ -785,25 +785,26 @@ await new Promise((resolve, reject) => {
         justify-content: space-between;
         height: 100%;
         margin-right: 15px;
+        margin-bottom: 12px;
       }
 
       .card-header {
         font-weight: bold;
-        font-size: 1.1rem;
+        font-size: .5rem;
         margin-bottom: 10px;
         color: #222;
       }
 
       .card-content p {
         margin: 5px 0;
-        font-size: 0.95rem;
+        font-size: 0.35rem;
         color: #444;
       }
 
       .btn {
         padding: 10px 16px;
         border-radius: 6px;
-        font-size: 1rem;
+        font-size: .35rem;
         cursor: pointer;
         border: none;
         transition: background 0.3s ease;
@@ -842,7 +843,7 @@ await new Promise((resolve, reject) => {
       @media (max-width: 480px) {
         .btn {
           width: 100%;
-          font-size: 0.95rem;
+          font-size: 0.35rem;
         }
       }
   </style>
