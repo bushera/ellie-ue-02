@@ -723,7 +723,7 @@ await new Promise((resolve, reject) => {
       <style>
     { box-sizing: border-box; }
 
-      body {
+       body {
         font-family: Arial, sans-serif;
         background: #f5f5f5;
         font-size: 10px;
@@ -764,6 +764,7 @@ await new Promise((resolve, reject) => {
         flex-direction: column;
         justify-content: space-between;
         height: 100%;
+        margin-right: 15px;
       }
 
       .card-header {
@@ -781,31 +782,41 @@ await new Promise((resolve, reject) => {
 
       .btn {
         padding: 10px 16px;
-        border-radius: 4px;
+        border-radius: 6px;
         font-size: 1rem;
         cursor: pointer;
         border: none;
         transition: background 0.3s ease;
         margin-top: 10px;
+        width: 90%;
       }
 
-      .btn-primary { background: #007bff; color: #fff; }
-      .btn-primary:hover { background: #0056b3; }
+      .btn-primary {
+        background: #007bff;
+        color: #fff;
+      }
 
-      .btn-success { background: #28a745; color: #fff; }
-      .btn-success:hover { background: #218838; }
+      .btn-primary:hover {
+        background: #0056b3;
+      }
 
-      .text-center { text-align: center; }
+      .btn-success {
+        background: #28a745;
+        color: #fff;
+      }
+
+      .btn-success:hover {
+        background: #218838;
+      }
+
+      .text-center {
+        text-align: center;
+      }
 
       .swiper-button-next,
-      .swiper-button-prev {
-        color: #007bff;
-        top: 40%;
-        width: 40px;
-        height: 40px;
-        background: rgba(255,255,255,0.8);
-        border-radius: 50%;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      .swiper-button-prev,
+      .swiper-pagination {
+        display: none;
       }
 
       @media (max-width: 480px) {
