@@ -737,7 +737,7 @@ await new Promise((resolve, reject) => {
         margin: 2rem auto;
       }
 
-      .section-container {
+      .section-container-primary {
         background: #fff;
         border-radius: 8px;
         padding: 20px;
@@ -746,9 +746,29 @@ await new Promise((resolve, reject) => {
         border-left: 3px solid #007bff;
       }
 
-      .section-container.warning { border-left: 3px solid #ffc107; }
-      .section-container.success { border-left: 3px solid #28a745; }
-      .section-container.danger { border-left: 3px solid #dc3545; }
+      .section-container-warning { 
+        background: #fff;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 2rem;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        border-left: 3px solid #ffc107; }
+
+      .section-container-success { 
+        background: #fff;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 2rem;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        border-left: 3px solid #28a745; }
+
+      .section-container-danger { 
+        background: #fff;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 2rem;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        border-left: 3px solid #dc3545; }
 
       h2 {
         font-size: 1rem;
@@ -829,7 +849,7 @@ await new Promise((resolve, reject) => {
       <div class="container-fluid py-4 mychat">
         <div class="container">
           <!-- To Do -->
-          <div class="row section-container border-start border-primary border-5 ps-3 bg-white rounded shadow-sm">
+          <div class="row section-container-primary border-start border-primary border-5 ps-3 bg-white rounded shadow-sm">
             <div class="col-12">
               <h2 class="h4 h2-md mt-5 mb-4 mb-3 text-primary">Projects To Do</h2>
               <div class="swiper todo-swiper">
@@ -842,7 +862,7 @@ await new Promise((resolve, reject) => {
           </div>
 
           <!-- Active -->
-          <div class="row section-container border-start border-warning border-5 ps-3 bg-white rounded shadow-sm">
+          <div class="row section-container-warning border-start border-warning border-5 ps-3 bg-white rounded shadow-sm">
             <div class="col-12">
               <h2 class="h4 h2-md mt-5 mb-4 text-warning">Active Projects</h2>
               <div class="swiper active-swiper">
@@ -855,7 +875,7 @@ await new Promise((resolve, reject) => {
           </div>
 
           <!-- Done -->
-          <div class="row section-container border-start border-success border-5 ps-3 bg-white rounded shadow-sm">
+          <div class="row section-container-success border-start border-success border-5 ps-3 bg-white rounded shadow-sm">
             <div class="col-12">
               <h2 class="h4 h2-md mt-5 mb-4 text-success">Projects Done</h2>
               <div class="swiper done-swiper">
@@ -868,7 +888,7 @@ await new Promise((resolve, reject) => {
           </div>
 
           <!-- Declined -->
-          <div class="row section-container border-start border-danger border-5 ps-3 bg-white rounded shadow-sm">
+          <div class="row section-container-danger border-start border-danger border-5 ps-3 bg-white rounded shadow-sm">
             <div class="col-12">
               <h2 class="h4 h2-md mt-5 mb-4 text-danger">Declined Projects</h2>
               <div class="card bg-light border border-danger p-3 decline-swiper">
@@ -974,7 +994,7 @@ await new Promise((resolve, reject) => {
                 This project quote has been sent. Project will begin after a one-on-one session with our expert to finalize scope and pricing.
                 <strong>Check your email</strong> for follow-up or book a session below.
               </p>
-              <button class="start-button">+ Book a Session</button>
+              <button class="start-button btn btn-primary">+ Book a Session</button>
             ` : ''}
             ${category === 'active' ? `
               <p><strong>Expected Delivery:</strong> ${project.expectedDelivery}</p>
