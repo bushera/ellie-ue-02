@@ -884,7 +884,7 @@ export const ProjectDashboardExtension = {
       </div>
 
       <div class="text-center">
-        <button class="btn btn-success btn-lg w-100 w-md-auto" id ="newProjectBtn" onclick="handleNewProject()">+ New Project</button>
+        <button class="btn btn-success btn-lg w-100 w-md-auto" id ="newProjectBtn">+ New Project</button>
       </div>
     </div>
   </div>
@@ -1030,10 +1030,13 @@ export const ProjectDashboardExtension = {
     }
 
     container.querySelector('#newProjectBtn').addEventListener('click', () => {
-      container.style.display = 'none';
+      
       window.voiceflow.chat.interact({
         type: 'quote_form'
       });
+
+      container.style.display = 'none';
+
     });
 
    
