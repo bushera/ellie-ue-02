@@ -729,7 +729,7 @@ export const ProjectDashboardExtension = {
 
 
     // 3. Then set up your custom <style> block and the HTML structure
-    container.innerHTML = `
+    container.innerHTML += `
       <style>
     body {
       font-family: Arial, sans-serif;
