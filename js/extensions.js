@@ -768,25 +768,25 @@ export const ProjectDashboardExtension = {
 
     .section-container {
       margin-top: 1rem;
-      margin-bottom: 3%; /* Changed from fixed to 5% as requested */
+      margin-bottom: 2%; /* Changed from fixed to 5% as requested */
     }
 
     .todo-swiper{
-      margin-bottom: 5%;
+      margin-bottom: 2%;
     }
 
     .active-swiper{
-      margin-bottom: 5%;
+      margin-bottom: 2%;
     }
 
 
     .done-swiper{
-      margin-bottom: 5%;
+      margin-bottom: 2%;
     }
 
 
     .decline-swiper{
-      margin-bottom: 5%;
+      margin-bottom: 2%;
     }
 
 
