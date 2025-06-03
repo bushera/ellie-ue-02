@@ -901,7 +901,7 @@ export const ProjectDashboardExtension = {
     const AIRTABLE_TABLE_NAME = 'Projects';
 
     async function fetchProjects() {
-      const urlBase = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${AIRTABLE_TABLE_NAME}?filterByFormula={User_ID}='${currentUser}`;
+      const urlBase = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${AIRTABLE_TABLE_NAME}?filterByFormula={User_ID}='${currentUser}'`;
       const headers = {
         'Authorization': `Bearer ${AIRTABLE_API_KEY}`,
         'Content-Type': 'application/json',
