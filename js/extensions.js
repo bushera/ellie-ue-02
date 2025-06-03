@@ -743,12 +743,12 @@ await new Promise((resolve, reject) => {
         padding: 20px;
         margin-bottom: 2rem;
         box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        border-left: 5px solid #007bff;
+        border-left: 3px solid #007bff;
       }
 
-      .section-container.warning { border-color: #ffc107; }
-      .section-container.success { border-color: #28a745; }
-      .section-container.danger { border-color: #dc3545; }
+      .section-container.warning { border-left: 3px solid #ffc107; }
+      .section-container.success { border-left: 3px solid #28a745; }
+      .section-container.danger { border-left: 3px solid #dc3545; }
 
       h2 {
         font-size: 1rem;
