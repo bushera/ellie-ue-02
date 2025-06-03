@@ -688,37 +688,7 @@ export const ProjectDashboardExtension = {
     const container = document.createElement('div');
     container.id = 'project-dashboard';
 
-    // Add Bootstrap and Swiper styles correctly
-const bootstrapLink = document.createElement('link');
-bootstrapLink.rel = 'stylesheet';
-bootstrapLink.href = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css';
-document.head.appendChild(bootstrapLink);
-
-const swiperLink = document.createElement('link');
-swiperLink.rel = 'stylesheet';
-swiperLink.href = 'https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css';
-document.head.appendChild(swiperLink);
-
-// Load Bootstrap JS properly
-await new Promise((resolve, reject) => {
-  const script = document.createElement('script');
-  script.src = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js';
-  script.onload = resolve;
-  script.onerror = reject;
-  document.body.appendChild(script);
-});
-
-// Load Swiper JS properly
-await new Promise((resolve, reject) => {
-  const script02 = document.createElement('script');
-  script02.src = 'https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js';
-  script02.onload = resolve;
-  script02.onerror = reject;
-  document.body.appendChild(script02);
-});
- 
-
-
+  
     container.innerHTML = `
       <style>
     { box-sizing: border-box; }
@@ -907,6 +877,40 @@ await new Promise((resolve, reject) => {
     `;
 
     element.appendChild(container);
+
+
+
+    // Add Bootstrap and Swiper styles correctly
+const bootstrapLink = document.createElement('link');
+bootstrapLink.rel = 'stylesheet';
+bootstrapLink.href = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css';
+document.head.appendChild(bootstrapLink);
+
+const swiperLink = document.createElement('link');
+swiperLink.rel = 'stylesheet';
+swiperLink.href = 'https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css';
+document.head.appendChild(swiperLink);
+
+// Load Bootstrap JS properly
+await new Promise((resolve, reject) => {
+  const script = document.createElement('script');
+  script.src = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js';
+  script.onload = resolve;
+  script.onerror = reject;
+  document.body.appendChild(script);
+});
+
+// Load Swiper JS properly
+await new Promise((resolve, reject) => {
+  const script02 = document.createElement('script');
+  script02.src = 'https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js';
+  script02.onload = resolve;
+  script02.onerror = reject;
+  document.body.appendChild(script02);
+});
+ 
+
+
 
   
 
