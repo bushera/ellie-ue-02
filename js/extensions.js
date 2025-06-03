@@ -771,7 +771,7 @@ await new Promise((resolve, reject) => {
         border-left: 3px solid #dc3545; }
 
       h2 {
-        font-size: .65rem;
+        font-size: .95rem;
         margin-bottom: 15px;
       }
 
@@ -790,21 +790,21 @@ await new Promise((resolve, reject) => {
 
       .card-header {
         font-weight: bold;
-        font-size: .5rem;
+        font-size: .75rem;
         margin-bottom: 10px;
         color: #222;
       }
 
       .card-content p {
         margin: 5px 0;
-        font-size: 0.35rem;
+        font-size: 0.65rem;
         color: #444;
       }
 
       .btn {
         padding: 10px 16px;
         border-radius: 6px;
-        font-size: .35rem;
+        font-size: .65rem;
         cursor: pointer;
         border: none;
         transition: background 0.3s ease;
@@ -843,7 +843,7 @@ await new Promise((resolve, reject) => {
       @media (max-width: 480px) {
         .btn {
           width: 100%;
-          font-size: 0.35rem;
+          font-size: 0.75rem;
         }
       }
   </style>
