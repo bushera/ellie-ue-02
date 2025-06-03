@@ -688,47 +688,37 @@ export const ProjectDashboardExtension = {
     const container = document.createElement('div');
     container.id = 'project-dashboard';
 
-       // 1. Fetch and inject Bootstrap CSS
-    await fetch('https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css')
-      .then((response) => response.text())
-      .then((css) => {
-        const style = document.createElement('style');
-        style.textContent = css;
-        container.appendChild(style);
-      })
-      .catch((err) => console.error('Error loading Bootstrap CSS:', err));
+    // Add Bootstrap and Swiper styles correctly
+const bootstrapLink = document.createElement('link');
+bootstrapLink.rel = 'stylesheet';
+bootstrapLink.href = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css';
+document.head.appendChild(bootstrapLink);
 
-    // 2. Fetch and inject Swiper CSS
-    await fetch('https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css')
-      .then((response) => response.text())
-      .then((css) => {
-        const style = document.createElement('style');
-        style.textContent = css;
-        container.appendChild(style);
-      })
-      .catch((err) => console.error('Error loading Swiper CSS:', err));
+const swiperLink = document.createElement('link');
+swiperLink.rel = 'stylesheet';
+swiperLink.href = 'https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css';
+document.head.appendChild(swiperLink);
 
+// Load Bootstrap JS properly
+await new Promise((resolve, reject) => {
+  const script = document.createElement('script');
+  script.src = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js';
+  script.onload = resolve;
+  script.onerror = reject;
+  document.body.appendChild(script);
+});
 
-
-    const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js';
-    script.type = 'text/javascript';
-    document.body.appendChild(script);
-
-
-
-    const script02 = document.createElement('script');
-    script02.src = 'https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js';
-    script02.type = 'text/javascript';
-    document.body.appendChild(script02);
+// Load Swiper JS properly
+await new Promise((resolve, reject) => {
+  const script02 = document.createElement('script');
+  script02.src = 'https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js';
+  script02.onload = resolve;
+  script02.onerror = reject;
+  document.body.appendChild(script02);
+});
+ 
 
 
-
-
-    
-
-
-    // 3. Then set up your custom <style> block and the HTML structure
     container.innerHTML = `
       <style>
     body {
