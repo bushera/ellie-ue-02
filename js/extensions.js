@@ -689,7 +689,7 @@ export const ProjectDashboardExtension = {
     container.id = 'project-dashboard';
 
     // Add Bootstrap and Swiper styles correctly
-const bootstrapLink = document.createElement('link');
+/**const bootstrapLink = document.createElement('link');
 bootstrapLink.rel = 'stylesheet';
 bootstrapLink.href = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css';
 document.head.appendChild(bootstrapLink);
@@ -715,7 +715,7 @@ await new Promise((resolve, reject) => {
   script02.onload = resolve;
   script02.onerror = reject;
   document.body.appendChild(script02);
-});
+});**/
  
 
 
