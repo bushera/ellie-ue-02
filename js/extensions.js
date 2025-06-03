@@ -846,7 +846,7 @@ export const ProjectDashboardExtension = {
 
           <!-- New Project Button -->
           <div class="text-center">
-            <button class="btn btn-success btn-lg w-100 w-md-auto" id="newProjectBtn">+ New Project</button>
+            <button class="newProjectBtn btn btn-success btn-lg w-100 w-md-auto" id="newProjectBtn">+ New Project</button>
           </div>
         </div>
       </div>
@@ -905,6 +905,18 @@ export const ProjectDashboardExtension = {
         initSwiper('.todo-swiper');
         initSwiper('.active-swiper');
         initSwiper('.done-swiper');
+
+
+
+        const newProject = container.querySelector('.newProjectBtn');
+        if (newProject) {
+          bookAnotherBtn.addEventListener('click', () => {
+            container.style.display = 'none';
+            window.voiceflow.chat.interact({
+              type: 'quote_form'
+            });
+          });
+        }
 
       } catch (error) {
         console.error('Fetch error:', error);
@@ -979,11 +991,6 @@ export const ProjectDashboardExtension = {
         }
       });
     }
-
-    container.querySelector('#newProjectBtn').addEventListener('click', () => {
-      window.voiceflow.chat.interact({ type: 'quote_form' });
-      container.style.display = 'none';
-    });
 
     await fetchProjects();
   }
