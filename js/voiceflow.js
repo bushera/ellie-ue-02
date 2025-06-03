@@ -3,17 +3,17 @@ import { CalExtension, bkingrescheduleExtension, BookingDashboardExtension} from
 let userId = 'UE_000';  // Default value for userId
 
 
-document.addEventListener('userIdentified', (e) => {
-    const userId = e.detail.userId || 'UE_000';
-    console.log('[voiceflow.js] Received userIdentified event with userId:', userId);});
-
-
 (function(d, t) {
   const v = d.createElement(t), s = d.getElementsByTagName(t)[0];
 
   // Wait for userIdentified event before loading Voiceflow
 
     v.onload = function() {
+
+      document.addEventListener('userIdentified', (e) => {
+    const userId = e.detail.userId || 'UE_000';
+    console.log('[voiceflow.js] Received userIdentified event with userId:', userId);
+
     window.voiceflow.chat.load({
       verify: { projectID: '683d791a0cdebc32467c4dc1' },
       url: 'https://general-runtime.voiceflow.com',
@@ -34,6 +34,8 @@ document.addEventListener('userIdentified', (e) => {
         url: 'https://runtime-api.voiceflow.com',
       },
     });
+
+  });
 
   }
 
