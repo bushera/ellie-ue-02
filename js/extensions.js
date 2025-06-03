@@ -708,8 +708,28 @@ export const ProjectDashboardExtension = {
       })
       .catch((err) => console.error('Error loading Swiper CSS:', err));
 
+
+
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js';
+    script.type = 'text/javascript';
+    document.body.appendChild(script);
+
+
+
+    const script02 = document.createElement('script');
+    script02.src = 'https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js';
+    script02.type = 'text/javascript';
+    document.body.appendChild(script02);
+
+
+
+
+    
+
+
     // 3. Then set up your custom <style> block and the HTML structure
-    container.innerHTML += `
+    container.innerHTML = `
       <style>
     body {
       font-family: Arial, sans-serif;
@@ -873,19 +893,7 @@ export const ProjectDashboardExtension = {
 
     element.appendChild(container);
 
-    const loadScript = (src) =>
-      new Promise((resolve, reject) => {
-        const script = document.createElement('script');
-        script.src = src;
-        script.onload = resolve;
-        script.onerror = reject;
-        document.body.appendChild(script);
-      });
-
-       await loadScript("https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js");
-      await loadScript("https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js");
-
-
+  
 
     async function fetchProjects() {
       try {
