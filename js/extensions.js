@@ -910,7 +910,7 @@ export const ProjectDashboardExtension = {
 
         const newProject = container.querySelector('.newProjectBtn');
         if (newProject) {
-          bookAnotherBtn.addEventListener('click', () => {
+          newProject.addEventListener('click', () => {
             container.style.display = 'none';
             window.voiceflow.chat.interact({
               type: 'quote_form'
