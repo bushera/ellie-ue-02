@@ -688,9 +688,28 @@ export const ProjectDashboardExtension = {
     const container = document.createElement('div');
     container.id = 'project-dashboard';
 
-    container.innerHTML = `
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+       // 1. Fetch and inject Bootstrap CSS
+    await fetch('https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css')
+      .then((response) => response.text())
+      .then((css) => {
+        const style = document.createElement('style');
+        style.textContent = css;
+        container.appendChild(style);
+      })
+      .catch((err) => console.error('Error loading Bootstrap CSS:', err));
+
+    // 2. Fetch and inject Swiper CSS
+    await fetch('https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css')
+      .then((response) => response.text())
+      .then((css) => {
+        const style = document.createElement('style');
+        style.textContent = css;
+        container.appendChild(style);
+      })
+      .catch((err) => console.error('Error loading Swiper CSS:', err));
+
+    // 3. Then set up your custom <style> block and the HTML structure
+    container.innerHTML += `
       <style>
     body {
       font-family: Arial, sans-serif;
@@ -863,8 +882,6 @@ export const ProjectDashboardExtension = {
         document.body.appendChild(script);
       });
 
-    await loadScript("https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js");
-    await loadScript("https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js");
 
 
 
