@@ -15,7 +15,7 @@ document.addEventListener('userIdentified', (e) => {
 
     v.onload = function() {
     window.voiceflow.chat.load({
-      verify: { projectID: '683d791adebc0c32467c4dc1' },
+      verify: { projectID: '683d791a0cdebc32467c4dc1' },
       url: 'https://general-runtime.voiceflow.com',
       versionID: 'production',
       userID: userId,
