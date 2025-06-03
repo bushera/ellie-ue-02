@@ -355,6 +355,332 @@ export const BookingDashboardExtension = {
 };
 
 
+export const QuoteFormExtension = {
+  name: 'QuoteForm',
+  type: 'response',
+  match: ({ trace }) =>
+    trace.type === 'quote_form' || trace.payload?.name === 'quote_form',
+
+  render: async ({ element }) => {
+  
+    const container = document.createElement('div');
+    container.className = 'quote-form-container';
+
+    container.innerHTML = `
+    <style >
+        .quote-form-container {
+          font-family: 'Trebuchet MS', sans-serif;
+          background: #f4f4f4;
+          display: flex;
+          justify-content: center;
+          padding: 5px;
+          font-size: 14px;
+        }
+
+        .quote-form-wrapper {
+          background: #fff;
+          padding: 10px;
+          border-radius: 12px;
+          box-shadow: 0 0 10px rgba(0,0,0,0.1);
+          box-sizing: border-box;
+        }
+
+        .progress-bar {
+          height: 4px;
+          background: #e0e0e0;
+          border-radius: 4px;
+          overflow: hidden;
+          margin-bottom: 20px;
+        }
+
+        .progress-bar-fill {
+          height: 100%;
+          background: #000;
+          width: 0%;
+          transition: width 0.3s ease;
+        }
+
+        .step { display: none; }
+        .step.active { display: block; }
+
+        .buttons {
+          display: flex;
+          justify-content: space-between;
+          gap: 10px;
+          flex-wrap: wrap;
+          margin-top: 20px;
+        }
+
+        #prevBtn, #nextBtn, #submitBtn, #newSubmissionBtn {
+          padding: 10px 20px;
+          border: none;
+          background: #3300ff;
+          color: white;
+          border-radius: 5px;
+          cursor: pointer;
+          flex: 1;
+          min-width: 120px;
+        }
+
+        button:disabled {
+          background: #ccc;
+          cursor: not-allowed;
+        }
+
+        .progress-label {
+          text-align: right;
+          font-size: 12px;
+          color: #666;
+        }
+
+        #quoteForm input,
+        #quoteForm select,
+        #quoteForm textarea{
+          width: 100%;
+          padding: 10px;
+          margin-top: 8px;
+          margin-bottom: 16px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          box-sizing: border-box;
+          font-size: 14px;
+        }
+
+        #successMessage {
+          display: none;
+          text-align: center;
+        }
+
+        #successMessage h2 {
+          color: #151515;
+          font-size: 16px;
+        }
+
+        #newSubmissionBtn {
+          width: 90%;
+          margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+          .quote-form-wrapper { padding: 20px; }
+          .buttons { flex-direction: column; align-items: stretch; }
+        }
+
+        @media (max-width: 480px) {
+          .quote-form-wrapper { padding: 15px; }
+          input, select, textarea { font-size: 13px; }
+          .progress-label { font-size: 11px; }
+          #successMessage h2 { font-size: 14px; }
+        }
+    </style>
+      <div class="quote-form-wrapper">
+        <div class="progress-bar"><div class="progress-bar-fill" id="progressFill"></div></div>
+        <div class="progress-label" id="progressText"></div>
+
+        <form id="quoteForm">
+          <div class="step active">
+            <h2>Project Type</h2>
+            <label>What type of project?</label>
+            <select id="projectType" required>
+              <option value="">Select a project type</option>
+              <option value="seo">SEO</option>
+              <option value="local_seo">Local SEO</option>
+              <option value="mobile_app_dev">Mobile App Development</option>
+              <option value="web_dev">Web Development</option>
+              <option value="content_marketing">Content Marketing</option>
+              <option value="influencer_marketing">Influencer Marketing</option>
+              <option value="video_marketing">Video Marketing</option>
+              <option value="inbound_marketing">Inbound Marketing</option>
+              <option value="internet_marketing">Internet Marketing</option>
+              <option value="branding">Branding</option>
+              <option value="ecommerce">E-commerce</option>
+              <option value="social_media_optimization">Social Media Optimization</option>
+              <option value="crm">CRM</option>
+              <option value="gpt_ai_chatbot">GPT & AI Chatbot</option>
+              <option value="google_ads">Google Ads</option>
+              <option value="other">Other</option>
+            </select>
+            <input type="text" id="customProjectType" placeholder="Please specify" style="display:none;" />
+          </div>
+
+          <div class="step">
+            <h2>Company Details</h2>
+            <input type="text" id="companyName" placeholder="Company/Business Name" required />
+            <input type="email" id="email" placeholder="Email Address" required />
+            <label>Phone Number (Optional)</label>
+            <input type="tel" id="phone" placeholder="+1234567890" />
+          </div>
+
+          <div class="step">
+            <h2>Project Timeline</h2>
+            <label>When would you want this project delivered?</label>
+            <select id="timeline" required>
+              <option value="">Select a time</option>
+              <option value="yesterday">Yesterday</option>
+              <option value="lessThan_30_days">Less than 30 days</option>
+              <option value="Next_30_days">Next 30 days</option>
+              <option value="Next_60_days">Next 60 days</option>
+              <option value="unsure">Not yet sure</option>
+            </select>
+          </div>
+
+          <div class="step">
+            <h2>Budget</h2>
+            <label>What is your budget?</label>
+            <select id="budget" required>
+              <option value="">Select a budget</option>
+              <option value="lessThan_$2k">Less than $2k</option>
+              <option value="$2k_$5k">$2k - $5k</option>
+              <option value="$5k_$10k">$5k - $10k</option>
+              <option value="$10k_plus">$10k+</option>
+              <option value="undefined">Not defined</option>
+            </select>
+          </div>
+
+          <div class="step">
+            <h2>Extra Details (Optional)</h2>
+            <textarea id="extraDetails" placeholder="Any extra information you'd like us to know?"></textarea>
+          </div>
+
+          <div class="buttons">
+            <button type="button" id="prevBtn" disabled>Back</button>
+            <button type="button" id="nextBtn">Next</button>
+            <button type="submit" id="submitBtn" style="display:none;">Submit</button>
+          </div>
+        </form>
+
+        <div id="successMessage">
+          <h2>Thank you! Your quote is on its way.<br><br>Follow up via email for a response.</h2>
+          <button id="newSubmissionBtn">Add Another Project</button>
+        </div>
+      </div>
+    `;
+
+    element.appendChild(container);
+
+    // Element references
+    const steps = container.querySelectorAll('.step');
+    const progressFill = container.querySelector('#progressFill');
+    const progressText = container.querySelector('#progressText');
+    const prevBtn = container.querySelector('#prevBtn');
+    const nextBtn = container.querySelector('#nextBtn');
+    const submitBtn = container.querySelector('#submitBtn');
+    const form = container.querySelector('#quoteForm');
+    const successMessage = container.querySelector('#successMessage');
+    const newSubmissionBtn = container.querySelector('#newSubmissionBtn');
+    const projectType = container.querySelector('#projectType');
+    const customProjectType = container.querySelector('#customProjectType');
+    const emailInput = container.querySelector('#email');
+    const phoneInput = container.querySelector('#phone');
+
+    let currentStep = 0;
+
+    // Toggle custom project type
+    projectType.addEventListener('change', () => {
+      if (projectType.value === 'other') {
+        customProjectType.style.display = 'block';
+        customProjectType.setAttribute('required', 'required');
+      } else {
+        customProjectType.style.display = 'none';
+        customProjectType.removeAttribute('required');
+      }
+    });
+
+    // Basic email validation
+    emailInput.addEventListener('input', () => {
+      const value = emailInput.value;
+      emailInput.setCustomValidity(
+        value.includes('@') && value.includes('.') && value.includes('com')
+          ? ''
+          : 'Enter a valid email with @, ., and com'
+      );
+    });
+
+    const validateStep = () => {
+      const activeStep = steps[currentStep];
+      const inputs = activeStep.querySelectorAll('input, select, textarea');
+      return Array.from(inputs).every(input => input.checkValidity());
+    };
+
+    const updateForm = () => {
+      steps.forEach((step, idx) => step.classList.toggle('active', idx === currentStep));
+      progressFill.style.width = `${((currentStep + 1) / steps.length) * 100}%`;
+      prevBtn.disabled = currentStep === 0;
+      nextBtn.style.display = currentStep < steps.length - 1 ? 'inline-block' : 'none';
+      submitBtn.style.display = currentStep === steps.length - 1 ? 'inline-block' : 'none';
+      nextBtn.disabled = !validateStep();
+    };
+
+    form.addEventListener('input', () => {
+      nextBtn.disabled = !validateStep();
+    });
+
+    prevBtn.addEventListener('click', () => {
+      if (currentStep > 0) currentStep--;
+      updateForm();
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (validateStep() && currentStep < steps.length - 1) {
+        currentStep++;
+        updateForm();
+      }
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const data = {
+        User_ID: user_id,
+        projectType: projectType.value === 'other' ? customProjectType.value : projectType.value,
+        companyName: container.querySelector('#companyName').value,
+        email: emailInput.value,
+        phone: phoneInput.value,
+        timeline: container.querySelector('#timeline').value,
+        budget: container.querySelector('#budget').value,
+        extraDetails: container.querySelector('#extraDetails').value,
+      };
+
+      container.style.display = 'none';
+
+      window.voiceflow.chat.interact({
+              type: 'projctCreated',
+              payload: {projectType: data.projectType, companyName: data.companyName, timeline: data.timeline, budget:data.budget},
+             
+            });
+
+
+      try {
+        await fetch('https://api.airtable.com/v0/appAtnhxiXYiC9Can/Projects', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer patT2ZtryQSA2JzpX.75d12024b136349527032e8fc46f45c3c79635c651891d34bd9fbe8047c85448'
+          },
+          body: JSON.stringify({ fields: data })
+        });     
+      } catch (error) {
+        alert('There was an error submitting the form.');
+        console.error(error);
+      }
+    });
+
+    newSubmissionBtn.addEventListener('click', () => {
+      form.reset();
+      form.style.display = 'block';
+      successMessage.style.display = 'none';
+      customProjectType.style.display = 'none';
+      currentStep = 0;
+      updateForm();
+    });
+
+    updateForm();
+  }
+};
+
+
+
+
 /**export const QuoteFormExtension = {
   name: 'QuoteForm',
   type: 'response',
@@ -696,330 +1022,6 @@ export const BookingDashboardExtension = {
 
         form.style.display = 'none';
         successMessage.style.display = 'block';
-      } catch (error) {
-        alert('There was an error submitting the form.');
-        console.error(error);
-      }
-    });
-
-    newSubmissionBtn.addEventListener('click', () => {
-      form.reset();
-      form.style.display = 'block';
-      successMessage.style.display = 'none';
-      customProjectType.style.display = 'none';
-      currentStep = 0;
-      updateForm();
-    });
-
-    updateForm();
-  }
-};**/
-
-
-/**export const QuoteFormExtension = {
-  name: 'QuoteForm',
-  type: 'response',
-  match: ({ trace }) =>
-    trace.type === 'quote_form' || trace.payload?.name === 'quote_form',
-
-  render: async ({ element }) => {
-  
-    const container = document.createElement('div');
-    container.className = 'quote-form-container';
-
-    container.innerHTML = `
-    <style >
-        .quote-form-container {
-          font-family: 'Trebuchet MS', sans-serif;
-          background: #f4f4f4;
-          display: flex;
-          justify-content: center;
-          padding: 5px;
-          font-size: 14px;
-        }
-
-        .quote-form-wrapper {
-          background: #fff;
-          padding: 10px;
-          border-radius: 12px;
-          box-shadow: 0 0 10px rgba(0,0,0,0.1);
-          box-sizing: border-box;
-        }
-
-        .progress-bar {
-          height: 4px;
-          background: #e0e0e0;
-          border-radius: 4px;
-          overflow: hidden;
-          margin-bottom: 20px;
-        }
-
-        .progress-bar-fill {
-          height: 100%;
-          background: #000;
-          width: 0%;
-          transition: width 0.3s ease;
-        }
-
-        .step { display: none; }
-        .step.active { display: block; }
-
-        .buttons {
-          display: flex;
-          justify-content: space-between;
-          gap: 10px;
-          flex-wrap: wrap;
-          margin-top: 20px;
-        }
-
-        #prevBtn, #nextBtn, #submitBtn, #newSubmissionBtn {
-          padding: 10px 20px;
-          border: none;
-          background: #3300ff;
-          color: white;
-          border-radius: 5px;
-          cursor: pointer;
-          flex: 1;
-          min-width: 120px;
-        }
-
-        button:disabled {
-          background: #ccc;
-          cursor: not-allowed;
-        }
-
-        .progress-label {
-          text-align: right;
-          font-size: 12px;
-          color: #666;
-        }
-
-        #quoteForm input,
-        #quoteForm select,
-        #quoteForm textarea{
-          width: 100%;
-          padding: 10px;
-          margin-top: 8px;
-          margin-bottom: 16px;
-          border: 1px solid #ccc;
-          border-radius: 5px;
-          box-sizing: border-box;
-          font-size: 14px;
-        }
-
-        #successMessage {
-          display: none;
-          text-align: center;
-        }
-
-        #successMessage h2 {
-          color: #151515;
-          font-size: 16px;
-        }
-
-        #newSubmissionBtn {
-          width: 90%;
-          margin-top: 20px;
-        }
-
-        @media (max-width: 768px) {
-          .quote-form-wrapper { padding: 20px; }
-          .buttons { flex-direction: column; align-items: stretch; }
-        }
-
-        @media (max-width: 480px) {
-          .quote-form-wrapper { padding: 15px; }
-          input, select, textarea { font-size: 13px; }
-          .progress-label { font-size: 11px; }
-          #successMessage h2 { font-size: 14px; }
-        }
-    </style>
-      <div class="quote-form-wrapper">
-        <div class="progress-bar"><div class="progress-bar-fill" id="progressFill"></div></div>
-        <div class="progress-label" id="progressText"></div>
-
-        <form id="quoteForm">
-          <div class="step active">
-            <h2>Project Type</h2>
-            <label>What type of project?</label>
-            <select id="projectType" required>
-              <option value="">Select a project type</option>
-              <option value="seo">SEO</option>
-              <option value="local_seo">Local SEO</option>
-              <option value="mobile_app_dev">Mobile App Development</option>
-              <option value="web_dev">Web Development</option>
-              <option value="content_marketing">Content Marketing</option>
-              <option value="influencer_marketing">Influencer Marketing</option>
-              <option value="video_marketing">Video Marketing</option>
-              <option value="inbound_marketing">Inbound Marketing</option>
-              <option value="internet_marketing">Internet Marketing</option>
-              <option value="branding">Branding</option>
-              <option value="ecommerce">E-commerce</option>
-              <option value="social_media_optimization">Social Media Optimization</option>
-              <option value="crm">CRM</option>
-              <option value="gpt_ai_chatbot">GPT & AI Chatbot</option>
-              <option value="google_ads">Google Ads</option>
-              <option value="other">Other</option>
-            </select>
-            <input type="text" id="customProjectType" placeholder="Please specify" style="display:none;" />
-          </div>
-
-          <div class="step">
-            <h2>Company Details</h2>
-            <input type="text" id="companyName" placeholder="Company/Business Name" required />
-            <input type="email" id="email" placeholder="Email Address" required />
-            <label>Phone Number (Optional)</label>
-            <input type="tel" id="phone" placeholder="+1234567890" />
-          </div>
-
-          <div class="step">
-            <h2>Project Timeline</h2>
-            <label>When would you want this project delivered?</label>
-            <select id="timeline" required>
-              <option value="">Select a time</option>
-              <option value="yesterday">Yesterday</option>
-              <option value="lessThan_30_days">Less than 30 days</option>
-              <option value="Next_30_days">Next 30 days</option>
-              <option value="Next_60_days">Next 60 days</option>
-              <option value="unsure">Not yet sure</option>
-            </select>
-          </div>
-
-          <div class="step">
-            <h2>Budget</h2>
-            <label>What is your budget?</label>
-            <select id="budget" required>
-              <option value="">Select a budget</option>
-              <option value="lessThan_$2k">Less than $2k</option>
-              <option value="$2k_$5k">$2k - $5k</option>
-              <option value="$5k_$10k">$5k - $10k</option>
-              <option value="$10k_plus">$10k+</option>
-              <option value="undefined">Not defined</option>
-            </select>
-          </div>
-
-          <div class="step">
-            <h2>Extra Details (Optional)</h2>
-            <textarea id="extraDetails" placeholder="Any extra information you'd like us to know?"></textarea>
-          </div>
-
-          <div class="buttons">
-            <button type="button" id="prevBtn" disabled>Back</button>
-            <button type="button" id="nextBtn">Next</button>
-            <button type="submit" id="submitBtn" style="display:none;">Submit</button>
-          </div>
-        </form>
-
-        <div id="successMessage">
-          <h2>Thank you! Your quote is on its way.<br><br>Follow up via email for a response.</h2>
-          <button id="newSubmissionBtn">Add Another Project</button>
-        </div>
-      </div>
-    `;
-
-    element.appendChild(container);
-
-    // Element references
-    const steps = container.querySelectorAll('.step');
-    const progressFill = container.querySelector('#progressFill');
-    const progressText = container.querySelector('#progressText');
-    const prevBtn = container.querySelector('#prevBtn');
-    const nextBtn = container.querySelector('#nextBtn');
-    const submitBtn = container.querySelector('#submitBtn');
-    const form = container.querySelector('#quoteForm');
-    const successMessage = container.querySelector('#successMessage');
-    const newSubmissionBtn = container.querySelector('#newSubmissionBtn');
-    const projectType = container.querySelector('#projectType');
-    const customProjectType = container.querySelector('#customProjectType');
-    const emailInput = container.querySelector('#email');
-    const phoneInput = container.querySelector('#phone');
-
-    let currentStep = 0;
-
-    // Toggle custom project type
-    projectType.addEventListener('change', () => {
-      if (projectType.value === 'other') {
-        customProjectType.style.display = 'block';
-        customProjectType.setAttribute('required', 'required');
-      } else {
-        customProjectType.style.display = 'none';
-        customProjectType.removeAttribute('required');
-      }
-    });
-
-    // Basic email validation
-    emailInput.addEventListener('input', () => {
-      const value = emailInput.value;
-      emailInput.setCustomValidity(
-        value.includes('@') && value.includes('.') && value.includes('com')
-          ? ''
-          : 'Enter a valid email with @, ., and com'
-      );
-    });
-
-    const validateStep = () => {
-      const activeStep = steps[currentStep];
-      const inputs = activeStep.querySelectorAll('input, select, textarea');
-      return Array.from(inputs).every(input => input.checkValidity());
-    };
-
-    const updateForm = () => {
-      steps.forEach((step, idx) => step.classList.toggle('active', idx === currentStep));
-      progressFill.style.width = `${((currentStep + 1) / steps.length) * 100}%`;
-      prevBtn.disabled = currentStep === 0;
-      nextBtn.style.display = currentStep < steps.length - 1 ? 'inline-block' : 'none';
-      submitBtn.style.display = currentStep === steps.length - 1 ? 'inline-block' : 'none';
-      nextBtn.disabled = !validateStep();
-    };
-
-    form.addEventListener('input', () => {
-      nextBtn.disabled = !validateStep();
-    });
-
-    prevBtn.addEventListener('click', () => {
-      if (currentStep > 0) currentStep--;
-      updateForm();
-    });
-
-    nextBtn.addEventListener('click', () => {
-      if (validateStep() && currentStep < steps.length - 1) {
-        currentStep++;
-        updateForm();
-      }
-    });
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const data = {
-        User_ID: user_id,
-        projectType: projectType.value === 'other' ? customProjectType.value : projectType.value,
-        companyName: container.querySelector('#companyName').value,
-        email: emailInput.value,
-        phone: phoneInput.value,
-        timeline: container.querySelector('#timeline').value,
-        budget: container.querySelector('#budget').value,
-        extraDetails: container.querySelector('#extraDetails').value,
-      };
-
-      container.style.display = 'none';
-
-      window.voiceflow.chat.interact({
-              type: 'projctCreated',
-              payload: {projectType: data.projectType, companyName: data.companyName, timeline: data.timeline, budget:data.budget},
-             
-            });
-
-
-      try {
-        await fetch('https://api.airtable.com/v0/appAtnhxiXYiC9Can/Projects', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer patT2ZtryQSA2JzpX.75d12024b136349527032e8fc46f45c3c79635c651891d34bd9fbe8047c85448'
-          },
-          body: JSON.stringify({ fields: data })
-        });     
       } catch (error) {
         alert('There was an error submitting the form.');
         console.error(error);
