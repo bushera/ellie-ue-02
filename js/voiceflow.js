@@ -9,7 +9,7 @@ let userId = 'UE_000';  // Default value for userId
   // Wait for userIdentified event before loading Voiceflow
   document.addEventListener('userIdentified', (e) => {
     const userId = e.detail.userId || 'UE_000';
-    console.log('[voiceflow.js] Received userIdentified event with userId:', userId);
+    console.log('[voiceflow.js] Received userIdentified event with userId:', userId);   });
     v.onload = function() {
     window.voiceflow.chat.load({
       verify: { projectID: '683d791adebc0c32467c4dc1' },
@@ -52,8 +52,9 @@ let userId = 'UE_000';  // Default value for userId
           window.voiceflow.chat.open();
         }, finalDelay);
       }, initialDelay);
-    }}
-  });
+    }
+  
+  }
 
   v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
 })(document, 'script');
