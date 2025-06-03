@@ -3,13 +3,16 @@ import { CalExtension} from './extensions.js';
 let userId = 'UE_000';  // Default value for userId
 
 
+document.addEventListener('userIdentified', (e) => {
+    const userId = e.detail.userId || 'UE_000';
+    console.log('[voiceflow.js] Received userIdentified event with userId:', userId);});
+
+
 (function(d, t) {
   const v = d.createElement(t), s = d.getElementsByTagName(t)[0];
 
   // Wait for userIdentified event before loading Voiceflow
-  document.addEventListener('userIdentified', (e) => {
-    const userId = e.detail.userId || 'UE_000';
-    console.log('[voiceflow.js] Received userIdentified event with userId:', userId);
+
     v.onload = function() {
     window.voiceflow.chat.load({
       verify: { projectID: '683d791adebc0c32467c4dc1' },
@@ -33,6 +36,6 @@ let userId = 'UE_000';  // Default value for userId
     });
 
   }
-  });
+
   v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
 })(document, 'script');
