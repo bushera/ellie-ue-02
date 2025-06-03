@@ -112,7 +112,6 @@ document.addEventListener('userIdentified', (e) => {
 
 
 
-
 export const BookingDashboardExtension = {
   name: 'BookingDashboard',
   type: 'response',
