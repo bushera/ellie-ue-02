@@ -913,7 +913,7 @@ export const ProjectDashboardExtension = {
           newProject.addEventListener('click', () => {
             container.style.display = 'none';
             window.voiceflow.chat.interact({
-              type: 'quote_form'
+              type: 'newProjct'
             });
           });
         }
