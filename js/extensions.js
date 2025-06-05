@@ -1007,8 +1007,8 @@ await new Promise((resolve, reject) => {
             ${category === 'todo' ? `
               <p><strong>Quote Price:</strong> $${project.quotePrice}</p>
               <p class="text-secondary mt-2">
-                This project quote has been sent. Project will begin after a one-on-one session with our expert to finalize scope and pricing.
-                <strong>Check your email</strong> for follow-up or book a session below.
+                Hey! We've sent out the project quote. Before we kick things off, let's have a chat with our expert to nail down the details and pricing.
+                <br><br><strong>Take a look at your email</strong> for more info or feel free to book a session with us below.
               </p>
               <button class="start-button btn btn-primary">+ Book a Session</button>
             ` : ''}
