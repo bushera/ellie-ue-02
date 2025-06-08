@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", async function () {
               Status: "New User",
               Website: websiteDomain,
               Page_URL: currentPage,
-              Visit_history: 'Page visit:' + currentPage,
+              Visit_history: 'Page visit:' + '\n' + formattedDate + '-' + currentPage,
           },
       };
       await createAirtableRecord(newUserData, airtableApiKey, airtableBaseId, airtableTableName);
