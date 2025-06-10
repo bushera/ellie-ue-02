@@ -398,7 +398,7 @@ export const QuoteFormExtension = {
           transition: width 0.3s ease;
         }
 
-        .step { display: block; }
+        .step { display: none; }
         .step.activity { display: block;}
 
         .buttons {
