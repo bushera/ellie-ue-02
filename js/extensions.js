@@ -399,7 +399,7 @@ export const QuoteFormExtension = {
         }
 
         .step { display: none; }
-        .step.active { display: none; }
+        .step.active { display: none;}
 
         .buttons {
           display: flex;
