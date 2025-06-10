@@ -399,7 +399,7 @@ export const QuoteFormExtension = {
         }
 
         .step { display: none; }
-        .step.activity { display: block; border: none; }
+        .step.active { display: block; border: none; }
 
         .buttons {
           display: flex;
@@ -476,7 +476,7 @@ export const QuoteFormExtension = {
         <div class="progress-label" id="progressText"></div>
 
         <form id="quoteForm">
-          <div class="step activity">
+          <div class="step active">
             <h2>Project Type</h2>
             <label>What type of project?</label>
             <select id="projectType" required>
