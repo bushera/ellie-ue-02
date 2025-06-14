@@ -50,7 +50,7 @@ let userId = 'UE_000';  // Default value for userId
     }).then(() => {
       if (window.location.href.includes('https://elliepod.netlify.app/')) {
         window.voiceflow.chat.proactive.clear();
-        setProactive(10000, 'Ellie here, Lets  talk!.......', 3000);
+        setProactive(100, 'Ellie here, Lets  talk!.......', 5000);
       }
     });
 
