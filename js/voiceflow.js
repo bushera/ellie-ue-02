@@ -50,7 +50,7 @@ let userId = 'UE_000';  // Default value for userId
     }).then(() => {
       if (window.location.href.includes('https://elliepod.netlify.app/')) {
         window.voiceflow.chat.proactive.clear();
-        setProactive(100, 'Ellie here, Lets  talk!.......', 5000);
+        setProactive(100, 'Toronto Top Digital Marketing Agency providing upto 8X guaranteed conversions.......', 5000);
       }
     });
 
