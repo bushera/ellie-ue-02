@@ -963,6 +963,13 @@ export const QuoteFormExtension = {
       };
 
 
+      container.style.display = 'none';
+      window.voiceflow.chat.interact({
+              type: 'projctCreated',
+              payload: {projectType: data.projectType, companyName: data.companyName, timeline: data.timeline, budget:data.budget},
+             
+            });
+
 
       try {
     const res = await fetch('/.netlify/functions/create-project', {
@@ -973,13 +980,7 @@ export const QuoteFormExtension = {
 
     if (!res.ok) throw new Error(`Function error ${res.status}`);
 
-    /* Success UX */
-      container.style.display = 'none';
-      window.voiceflow.chat.interact({
-              type: 'projctCreated',
-              payload: {projectType: data.projectType, companyName: data.companyName, timeline: data.timeline, budget:data.budget},
-             
-            });
+    
   } catch (err) {
     alert('There was an error submitting the form.');
     console.error(err);
