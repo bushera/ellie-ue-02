@@ -61,7 +61,7 @@ let userId = 'UE_000';  // Default value for userId
           window.voiceflow.chat.interact({
             type: 'intent',
             payload: {
-              intent: { name: 'My_bookings' },
+              intent: { name: 'Project quoting' },
             }
           });
         });
