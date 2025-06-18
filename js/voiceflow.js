@@ -62,7 +62,7 @@ let userId = 'UE_000';  // Default value for userId
             type: 'event',
             payload: {
               event: {
-                name: 'openChatEvent' // The event name defined in your Event CMS
+                name: 'open_chat' // The event name defined in your Event CMS
               }
             }
           });
