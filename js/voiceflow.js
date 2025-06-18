@@ -59,7 +59,10 @@ let userId = 'UE_000';  // Default value for userId
 
           // Send the 'Open Chat' event to Voiceflow
           window.voiceflow.chat.interact({
-            type: 'openChat'
+            type: 'intent',
+            payload: {
+              intent: { name: 'My_bookings' },
+            }
           });
         });
 
