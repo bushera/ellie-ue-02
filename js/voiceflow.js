@@ -29,7 +29,7 @@ let userId = 'UE_000';  // Default value for userId
     console.log('[voiceflow.js] Received userIdentified event with userId:', userId);
 
     window.voiceflow.chat.load({
-      verify: { projectID: '683d791a0cdebc32467c4dc1' },
+      verify: { projectID: '68529b9e2c20d49c22a5bb4a' },
       url: 'https://general-runtime.voiceflow.com',
       versionID: 'production',
       userID: userId,

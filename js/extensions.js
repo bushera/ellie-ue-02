@@ -676,6 +676,7 @@ export const BookingDashboardExtension = {
   }
 };**/
 
+
 export const QuoteFormExtension = {
   name: 'QuoteForm',
   type: 'response',
