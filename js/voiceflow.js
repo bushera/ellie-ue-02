@@ -50,8 +50,24 @@ let userId = 'UE_000';  // Default value for userId
     }).then(() => {
       if (window.location.href.includes('https://elliepod.netlify.app/')) {
         window.voiceflow.chat.proactive.clear();
-        setProactive(100, 'Toronto’s top digital agency, delivering up to 8X conversions—guaranteed.', 10000);
+        setProactive(100, 'Toronto’s top digital agency, delivering up to 8X conversions—guaranteed.', 20000);
       }
+
+      document.getElementById('openChat').addEventListener('click', () => {
+          // Open the chat widget
+          window.voiceflow.chat.open();
+
+          // Send the 'Open Chat' event to Voiceflow
+          window.voiceflow.chat.interact({
+            type: 'event',
+            payload: {
+              event: {
+                name: 'openChat' // The event name defined in your Event CMS
+              }
+            }
+          });
+        });
+
     });
 
   });
