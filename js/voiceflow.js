@@ -1,4 +1,4 @@
-import { CalExtension, bkingrescheduleExtension, BookingDashboardExtension, QuoteFormExtension, ProjectDashboardExtension} from './extensions.js';
+import { CalExtension, bkingrescheduleExtension, BookingDashboardExtension, BookingDashboardByEmailExtension, QuoteFormExtension, ProjectDashboardExtension} from './extensions.js';
 
 let userId = 'UE_000';  // Default value for userId
 
@@ -42,7 +42,7 @@ let userId = 'UE_000';  // Default value for userId
       allowDangerousHTML: true,
       assistant: {
         persistence: 'localStorage',
-        extensions: [CalExtension, bkingrescheduleExtension, BookingDashboardExtension, QuoteFormExtension, ProjectDashboardExtension],
+        extensions: [CalExtension, bkingrescheduleExtension, BookingDashboardExtension, BookingDashboardByEmailExtension, QuoteFormExtension, ProjectDashboardExtension],
       },
       voice: {
         url: 'https://runtime-api.voiceflow.com',
