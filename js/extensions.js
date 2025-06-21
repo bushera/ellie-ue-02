@@ -117,16 +117,11 @@ export const BookingDashboardExtension = {
   match: ({ trace }) =>
     trace.type === 'booking_dashboard' || trace.payload?.name === 'booking_dashboard',
   render: async ({ trace, element }) => {
-    const { visibility } = trace.payload
     const container = document.createElement('div');
     container.id = 'booking-dashboard';
     container.style.width = '240';
 
-    if (visibility === 'false'){
-      container.style.display = "none";
-    }
-
-   
+    
 
     container.innerHTML = `
       <style>
@@ -1627,5 +1622,7 @@ await new Promise((resolve, reject) => {
     await fetchProjects();
   }
 };
+
+
 
 
