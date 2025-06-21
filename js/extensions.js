@@ -121,6 +121,11 @@ export const BookingDashboardExtension = {
     const container = document.createElement('div');
     container.id = 'booking-dashboard';
     container.style.width = '240';
+
+    if (visibility === 'false'){
+      container.style.display = "none";
+    }
+
    
 
     container.innerHTML = `
@@ -207,11 +212,7 @@ export const BookingDashboardExtension = {
 
     element.appendChild(container);
 
-
-    if (visibility === 'false'){
-      container.style.display = "none";
-    }
-
+  
     async function fetchBookings() {
       if (!user_id) {
         console.error("user_id is missing");
