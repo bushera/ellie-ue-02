@@ -117,11 +117,12 @@ export const BookingDashboardExtension = {
   match: ({ trace }) =>
     trace.type === 'booking_dashboard' || trace.payload?.name === 'booking_dashboard',
   render: async ({ trace, element }) => {
+    const { visibility } = trace.payload
     const container = document.createElement('div');
     container.id = 'booking-dashboard';
     container.style.width = '240';
    
- 
+
     container.innerHTML = `
       <style>
         #booking-dashboard {
@@ -205,6 +206,11 @@ export const BookingDashboardExtension = {
     `;
 
     element.appendChild(container);
+
+
+    if (visibility === 'false'){
+      container.style.display = "none";
+    }
 
     async function fetchBookings() {
       if (!user_id) {
