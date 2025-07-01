@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", async function () {
-  const airtableApiKey = "patT2ZtryQSA2JzpX.75d12024b136349527032e8fc46f45c3c79635c651891d34bd9fbe8047c85448";
+  const airtableApiKey = "patC2HbgQmx2anfNw.95853d78b7d34c53d7e97a97ac317423232813107584545397c3378e0520f501";
   const airtableBaseId = "appAtnhxiXYiC9Can";
   const airtableTableName = "User_Data";
   const websiteDomain = "Ellie(UE)";
