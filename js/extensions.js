@@ -1635,8 +1635,10 @@ export const DisableInputExtension = {
     const { isDisabled } = trace.payload
 
     function disableInput() {
-      
-      const shadowRoot = chatDiv.shadowRoot
+      const chatDiv = document.getElementById('voiceflow-chat')
+
+      if (chatDiv) {
+        const shadowRoot = chatDiv.shadowRoot
         if (shadowRoot) {
           const chatInput = shadowRoot.querySelector('.vfrc-chat-input')
           const textarea = shadowRoot.querySelector(
@@ -1708,7 +1710,9 @@ export const DisableInputExtension = {
         } else {
           console.error('Shadow root not found')
         }
-      
+      } else {
+        console.error('Chat div not found')
+      }
     }
 
     disableInput()
