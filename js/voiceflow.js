@@ -17,14 +17,6 @@ let userId = 'UE_000';  // Default value for userId
           window.voiceflow.chat.proactive.clear();
           window.voiceflow.chat.open();
 
-          // Send the 'Open Chat' event to Voiceflow
-          window.voiceflow.chat.interact({
-            type: 'event',
-              payload: {
-                event: {name: 'open_chat'}
-              }
-          });
-
         }, finalDelay);
       }, initialDelay);
     };
