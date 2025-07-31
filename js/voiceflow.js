@@ -24,7 +24,7 @@ let userId = 'UE_000';  // Default value for userId
                 event: {name: 'open_chat'}
               }
           });
-          
+
         }, finalDelay);
       }, initialDelay);
     };
@@ -38,7 +38,7 @@ let userId = 'UE_000';  // Default value for userId
     console.log('[voiceflow.js] Received userIdentified event with userId:', userId);
 
     window.voiceflow.chat.load({
-      verify: { projectID: '68892a058c9c2ba6529742ee' },
+      verify: { projectID: '6889e804b92be7fab05fdbcb' },
       url: 'https://general-runtime.voiceflow.com',
       versionID: 'production',
       userID: userId,
