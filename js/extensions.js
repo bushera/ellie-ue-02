@@ -9,7 +9,7 @@ export const CalExtension = {
 
 
     const iframe = document.createElement('iframe')
-    iframe.src = CalUrl || 'https://cal.com/unlimited/book-a-consultation',
+    iframe.src = CalUrl || 'https://cal.com/unlimitedexposure/book-a-consultation',
     iframe.height = height || '320'
     iframe.width = width || '280'
     iframe.style.border = '0'
@@ -43,7 +43,7 @@ export const bkingcancelExtension = {
 
 
     const iframe = document.createElement('iframe')
-    iframe.src = CalUrl || 'https://cal.com/unlimited/book-a-consultation',
+    iframe.src = CalUrl || 'https://cal.com/unlimitedexposure/book-a-consultation',
     iframe.height = height || '320'
     iframe.width = width || '280'
     iframe.style.border = '0'
@@ -77,7 +77,7 @@ export const bkingrescheduleExtension = {
 
 
     const iframe = document.createElement('iframe')
-    iframe.src = CalUrl || 'https://cal.com/unlimited/book-a-consultation',
+    iframe.src = CalUrl || 'https://cal.com/unlimitedexposure/book-a-consultation',
     iframe.height = height || '320'
     iframe.width = width || '280'
     iframe.style.border = '0'
