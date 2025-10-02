@@ -193,7 +193,7 @@ export const BookingDashboardExtension = {
       </div>
 
       <div id="active-section">
-        <h2>Active Calls</h2>
+        <h2>Active Bookings</h2>
         <div id="active-calls"></div>
       </div>
 
@@ -437,7 +437,7 @@ export const BookingDashboardByEmailExtension = {
       </div>
 
       <div id="active-section">
-        <h2>Active Calls</h2>
+        <h2>Active Bookings</h2>
         <div id="active-calls"></div>
       </div>
 
