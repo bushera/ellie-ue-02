@@ -1207,6 +1207,7 @@ export const QuoteFormExtension = {
         timeline: container.querySelector('#timeline').value,
         budget: container.querySelector('#budget').value,
         extraDetails: container.querySelector('#extraDetails').value,
+        Brand: "Unlimited Exposure",
       };
 
 

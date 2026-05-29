@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", async function () {
-  const airtableApiKey = "patC2HbgQmx2anfNw.95853d78b7d34c53d7e97a97ac317423232813107584545397c3378e0520f501";
+  const airtableApiKey = process.env.GET_BOOKINGS_API;
   const airtableBaseId = "appAtnhxiXYiC9Can";
   const airtableTableName = "User_Data";
   const websiteDomain = "Ellie(UE)";
@@ -96,6 +96,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       const newUserData = {
           fields: {
               User_ID: userId,
+              Company: "Unlimited Exposure",
               IP_Address: ipData.ip,
               Country_Code: ipData.country || "Unknown",
               Country: ipData.country_name || "Unknown",
