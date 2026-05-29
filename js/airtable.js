@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", async function () {
-  const airtableApiKey = process.env.GET_BOOKINGS_API;
+  const airtableApiKey = process.env.AIRTABLE_TOKEN_PROJECTS;
   const airtableBaseId = "appAtnhxiXYiC9Can";
   const airtableTableName = "User_Data";
   const websiteDomain = "Ellie(UE)";
